@@ -1,0 +1,1354 @@
+\documentclass[a4paper,12pt,openany,oneside]{article}
+\setlength{\parindent}{1cm}
+%\usepackage{verbatim}
+\usepackage{setspace}% Pour les interlignes
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{a4wide}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{here}
+\usepackage{short toc}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{lscape}
+\usepackage[Sonny]{fncychap}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{eiad}
+\usepackage{endnotes}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usepackage{array}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage[french,ruled,vlined]{algorithm2e} 
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{arydshln}
+\usepackage{amsthm}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usepackage{array}
+\usepackage{setspace}
+\onehalfspacing
+
+
+\usepackage{float} %% Pour placer une figure à un endroit précis sans qu'il puisse être déplacé
+
+\newcounter{examplecounter}
+\newenvironment{example}{
+\begin{quote}%
+    \refstepcounter{examplecounter}%
+  \textbf{Example \arabic{examplecounter}}%
+  
+
+\end{quote}%
+}
+
+ % reset theorem numbering for each chapter
+
+%\theoremstyle{definition}
+\newtheorem{defn}{Definition} % definition numbers are dependent on theorem numbers
+\newtheorem{exmp}{Example} % same for example numbers
+
+
+\title{\begin{figure}[h]
+  % Requires \usepackage{graphicx}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\includegraphics[scale=0.4]{logo}\\
+\end{figure}
+ \begin{center}
+{\normalsize \huge{UNIVERSITE GASTON BERGER}\\\vspace{0.5cm} Master2 Informatique\\\vspace{4cm}
+Memoire de fin de cycle\\ \vspace{4cm}
+\underline{ Présenté par}:\\
+}
+\end{center}
+}
+\author{\rmfamily{\textbf{PEKPASSI Digonaou}}}
+\date{29 Juillet 2015}
+\pagestyle{headings}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}%permet de numeroter en tete à droite
+\lhead{\footnotesize
+\textit{\textbf{\textcolor[rgb]{0.00,0.00,0.73}
+{\footnotesize\underline{Titre:} Memoire de cycle de Master}}}}
+\lfoot{\scriptsize\textit{\textcolor[rgb]{0.00,0.00,0.73}
+{\textbf{KPEKPASSI Digonaou}}}}
+\rfoot{\scriptsize\textit{\textcolor[rgb]{0.00,0.00,0.73}}}
+\renewcommand{\headrulewidth}{0.8pt}  %Trace un trait de séparation de largeur 0,4 point. Mettre 0pt pour supprimer le trait.
+\renewcommand{\footrulewidth}{0.8pt}  %\renewcommand{\labelenumi}{\Roman{enumi}}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Etat de l'art}
+\subsection{Notions de base}
+\subsubsection{Pré requis}
+\begin{defn}\textbf{Relation binaire}\\
+Une relation binaire $\mathcal{R}$ sur un ensemble $E$ est un sous-ensemble du produit cartésien $E \times E$ ie un ensemble de couples $(x,y)$ d'éléments de E.
+Nous noterons $x\mathcal{R}y$ pour indiquer que le couple (x,y) appartient à la relation $\mathcal{R}$. Une relation binaire peut être:
+
+\begin{itemize}
+	\item réflexive si $\forall x\in E,\; x\mathcal{R}x$
+	\item irréflexive si $\forall x\in E,\; \neg(x\mathcal{R}x)$
+	\item symétrique si $\forall x,y\in E,\; x\mathcal{R}y\Rightarrow y\mathcal{R}x$
+	\item antisymétrique si $\forall x,y\in E,\; x\mathcal{R}y\wedge y\mathcal{R}x\Rightarrow x=y$
+	\item asymétrique si $\forall x,y\in E,\; x\mathcal{R}y\Rightarrow \neg(y\mathcal{R}x)$
+	\item complète si $\forall x,y\in E, x\mathcal{R} y\vee y\mathcal{R}x$
+	\item transitive si $\forall x,y\in E, x\mathcal{R} y\wedge y\mathcal{R}z\Rightarrow x\mathcal{R}z$
+	\item négativement transitive si $\forall x,y\in E, \neg (x\mathcal{R} y)\wedge \neg (y\mathcal{R}z)\Rightarrow \neg(x\mathcal{R}z)$
+	
+\end{itemize}
+
+\end{defn}
+
+\begin{defn}\textbf{Relation d'indifférence}
+	Etant donnée une relation $\mathcal{R}$  sur un ensemble $E$, la relation d'indifférence noté $\tilde{\mathcal{R}}$ est définie pout out $x,y\in E$ par $\tilde{\mathcal{R}} si x\mathcal{R}y$ et $y\mathcal{R}x$.
+\end{defn}
+
+\begin{defn}\textbf{Relation d'incompatibilité}
+	Etant donnée une relation $\mathcal{R}$ sur un ensemble $E$, la relation d'incompatibilité notée $||_{\mathcal{R}}$ est définie pour tout $x,y\in E$ par: $x||_{\mathcal{R}}y$ si $\neg(x\mathcal{R}y)$ et $\neg (y\mathcal{R}x)$ 
+\end{defn}
+
+\begin{defn}\textbf{Relation de préférence}
+	Une relation de préférence sur un ensemble d'éléments $E$ est une relation binaire.\\
+	Dans ce cas, étant donné une relation de préférences notée $\succ_{\mathcal{R}}$:
+	\begin{enumerate}
+		\item $x\succ_{mathcal{R}} y$ signifie que x est strictement préféré à y,
+		\item $x\tilde{\mathcal{R}}y$ signifie que $x$ et $y$ sont également préférés, et enfin,
+		\item $x||_{\mathcal{R}}y$ signifie qu'il n'y a ni indifférence, ni préférence entre $x$ et $y$ et on dit que $x$ et $y$ ne sont pas comparables.
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}\textbf{Relation d'ordre}
+	On appelle relation d'ordre sur un ensemble $E$, toute relation binaire sur E qui est réflexive, antisymétrique et transitive. 
+\end{defn}
+
+Si la relation d’ordre est complète, elle est dite ordre total sinon l’ordre est partiel.
+\begin{defn}\textbf{Préordre}\\
+Un préordre sur un ensemble E est une relation binaire réflexive et transitive.
+\end{defn}
+
+Á une relation d’ordre on peut associer une relation obtenue en ôtant de celle-ci les couples d’éléments identiques.
+
+\begin{defn}(Relation d’ordre strict)
+ Une relation d’ordre strict sur un ensemble E est une relation binaire irréflexive et transitive. L’ordre strict est dit faible, s’il est partiel et négativement transitif.	
+\end{defn}
+
+\subsubsection{Les différents types de représentation de préférences qualitatives}
+Dans ce qui suit, nous considérons l'ensemble E comme étant l'ensemble des tuples $t=(u_1,u_2,...,u_d)$ avec $u_i \in dom(A_i)$ de $R(A_1,A_2,...,A_d)$. 
+Nous définissons suivant cela une relation de préférence ($\succ_p$) sur un schéma $R$ par un ensemble de tuples $(t_i, t_j)$ de $r$. Par conséquent $t_i\succ_p t_j$ signifiera que $t_i$ est préféré à $t_j$ sous $\succ_p$.\\
+
+
+\textbf{Formulation de Jan Chomicki}\\
+
+CHOMICKI a dans l'article \cite{CHO} établit la notion de \textbf{relation de préférence} $\succ$ comme un  sous ensemble de $Dom(A)\times Dom(A)$. Ceci veut intuitivement dire que $\succ$ est une relation binaire entre des transactions d'une même instance $r$ du schémas relationnel $\mathcal{R}$. Ainsi on a $t_{1}$ est préféré à $t_{2}$ suivant $\succ$ si $t_{1}\succ t_{2}$. De même il a définit la notion de formule de préférence $C(t_{1},t_{1})$ comme étant une une formule de premier ordre définissant une relation de préférence $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$. Cette formule est définie ci dessous. \\
+	
+	\begin{defn}
+	
+	 Une formule de préférence suivant le formalisme de CHOMICKY est une formule représentée sous la forme normale disjonctive DNF sans les quantificateurs. Ainsi on a:
+	 \[  
+	 	C(t_{1},t_{2})=\underset{i=1..k}{\bigvee}(\underset{j=1..l}{\bigwedge} f_{ij})
+	 \]
+	  où $f_{ij}$  sont des formules atomiques sous la forme $x\delta y$ ou $x\delta c$ avec $x$ et $y$ des variables d'un attribut de $R$ correspondants respectivement à $t_{1}$ et $t_{2}$. $c$ quand à lui est une constante. 
+	  $\delta$ prend les valeurs $=$,$\neq$ dans le cas où les éléments $x,y,c$ sont de type quelconque (Exemple: $x=y$,$x=a$,$y\neq a$),  et $\leqslant,\geqslant,<,>$ dans le cas où on a à faire à des valeurs numériques (Exemple: $x<y$,$x<a$,$y\geqslant a$).\\
+	\end{defn}
+	  \begin{example}
+		  \begin{itemize}
+		  
+		  	\item Soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(Plat,TypePlat, TypeVin). On a qu'ils vérifient la formule de préférence $C$ si et seulement si
+		  	\[
+			  	\begin{array}{rcl}
+			  	C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2="fish"\wedge y_2="fish"\wedge x_3="white"\wedge y_3="red")\\
+			  	&&\vee (x_1=y_1\wedge x_2="meat"\wedge y_2="meat"\wedge x_3="red"\wedge y_3="white")
+			  	\end{array}
+		  	\]
+		  	 est vérifié. Cette condition veut dire que dans le cas où c'est un plat à base de poisson, le client préfère le vin blanc au vin rouge et dans le cas où c'est un plat à base de viande, le client préfère le vin rouge au vin blanc. 
+		  	 
+		  	 \item En prenant en compte les valeurs numériques, soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(TypeFilm,Annee, Acteur). On a $t_1\succ_C t_2$ ssi:
+ 		  	\[
+	 		  	\begin{array}{rcl}
+	 		  	C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2>2010\wedge y_2<2000)\\
+	 		  	&&\vee (x_1=y_1\wedge x_2=y_2\wedge x_3=\text{"Sylvester Stalone"}\wedge y_3=\text{"Pierce Brosnan"})
+	 		  	\end{array}
+ 		  	\]
+ 		  	Cette règle veux tout simplement dire que le client préfère pour des films de même type, des films au delà de 2010 aux films produits avant 2000, et si les films sont de même type et de meême anné, il préfère ceux avec l'acteur Sylvester Stalone à ceux avec l'acteur Pierce Brosnan.\\
+		  \end{itemize}  
+	  \end{example}
+
+
+
+\textbf{Formulation de  Nic Wilson}\\*
+
+Le formalisme de Wilson se fonde sur la logique des préférences conditionnelles. Une règle de préférence conditionnelle a sa forme générale comme suit:
+"si [conjonction de conditions élémentaires] alors [décision]"
+
+La partie condition indique dans quelle condition la règle est appliquée et la partie décision montre le choix à opérer sur les valeurs si la partie condition est satisfaite. Plus précisément, le formalisme proposé par Wilson est défini de la façon suivante :
+\begin{defn}
+	Soit $\mathcal{A}$ un ensemble d'attributs, $U\subseteq \mathcal{A}$, $a_{i1}$ et $a_{i2}\in dom(A_i)$, $A_i\notin U$. Une règle de préférence contextuelle est sous la forme $u:a_{i1}\succ a_{i2}[W]$ tel que $u \in dom(U)$ et $W$ un sous-ensemble de $S=\mathcal{A}-(U\cup{A_i})$.
+\end{defn}
+Cette formulation peut être réécrite suivant le formalisme de CHOMICKY (Définition 8) de la façon suivante (dans cette situation on a $p=u:a_{i1}\succ a_{i2}[W]$):\\ $t_i \succ_p t_j$  ssi $t_i[S-W] = t_j[S-W]\wedge t_i[U] = t_j[U] = u\wedge t_i[A_i] = a_i1 \wedge t_j[A_i] = ai$ 
+
+De façon intuitive cette règle de préférence contextuelle indique que tout tuple $t_i$ contenant $u$ et $a_{i1}$  est préféré à tout tuple $t_j$  contenant $u$ et $a_{i2}$  indépendamment des valeurs des attributs $W$ dans $dom(W)$, sachant que les valeurs dans $dom(S-W)$ sont les mêmes pour les deux tuples.
+
+Par cette formulation, l'exemple 1 peut se réécrire de la façon suivante:
+\begin{example}
+ 	Dans le cas d'un schéma relationnel $\mathcal{R}=\{Langage, Title, Director, Actor\}$ on a l'exemple suivant\\
+	$Langage=English \succ Langage=French [{Title,Director,Actor}]$
+	
+	Cette règle indique la préférence des films Anglais aux films Français sans tenir compte du titre du film, du directeur du film ou bien de l'acteur, pour tout couple de film ayant la même année de production.\\	
+\end{example}
+
+\textbf{Formulation de  Werner Kießling}\\
+
+Dans les travaux de [Kie02], l'auteur propose un langage formel pour modéliser les préférences qui forment une relation d'ordre partiel strict.  Pour cela, l'auteur propose un certain nombre de constructeurs de base qui sont des patrons de préférence, qui dès qu'ils sont instanciés donnent des préférences de base. Ces constructeurs sont caractérisés par plusieurs arguments dont le premier indique les noms des attributs concernés par le constructeur et les autres arguments indiquant les caractéristiques de l'ordre partiel stricte $<P$ qui sera appliqué sur les attributs énoncés dans le premier argument. Dans ce travail, nous présenterons deux types de constructeurs de base à savoir les \textbf{constructeurs de base non numériques} et les \textbf{constructeurs de base numériques}. \\
+
+\textbf{Les constructeurs de base non numériques}\\
+Leurs définition ne prend pas en compte d'opérations numériques. \\
+Exemple:\\
+
+Préférence POS:  POS(A, POS-set) \\
+P est une préférence POS si:\\
+\[  
+              x <P y  ssi  x\notin POS-set \wedge y \in POS-set 
+\]
+Ceci veut dire que parmis deux valeurs de A, la valeur préférée est celle qui appartient à $POS-set\subset dom(A)$. Autrement si aucune des valeurs n'est dans $POS-set$, alors une des deux est accepable.
+(Ex:scénario d'un choix de voiture: POS(transmission, {automatique})) \\
+   
+Préférence POS/NEG: POS/NEG(A,POS-set;NEG-set) \\
+P est appelé préférence POS/NEG si: 
+\[
+x <P y  iff  (x \in NEG-set \wedge y\notin NEG-set) \vee (x \notin NEG-set \wedge x \notin POS-set \wedge y \in POS-set) 
+\]
+
+Ceci veut dire que parmi deux valeurs, la préférée est celle qui appartient à $POS-set\subset A$, autrement si aucune des deux valeurs n'est dans $POS-set$, et qu'une d'elle n'appartient pas à $NEG-set\subset A$, elle est la préférée, autrement si les deux appartiennent à $NEG-set$ alors une d'elles est choisie arbitrairement. (Ex: scénario de choix de voiture: POS/NEG(couleur,{jaune};{gris}) \\
+ 
+\textbf{Les constructeurs de base non numériques}\\
+Leur définition prend en compte des opérations numériques. \\
+Exemple:    \\
+
+Préférence AROUND: AROUND(A, z)\\
+Etant donné $z \in dom(A), pour tout v \in dom(A)$, on défini $distance(v, z) := abs(v-z)$. $P$ est appelé préférence AROUND, si:
+\[  
+         x <P y   ssi   distance(x, z) > distance(y, z) 
+\]
+Ceci veut dire que parmi deux valeurs de A, si l'une d'elle est z, elle est la valeur préférée. Autrement, si aucune des valeurs n'est $z$, la plus préférée est celle qui iest la plus proche de $Z$ e terme de distance. (Ex: scénario de choix de voiture:  AROUND(prix, 40000))\\
+
+
+Préférences LOWEST,  HIGHEST:  LOWEST(A),HIGHEST(A) \\
+      P est appelé préférence LOWEST, si: 
+\[
+       x <P y   ssi   x > y
+\]
+      P est appelé préférence HIGHEST, si:
+\[
+ x <P y   ssi   x < y 
+\]
+Ceci veut dire qu'une valeur désirée doit être la plus élevé (basse) possible.  
+(Ex: scénario choix de voiture:  HIGHEST(puissance).
+
+
+
+\subsection{Les différents modes de combinaison de préférences}
+
+Après avoir présenté précédemment les différentes formulations des préférences dans la littérature, nous allons à présent étudier les différentes méthodes de combinaisons de ces préférences afin de former des modèles de préférence.
+
+\subsubsection{Composition de préférences prioritaires}
+Elle est définie comme suit:
+\begin{defn}
+	Soient $P_x$ et $P_y$ deux relations de préférence définies sur le même schéma relationnel $R$. La relation de préférence prioritaire $\succ_{P_x}\& \succ_{P_y}$ est définie sur $R$ par:
+	\[
+		\forall t_i, t_j \text{ d'une instance de } R, t_i\succ_{P_x} \& \succ_{P_y} t_j\; ssi\; (t_i \succ_{P_x} t_j)\vee (t_i\thicksim_{P_x} t_j\wedge t_i\succ_{P_y}t_j).
+	\]
+\end{defn}
+
+
+Ceci veut dire qu'on utilise la préférence $P_x$ si elle est applicable et autrement on utilise $P_y$.
+
+\begin{example}
+	Soient deux relations de préférence $\succ_{P_x}$ et $\succ_{P_y}$ tel que:
+	\begin{itemize}
+		\item $t_i\succ_{P_x} t_j$, ssi $t_i[genre]='Drama'\wedge t_j[genre]='Comedy'$. 
+		\item $t_i\succ_{P_y}t_j$, ssi $t_i[Language]='French'\wedge t_j[Language='English']$.
+	\end{itemize}  
+	La relation de préférence prioritaire $\succ_{P_x}\& \succ_{P_y}$ est alors définie comme suit:
+	\[
+		t_i\succ_{P_x}\& \succ_{P_y} t_j\; ssi\; (t_i[genre]='Drama'\wedge t_j[genre]='Comedy')\vee (t_i[genre]\neq 'Drama'\wedge t_i[Language]='French'\wedge t_j[Language]='English')\vee (t_j[genre]\neq 'Comedy'\wedge t_i[Language]='French'\wedge t_j[Language='English'])
+	\]
+\end{example}
+
+\subsubsection{Réseaux de préférences conditionnelles (CP-nets)}
+Un CP-nets est une approche de représentation des préférences fondée sur un représentation graphique. Ceci se fait à l'aide de deux notions à savoir:
+\begin{itemize}
+\item la notion de préférence conditionnelle;
+\item la notion de ceteris paribus.	\\
+\end{itemize}
+Soit $V=\{X_1, X_2, ...,X_i\}$ 
+La notion de préférence conditionnelle est d'indiquer pour chaque attribut $X_i$ ses attributs parents $Pa(X_i)$, c'est à dire les autres attributs dont il dépend par rapport aux préférences de l'utilisateur. Ainsi lorsque l'on a une instantiation $u$ de $Pa(X_i)$, on sait quel valeur de $X_i$ est préférée à l'autre suivant $u$.
+La notion de ceteris paribus dans le cas d'une préférence conditionnelle est que pour un attribut $X_i$, le choix au niveau de cet attribut dépend de ses parents $Pa(X_i)$ indépendamment des valeurs fixées au niveau des autres attributs $Y=V-{Pa(X_i)\cup X_i}$.
+
+En se basant sur ces notions, nous formons au niveau de chaque attribut $X_i$, ce qu'on appelle \textbf{Table de Préférence Conditionnelle CPT} (sur la condition du ceteris paribus). Celle ci énumère les différentes préférences au niveau des valeurs de $X_i$ suivant les valeurs des attributs de $Pa(X_i)$.
+\begin{example}
+	Cas des préférences au niveau des plats de riz. L'utilisateur préfère accompagné le riz au poisson plutôt qu'à la viande, et dans le cas du spagetti, il préfère la viande au poisson.
+	\begin{center}
+		   \begin{tabular}{|l|l|} 
+		   \hline
+		   		Riz & Poisson$\succ$ Viande\\
+		   		\hline
+		   		Spaghetti & Viande$\succ$ Poisson\\ 
+		   		\hline
+		   \end{tabular}
+	\end{center}
+\end{example}
+
+L'ensemble de ces tables de préférences conditionnelles vont former les CP-nets comme on peut le voir au niveau de l'exemple ci dessous.
+
+\begin{example}
+Meme genre que l'exemple précédent.
+	
+	\begin{center}
+	    
+	    	\begin{tikzpicture}[
+	    		auto,
+	    	        block/.style    = { draw=blue,circle, thick, 
+	    	                            fill=blue!20, text width=2em, text centered,
+	    	                             minimum height=1em },
+	    	        line/.style     = { draw, thick, ->, shorten >=2pt },
+	    	      ]
+	    	      % Define nodes in a matrix
+	    	      \matrix [column sep=2mm, row sep=10mm] {
+	                     & \node [block] (PU) {Plat}; & \\
+	                     & \node [block] (TP)
+	                         {Garn};            & \\
+	    	    };
+	    	      % connect all nodes defined above
+	    	      \begin{scope} [every path/.style=line]
+		    	        \path (PU)    --    node [near start] {}
+		    	        (TP);
+		    	      
+	    	      \end{scope}
+	    	
+	    	    \end{tikzpicture}
+	     \end{center}
+	     
+	\begin{center}
+	
+			   \begin{tabular}{|l|l|} 
+			   \hline
+			   		Poisson$\succ$ Viande\\
+			   		\hline
+			   \end{tabular}
+	
+		   \begin{tabular}{|l|l|} 
+		   \hline
+		   		Riz & Poisson$\succ$ Viande\\
+		   		\hline
+		   		Spaghetti & Viande$\succ$ Poisson\\ 
+		   		\hline
+		   \end{tabular}
+	\end{center}
+\end{example}
+
+Ainsi nous définissons un CP-nets de la manière suivante:
+\begin{defn}
+	Un CP-net sur les attributs $V=\{X_1,X_1, ...,X_n \}$ est un graphe orienté sur les attributs $X_1,X_1,...,X_n$ où chaque nœud $X_i$ est annoté avec une table de préférence conditionnelle, $CPT(X_i)$. Chaque table de préférence conditionnelle $CPT(A_i)$ associe un ordre total $\succ^i_u$ pour chaque instanciation $u$ de $Pa(X_i)$.
+\end{defn}
+
+A partir d'un CP-net on peut alors schématiser le graphe de préférence induit.
+\begin{example}
+	Le graphe de préférence induit par rapport à l'exemple précédent nous donne:
+	
+	\begin{center}
+	    
+	    	\begin{tikzpicture}[
+	    		auto,
+	    	        decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+	    	                            text width=5em, text badly centered,
+	    	                            inner sep=1pt, rounded corners },
+	    	        block/.style    = { rectangle, draw=blue, thick, 
+	    	                            fill=blue!20, text width=10em, text centered,
+	    	                            rounded corners, minimum height=2em },
+	    	        line/.style     = { draw, thick, ->, shorten >=2pt },
+	    	      ]
+	    	      % Define nodes in a matrix
+	    	      \matrix [column sep=5mm, row sep=10mm] {
+	                     & \node [block] (PU) {Spaghetti $\wedge$ Poisson}; & \\
+	                     & \node [block] (TP)
+	                         {Spaghetti $\wedge$ Viande};            & \\
+	                     & \node [block] (IF)
+	                         {Riz $\wedge$ Viande};          & \\
+	                     & \node [block] (RI)
+	 	                            {Riz $\wedge$ Poisson};          & \\
+	    	    };
+	    	      % connect all nodes defined above
+	    	      \begin{scope} [every path/.style=line]
+		    	        \path (PU)    --    node [near start] {}
+		    	        (TP);
+		    	        \path (TP)    --    node [near start] {}
+		    	            	         (IF);
+		    	        \path (IF)    --    node [near start] { } (RI);
+		    	        \path (PU)    --    node [near start] { } (RI);
+	    	      \end{scope}
+	    	
+	    	    \end{tikzpicture}
+	     \end{center}
+\end{example}
+
+Sur cette figure, un arc partant d'un élément $a$ vers un élément $b$ indique que la préférence de $b$ sur $a$ put être déterminée directement par les CPTs du Cp-net. On voit que l'élément le plus en haut (Spaghetti $\wedge$ Poisson) est l'élément le moins préféré tandis que l'élément le plus en bas (Riz $\wedge$ Poisson) est l'élément le plus préféré.\\
+
+\textbf{Comparaison de deux transaction suivant un CP-net}
+\begin{defn}
+	Prenons un CP-net $N$ sur $V$, $X_i$ un attribut de $V$ et $Pa(X_i)$ les attributs parents de $X_i$ dans $V$. Soit $Y=V_(U\cup \{X_i\})$. Soit $\succ^i_u$ l'ordre induit par $CPT(X_i)$ sur $Dom(X_i)$ pour toute initialisation $u\in Ass(U)$ de $Pa(X_i)$. Soit $\succ$ une  relation de préférences sur $Asst(V)$.\\
+	On peut dire qu'une relation de préférences $\succ$ satisfait $\succ^i_u$ ssi on a, pour tout $y\in Asst(Y)$ et tout $x,x'\in Dom(X_i)$, $yxu\succ yx'u$ chaque fois que $x\succ^i_u x'$.\\
+	Une relation de préférence $\succ$ satisfait $CPT(X_i)$ ssi elle satisfait $\succ ^i_u$ pour tout $u\in Asst(U)$.\\
+	Donc un CP-net $N$ est satisfait par $\succ$ ssi celui ci satisfait chacun des préférences conditionnelles exprimées dans les CPT de $N$ suivent la notion de ceteris paribus.
+\end{defn}
+\begin{defn}
+	Soit $N$ un CP-net sur l'ensemble des attributs $V$. Soit $a,b\in Asst(V)$. $N$ entraine $a\succ b$ et noté $N\models a\succ b$ ssi $a\succ b$ pour toute relation de préférence qui satisfait $N$.\\
+\end{defn}
+
+--------------------------------------------------------------------\\
+
+
+\section{Résumé article  Preference Learning: An Introduction de Johannes Furnkranz 1 and Eyke Hullermeier}
+
+Introduction
+
+Le raisonnement à base de préférence est un domaine de recherche en Intelligence Artificielle. Les préférences sont des contraintes faibles qui permetttent une meilleure flexibilité en terme d'étude et deprédiction des choix utilisateurs. Ainsi on peut dans le cas où les conditions de recherche fixé par un utilisateur ne donnent pas des résultats consistants, se baser sur ces préférences afin de proposer d'autres résultats suivant ses préférences qui porteront aussi autant d'intérêt.
+
+Il est à noter que l'quisition de préférences se base sur plusieurs principes à savoir:
+\begin{itemize}
+	\item Les languages de modélisation et de formalisme
+	\item Les méthodes d'apprentissage automatique, de découverte
+\end{itemize}
+
+Ainsi l'étude des préférences est un domaine qui fait l'objet de recherche dans les disciplines tel que l'apprentissage artificiel, la fouille de données, les systèmes de recommandation.
+
+L'apprentissage de préférence, grosso modo parlant consiste à extraires des modèles de préférences de données empiriques.
+
+Deux approches sont à distinguer en terme de modélisation de préférences à savoir
+\begin{itemize}
+	\item Les fonctions utilités
+	\item Les relations de préférence
+\end{itemize}
+
+Comparativement aux méthodes basées sur les fonctions utilité, l'apprentissage des relations de préférence se distingue fortement des méthodes classiques comme la classification ou la régression du fait qu'elle permet d'obtenir des structures complexes comme les classements et les relations d'ordre partielles plutôt que des valeurs.
+
+Ce document parcours de façon générale les recherches en cours dans le domaine de l'apprentissage de préférences et alors permettra d'avoir une meilleure vue de ce domaine.
+
+\subsection{Tâches d'apprentiissage de prférences}
+La tâche d'apprentissage de classement est celle qui a le plus d'attention dans l'apprentissage de préférence.Dans cette section nous proposons une terminologie unifiée et claire pour les problèmes de classement les plus importants.
+
+Dans le cadre des notations, nous allons utiliser une terminologie qui est souvent utilisée en apprentissage supervisée. Ainsi un objet caractérisant une donnée est appellé instance dénoté $x$ et la classe à laquelle il est associé sera appelé label de classe. L'espace caractéristique des instances sera noté $\mathcal{X}$ et l'espace de sortie sera dénoté $\mathcal{Y}$.
+Les instances sont souvent représentées sous forme de vecteur caractéristique:\\
+$x=(x_1,x_2,...,x_m)\in \mathcal{X}=\mathcal{X}_1\times \mathcal{X}_2\times ... \times \mathcal{X}_m$
+
+Nous distinguons trois types de classement à savoir:
+\begin{itemize}
+	\item Le classement de labels
+	\item Le classement d'instances
+	\item Le classement d'objets
+\end{itemize}
+
+\subsubsection{Le classement de labels}
+Le classement de labels est un type de classement prenant en compte un espace d'instances $\mathcal{X}$ et un ensemble fini de labels $\mathcal{Y}==\{y_1, y_2,...,y_k\}$. Il consiste à apprendre un "classeur de labels" qui est une fonction définie sur $\mathcal{X}\Rightarrow S_y$ qui prend en entrée une instance et fournie en sortie une permutation de l'ensemble des labels suivant un ordre total.
+Ainsi le classement de label peut être vu comme une généralisation de la classification conventionnelle où un classement total 
+\[
+	y_{\pi_x^{-1} (1)}\succ_x y_{\pi_x^{-1} (2)}\succ_x ...\succ_x y_{\pi_x^{-1} (k)}
+\]
+est associé à une instance $x$ au lieu d'un seul label de classe das le cas de la classification. $\pi_x$ est une permutation de $\{1,2,...,k\}$ telle que $\pi_x(i)$ est la position du label $y_(i)$ dans le classement associé à $x$.
+
+L'ensemble d'apprentissage pour le classement de labels typiquement consiste en un ensemble de préférences par paires de la forme $y_i\succ y_j$ indiquant que $y_i$ est préféré à $y_j$ pour l'instance $x$.  
+
+Comme exemple de situations où on a affaire à un classement de label, on peut parler du classement de la pertinence des types de rubriques par journal comme le sport, les technologies, la santé etc..
+
+
+\noindent \rule{\textwidth}{1pt}
+
+\textbf{Soit:}
+\begin{itemize}
+	\item Un ensemble d'instances d'apprentissage $\{x_l| l=1,2,...,n\}\subseteq \mathcal{X}$ (chaque instance peut ou pas être représentée par un vecteur).
+	\item Un ensemble de labels $\mathcal{Y}=\{y_i|i=1,2,...,k\}$
+	\item Pour toute instance d'entraînement $x_l$, un enesmble de préférences de la forme $y_i\succ_{x_l} y_j$
+\end{itemize}
+ \textbf{Trouvons:}\\
+ Une fonction de classement qui lie toute instance $x$ à un classement $\succ_x$ de $\mathcal{Y}$ (i.e une permutation $\pi_x\in \mathcal{S}_k$)\\
+ 
+ \textbf{Mesures de performance}
+ \begin{itemize}
+ 	\item Erreur de classement (ex: basée sur les mesures de corrélation entre les rangs) comparant les classements prédits aux classements cibles.
+ 	\item Erreur de position comparant le rang prédit au label cible.
+ \end{itemize}
+  \noindent \rule{\textwidth}{1pt}
+  
+  \subsubsection{Classement d'instance}
+  Ce classement se fonde sur le principe d'une \textbf'{classification ordinale} où une instance $x$ appartient à une des classes de l'ensemble de classes ordonnées $\mathcal{Y}=\{y_1,y_2,...,y_k\}$ tel que $y_1<h_2<...<y_k$.
+  
+ Le jeux de données d'apprentissage consistent en un ensemble $\mathcal{T}$ d'instances labellisées. Comme exemple on peut considérer la répartition d'articles suivant les catégories "rejeté", "faible rejet", "faible acceptation", "acceptation".
+ Suivant les données d'apprentissage, le but est alors d'apprendre des fonctions de classement assignant un score à chaque instance fournie en entrée. Ce score permet de classer les différentes instances.
+ Ainsi des problèmes concrêts étudiés prennent en compte des classements basés sur des ensembles de deux classes (k=2) appelés \textbf{problèmes de classement bipartites} et des classements basés sur des ensembles de k classes appelés de \textbf{problèmes de classement k-partite ou multipartite}.
+ Dans le cas des classements bipartites, en prennant deux instances $x_1$ et $x_2$ , avec le score donné par la fonction, on a que:
+ \[
+ f(x_1)>f(x_2)\Rightarrow x_1\text{ a le label supérieur et }x_2\text{ le label inférieur}
+ \]
+ Du coté du classement multipartite de même on a en prennant deux instances $x_1$ et $x_2$ , avec le score donné par la fonction, on a que:
+  \[
+  f(x_1)>f(x_2)\Rightarrow x_1\text{ a un label supérieur à celui de }x_2
+  \] 
+  Mais dans ce cas ci il est à prendre en compte l'écart entre les niveau des labels lors de l'évaluation de la précision de la méthode d'apprentissage.
+  
+  \noindent \rule{\textwidth}{1pt}
+  
+ \textbf{Soit:}
+ \begin{itemize}
+ 	\item Un ensemble d'instances d'apprentissage $\{x_l| l=1,2,...,n\}\subseteq \mathcal{X}$ (chaque instance peut ou pas être représentée sous forme d'un vecteur).
+ 	\item Un ensemble de labels $\mathcal{Y}=\{y_i|i=1,2,...,k\}$ munis d'un ordre $y_1<y_2<...<y_k$
+ 	\item Pour toute instance d'entraînement $x_l$, un label associé $y_l$
+ \end{itemize}
+  \textbf{Trouvons:}\\
+  Une fonction de classement qui permet de classé un nouvel ensemble d'instances $\{x_j\}_{j=1}^t$ suivant leur degré de préférence\\
+  
+   \noindent \rule{\textwidth}{1pt} 
+  
+  
+  \subsubsection{Classement d'objets}
+ \textbf{L'approche de Cohen}\textcolor{red}{ref: article de Cohen :Learning to Order Things} \\
+ L'approche de Cohen est caracérisée par la définition des \textbf{fonctions de préférence} PREF qui sont des fonctions définies sur $X\times X\rightarrow [0,1]$ indiquant pour tout couple $(u,v)\in X\times X$, avec quel taux de recommandation l'un doit être préféré à l'autre. Ainsi si $PREF(u,v)$ tend vers 1, alors il y'a une forte recommandation que $u$ soit préféré à $v$ et si $PREF(u,v)$ tend vers 0, alors il y'a une forte recommandation que $v$ soit préféré à $u$. Une valeur proche de $1/2$ est interprétée comme une abstenion de faire une recommandation.
+
+Cette fonction de préférence est obtenue par la combinaison pondérée de N \textbf{fonctions de préférence primitive} $R_1,...,R_N$. Elle est écrite alors de la manière suivante:
+\[
+	PREF(u,v)=\sum_{i=1}^{N}w_iR_i(u,v)
+\]
+ Chaque fonction de préférence primitive $R_i(u,v)$ est déjà disponible et prend les valeurs 1 si u est préféré à v, 0 si v est préféré à u et 1/2 autrement.
+ Afin de déterminer les poids $w_i$ alloué à chaque fonction de préférence primitive $R_i$, plusieurs tours sont effectués en fournissant à chaque tour $t$ un ensemble d'instance $X^t$ à classer. Après le classement de ces instances par la fonction de préférence de base, un feedback $F^t$ lui est fourni en contenant des paires $(u,v)$ indiquant quel élément u devrait être préféré à quel élément v dans le classement. Avecce feedback on peut définir la \textbf{perte} de la fonction de préférence $R_i$ définie par:
+ \[
+ 	Loss(R,F)=\frac{\sum_{(u,v)\in F}(1-R(u,v))}{|F|}=1-\frac{1}{|F|}\sum_{(u,v)\in F} R(u,v)
+ \]
+ 
+ Initialement $w_i^1=1/N$ mais par la suite, les valeurs de $w_i^t$ par les itérations suivantes sont obtenus par la formule suivante:
+ \[
+ 	w_i^(t+1)=\frac{w_i^t.\beta^{Loss(R_i^t, F^t)}}{Z^t}
+ \]
+ où $\beta \in [0,1]$ est un paramètre et $Z_t$ est une \textbf{constante de normalisation}.
+ 
+Suite à l'obtention de la fonction de préférence finale fournissant ainsi un score à chaque couple d'un l'ensemble $X\times X$ fourni en entrée, le but est de fournir un ordre total de ces instances. Le processus de classement effectué à partir de l'évaluation des scores des couples $(u,v)$ fourni par $PREF$ est NP-complet,. D'où la necessité d'utiliser un algorithme optimisant ce classement.
+Le but est d'avoir l'ordre $O$ maximisant
+\[
+	\sum_{(u,v)\in O}PREF(u,v)
+\]
+
+Ainsi il a été proposé un algorithme glouton décrit ci dessous: 
+
+
+
+
+\begin{algorithm}[H]
+	$O\leftarrow \emptyset$\;
+	\ForAll{$x\in X_u$}{
+		$score(x)\leftarrow \sum_{x'\in X_u}PREF(x,x')$\;
+	}
+	\While{$X_u\neq \emptyset$}{
+		$x_{top}\leftarrow arg max_x score(x)$\;
+		$O_u\leftarrow O_u\succ x_{top}$\;
+		$X_u\leftarrow X_u-{x_{top}}$\; 
+		\ForAll{$x\in X_u$}{
+		$score(x)\leftarrow score(x)-PREF(x,x_{top})$\;
+		}
+	}
+	return $O_u$\;
+ \caption{Algorithme glouton de classement (Cohen)}
+\end{algorithm}
+
+ \textbf{Algorithme RankBoost}\\
+ C'est un algorithme proposé par Freund et al \textcolor{red}{ref: livre preference learning} qui est un dérivé de Adaboost, Algorithme de boosting connu dans le domaine de l'apprentissage. Sa spécificité est qu'il se base sur des ordre au lieu de se baser sur des scores dans le cas de Adaboost. Les données d'entrée de Rankboost sont des \textbf{fonctions de retour} $\phi(x_a,x_b)$ qui impliquent que $x_b\succ x_a$ si $\phi(x_a,x_b)>0$. Ces fonctions de retour sont issu du processus d'appréciation fournie en retour de l'information  de classement fournie par l'algorithme. De même en entré, il y'a un ensemble de fonctions appellées \textbf{ranking features} $f(x_i)$ qui fournie une information partielle sur l'ordre dans l'ensemble $X$ des instances. 
+ Avec ces entrées, Rankboost retourne le classement final $H(x_i)$ qui fonctionne comme une fonction de score.
+ Initialement, une distributino est calculée par $D_1(x_a,x_b)=max(\phi(x_a,x_b),0)/Z_1$ pour tout $(x_a,x_b)\in X\times X$ où $Z_1$ est un coefficient de normalisation qui assure que $\sum_{x_a, x_b}^{}D_1(x_a,x_b)=1$ Ainsi pour chaque tour $t=1,...,T$, l'algorithme répète un processus de sélection du poids $\alpha_t$ et de la fonction d'apprentissage de base $h_t(x)$ de manière à minimiser la valeur de $Z_t$. Il existe plusieurs méthodes pour cette minimisation que nous n'allons pas expliciter (conf ...). A l'itération suivante on met à jour la distribution:
+ \[
+ D_{t+1}(x_a, x_b)=\frac{1}{Z_t}\exp^(\alpha_t (h_t(X_a)-h_t(x_b))
+ \]
+ Les fonctions d'apprentissage de base $h_t$ sont caractérisées par le fait que $h_t(x_b)>h_t(x_a)\Rightarrow x_b\succ x_a$. Après les T itérations, nous obtenos une fonction de score:
+ \[
+ 	H(x)=\sum_{t=1}^{T}\alpha_t h_t (x)
+ \]
+ Ainsi cette foncion permet de classer toutes les instances de $X$ tel que:
+ \[
+ 	\forall x_a,x_b\in X\times X, H(x_a)>H(x_b)\Rightarrow x_a\succ x_b
+ \] 
+ 
+ 
+ \textbf{Classement à base de SVM}\\
+ 
+ 
+ 
+ --------------------------------------------------------------------------------\\
+ 
+ \section{Définition et extraction des règles de préférence contextuelle}
+ 	Soit $\mathcal{R}(\mathcal{A}_{1},\mathcal{A}_{2},...,\mathcal{A}_{n})$ un schémas relationnel tel que chaque attribut $\mathcal{A}_{i}$ soit caractérisé par son domaine de valeurs $Dom(\mathcal{A}_{i})$. Ainsi notons $Dom(\mathcal{A})=\prod_{1}^{n}Dom(\mathcal{A}_{i})$. On appelle une \textbf{transaction}, un élément de $Dom(\mathcal{A})$. Une base de transactions $\mathcal{B}$ est un ensemble de transactions, chacune associée à un identifiant unique. Avec $\mathbf{I}=\bigcup_{1}^{n}Dom(\mathcal{A}_{i})$, tout $i\in \mathbf{I}$ est appelé \textbf{item}. Tout sous ensemble d'une transaction $T$ est appelé \textbf{itemset}.
+ 	\begin{example}
+ 		Soit un schémas relationnel $\mathcal{R}(Genre, Acteur, Annee)$. Leur domaines de valeurs peuvent être les suivants:  $Dom(Genre)=\{Action, Aventure, Guerre,Comedie\}$, $Dom(Acteur)=\{Pierce Brosman, Sylvester Stalone, Harrison Ford\}$ et $Dom(Annee)=[1900;2020]$. $Dom(A)=Dom(Genre)\times Dom(Acteur)\times Dom(Annee)$ Ainsi $T=\{Action,Pierce Brosman,2010\}$ est une transaction de $Dom(A)$. $T'=\{Action,2010\}\in T$ est alors un itemset.
+ 	\end{example}
+ 	 
+ \subsection{Préférences utilisateur}
+ 	\begin{defn}(Préférence utilisateur)\\
+ 		Une \textbf{préférence utilisateur} est une paire de transactions $\left<t_{1},t_{2}\right>$ qui spécifie que l'utilisateur préfère $t_{1}$ à $t_{2}$. Elle est aussi écrite sous la forme $t_{1}\succ t_{2}$.\\
+ 		Une \textbf{base de préférence} est un ensemble de préférences utilisateur.\\
+ 	\end{defn}
+ 	\begin{defn}(Règle de préférence contextuelle)\\
+ 		Une \textbf{règle de préférence contextuelle} est une règle de la forme $C\rightarrow X\succ Y$ signifiant que l'utilisateur préfère $X$ à $Y$ si le contexte $C$ est observé.\\
+ 		Il est à noté que, pour généraliser, $C$,$X$,$Y$ peuvent être des \textbf{itemsets} (Ensemble d'items) ou des \textbf{itemsets de préférence} (conditions que doivent vérifier les items. Pour ces derniers nous en reparlerons à la suite du travail).
+ 	\end{defn}
+ 	\begin{example}
+ 		La règle de préférence contextuelle $\{Action\}\rightarrow \{1990\}\succ \{2000\}$ (ici $C$, $X$, $Y$ sont des itemsets) signifie que dans le cas de films d'action, l'utilisateur préfère les films de 1990 aux films de 2000.\\
+ 		
+ 		La règle de préférence contextuelle $\{MemeGenre\}\rightarrow \{Avant\;l'annee\;2000\}\succ \{Apres\;l'annee\;2000\}$ (ici $C$, $X$, $Y$ sont des itemsets de préférence) signifie que dans le cas où deux films sont de même genre, l'utilisateur préfère les films produits au delà de l'année 2000.\\
+ 	\end{example}
+ 	
+ 
+ 	On dit qu'une préférence $<T_{1},T_{2}>$ \textbf{supporte} une règle de préférence contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ prenant en compte les items (resp les itemsets de préférence) si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $X\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $X$) et $Y\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $Y$).\\
+ 	De même on dit qu'une préférence $<T_{1},T_{2}>$ \textbf{contredit} une règle de préférence contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ prenant en compte les items (resp les itemsets de préférence) si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $Y\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $Y$) et $X\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $X$).\\
+ 	\begin{example}
+ 		Avec $T_{1}=\{Action,Pierce\; Brosman,1990\}$ et $T_{2}=\{Action, Sylvester\; Stalone, 2000\}$, on constate que $<T_{1},T_{2}>$ supporte la règle de préférence $\{Action\}\rightarrow \{1990\}\succ \{2000\}$.\\
+ 	\end{example}
+ 	De même on dit que une transaction $T_{1}$ est \textbf{préférée} à une transaction $T_{2}$ suivant une règle contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ et noté $T_{1}\succ_{\mathcal{R}} T_{2}$ si si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $Y\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $Y$) et $X\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $X$).\\
+ 	
+ 
+ 
+ 	 
+ 	
+ 
+ 
+ \subsection{Aperçut du formalisme de CHOMICKY}
+ 	CHOMICKI a dans l'article \cite{CHO} établit la notion de \textbf{relation de préférence} $\succ$ comme un  sous ensemble de $Dom(A)\times Dom(A)$. Ceci veut intuitivement dire que $\succ$ est une relation binaire entre des transactions d'une même instance $r$ du schémas relationnel $\mathcal{R}$. Ainsi on a $t_{1}$ est préféré à $t_{2}$ suivant $\succ$ si $t_{1}\succ t_{2}$. De même il a définit la notion de formule de préférence $C(t_{1},t_{1})$ comme étant une une formule de premier ordre définissant une relation de préférence $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$ \\
+ 	
+ 	 Cette formule est sous une forme normale disjonctive DNF mais sans considérer les quantificateurs. Ainsi on a:
+ 	 \[  
+ 	 	C(t_{1},t_{2})=\underset{i=1..k}{\bigvee}(\underset{j=1..l}{\bigwedge} f_{ij})
+ 	 \]
+ 	  où $f_{ij}$  sont des formules atomiques sous la forme $x\delta y$ ou $x\delta c$ avec $x$ et $y$ des variables d'un attribut de $R$ correspondants respectivement à $t_{1}$ et $t_{2}$. $c$ quand à lui est une constante. 
+ 	  $\delta$ prend les valeurs $=$,$\neq$ dans le cas où les éléments $x,y,c$ sont de type quelconque (Exemple: $x=y$,$x=a$,$y\neq a$),  et $\leqslant,\geqslant,<,>$ dans le cas où on a à faire à des valeurs numériques (Exemple: $x<y$,$x<a$,$y\geqslant a$).\\
+ 	  \begin{example}
+ 		  \begin{itemize}
+ 		  
+ 		  	\item Soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(Plat,TypePlat, TypeVin). On a qu'ils vérifient la formule de préférence $C$ si et seulement si
+ 		  	\[
+ 			  	\begin{array}{rcl}
+ 			  	C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2="fish"\wedge y_2="fish"\wedge x_3="white"\wedge y_3="red")\\
+ 			  	&&\vee (x_1=y_1\wedge x_2="meat"\wedge y_2="meat"\wedge x_3="red"\wedge y_3="white")
+ 			  	\end{array}
+ 		  	\]
+ 		  	 est vérifié. Cette condition veut dire que dans le cas où c'est un plat à base de poisson, le client préfère le vin blanc au vin rouge et dans le cas où c'est un plat à base de viande, le client préfère le vin rouge au vin blanc. 
+ 		  	 
+ 		  	 \item En prenant en compte les valeurs numériques, soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(TypeFilm,Annee, Acteur). On a $t_1\succ_C t_2$ ssi:
+  		  	\[
+ 	 		  	\begin{array}{rcl}
+ 	 		  	C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2>2010\wedge y_2<2000)\\
+ 	 		  	&&\vee (x_1=y_1\wedge x_2=y_2\wedge x_3=\text{"Sylvester Stalone"}\wedge y_3=\text{"Pierce Brosnan"})
+ 	 		  	\end{array}
+  		  	\]
+  		  	Cette règle veux tout simplement dire que le client préfère pour des films de même type, des films au delà de 2010 aux films produits avant 2000, et si les films sont de même type et de meême anné, il préfère ceux avec l'acteur Sylvester Stalone à ceux avec l'acteur Pierce Brosnan.
+ 		  \end{itemize}  
+ 	  \end{example}
+ 	 
+ 	 \subsection{Définition d'une règle de préférence suivant le formalisme de CHOMICKY}
+ 	 Dans notre travail, nous allons nous inspiré du formalisme de CHOMICKY décrit précédamment pour proposer un format de règle de préférence. Plus précisément les formules de préférences de CHOMICKY seront plus ou moins similaires à nos règles de préférence que nous définirons par la suite.
+ 	 On sait qu'une formule de préférence de Chomicky est sous la forme:
+ 	 	 \[  
+ 	 	 	C(t_{1},t_{2})=\underset{i=1..k}{\bigvee}(\underset{j=1..l}{\bigwedge} f_{ij})
+ 	 	 \]
+ 	 Dans notre cas, le \textbf{profil} utilisateur est un ensemble de règles de préférence qui permettra de prédire la préférence de l'utilisateur. 
+ 	 Nous constatons que les formules de préférence de CHOMICKY sont des DNF (Formes Normales Disjonctives) c'est à dire une disjonction de conjonctions de formules élémentaires. Dans notre cas les règles ne prendrons en compte que des conjonctions de formules élémentaires. Ainsi on a:
+ 	     \begin{equation}
+ 	     	 P(t_{1},t_{2})=\underset{k\in E}{\bigwedge} P_{A_{k}}(t_{1},t_{2})
+ 	     \end{equation}
+ 	     	
+     
+      avec $E\subset \{1,2,..,n\}$ où n le nombre d'attributs de $\mathcal{R}$ et $P_{A_{k}}(t_{1},t_{2})$  est la conjonction de formules atomiques définies sur l'attribut l'attribut $A_k$. 
+      
+      \begin{example}
+ 	     Pour deux transactions $t_1=\{x_1,x_2\}$ et $t_2=\{y_1,y_2\}$, on a que $t_1\succ_P t_2$ ssi $P(t_1,t_2)=\{x_1=y_1\}\wedge \{x_2>4\}\wedge \{y_2<3\}$ est vrai.
+      \end{example}
+      
+ 	\subsubsection{Cas concret d'une règle de préférence contextuelle}
+ 	Le but maintenant est de passer d'une règle de préférence sous le formalisme de CHOMICKY à une règle de préférence contextuelle. Comme précédemment définie, une règle de préférence contextuelle $R$ est sous la forme $C\rightarrow X\succ Y$ de telle sorte que si on a $t_1\succ_R t_2$, $C$ est verifié par $t_1$ et $t_2$, $X$ est vérifié seulement par $t_1$ et $Y$ est vérifié seulement par $t_2$. \\
+ 	Dans notre cas, une règle de préférence contextuelle $R'$ suivant le formalisme de CHOMICKY est sous la forme $C\rightarrow PN$ (peut être écrit $C\wedge PN$) où si on a $t_1\succ_{R'} t_2$, $C$ prend en compte les conditions communes à $t_1$ et $t_2$ et est alors symétrique (ie $C(t_1,t_2)\Rightarrow C(t_2,t_1)$) et $PN$ prend en compte les conditions qui permettent de distinguer $t_1$ de $t_2$ donc asymétrique (ie $C(t_1,t_2)\Rightarrow \neg C(t_2,t_1)$). On a alors la définition suivante:
+ 	
+ 	\begin{defn}(Règle de préférence contextuelle suivant le formalisme de CHOMICKY)\\
+ 	Une règle de préférence contextuelle suivant le formalisme de CHOMICKY s'ecrit sous la forme:
+ 	\[
+ 		P(t_{1},t_{2})=\underset{k\in E}{\bigwedge} P_{A_{k}}(t_{1},t_{2})=C(t_{1},t_{2})\wedge\ PN(t_{1},t_{2})
+ 	\]
+ 	avec
+ 	\[
+ 	\begin{array}{rcl}
+ 			C(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} C_{A_{k}}(t_{1},t_{2}) \text{ Conditions vérifiées communément par $t_1$ et $t_2$: symétrique}\\
+ 			PN(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} PN_{A_{k}}(t_{1},t_{2})\text{ Conditions permettant de distinguer $t_1$ de $t_2$: asymétrique}\\
+ 	\end{array}
+ 	\]
+ 	Il faut remarquer que $P_{A_{k}}= C_{A_{k}}\wedge PN_{A_{k}}$
+ 	\end{defn}
+ 			    
+ 
+ 
+       	\textbf{Condition de non redondance:}\\
+       	Il est à noter que les $P_{A_{k}}$ ne doivent pas contenir de redondance i.e si on considère $F_{k}$ l'ensemble des formules élémentaires constituant $P_{A_{k}}$ ($P_{A_{k}}=\underset{f\in F_{k}}{\bigwedge f}$), on a 
+       	\[
+       	 F'\subsetneq F\Rightarrow \neg (\underset{f\in F'}{\bigwedge f}\Rightarrow P_{A_{k}}).
+       	\]
+       	
+       
+        
+     \subsection{Processus d'extraction des règles de préférence}
+     Suite à la définition précédente des règles de préférence contextuelles basées sur le formalisme de CHOMICKY, nous allons à présent décrire le processus qui nous permettra d'extraire des règles de préférence d'une base de préférence utilisateur. \\
+     
+     
+     \begin{center}
+     
+     	\begin{tikzpicture}[
+     		auto,
+     	        decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+     	                            text width=5em, text badly centered,
+     	                            inner sep=1pt, rounded corners },
+     	        block/.style    = { rectangle, draw=blue, thick, 
+     	                            fill=blue!20, text width=10em, text centered,
+     	                            rounded corners, minimum height=2em },
+     	        line/.style     = { draw, thick, ->, shorten >=2pt },
+     	      ]
+     	      % Define nodes in a matrix
+     	      \matrix [column sep=5mm, row sep=10mm] {
+                      & \node [block] (PU) {Préférences utilisateur}; & \\
+                      & \node [block] (TP)
+                          {Transactions de préférence};            & \\
+                      & \node [block] (IF)
+                          {Itemsets fréquents minimaux};          & \\
+                      & \node [block] (RI)
+  	                            {Règles de préférence intéressantes};          & \\
+     	    };
+     	      % connect all nodes defined above
+     	      \begin{scope} [every path/.style=line]
+ 	    	        \path (PU)    --    node [near start] {Algorithme 2 }
+ 	    	        (TP);
+ 	    	        \path (TP)    --    node [near start] {Algorithme 3 }
+ 	    	            	         (IF);
+ 	    	        \path (IF)    --    node [near start] {Algorithme 4 } (RI);
+     	      \end{scope}
+     	
+     	    \end{tikzpicture}
+      \end{center}
+     	
+     \noindent Le diagramme ci dessus énonce les différentes étapes du processus permettant l'extraction des règles de préférence intéressantes. Ces étapes seront décrites par la suite. Nous allons tout d'abord définir le support d'un itemset et la confiance d'une règle.
+     
+     
+    	\begin{defn}
+    		Le \textbf{support} d'un itemset est le nombre de transactions de préférences contenant l'itemset \\
+    		\[
+    		sup(Itemset)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|Itemset\subset <T_{i},T_{j}>|}{|\mathcal{P}|}\]
+    		
+    		La \textbf{confiance} d'une règle quand à elle est le taux de transactions vérifiant la règle par rapport à la somme du nombre de transactions vérifiant et du nombre de transactionscontredisant la règle.
+    		
+    		\[
+    			conf(Rule)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|}{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|+|<T_{i},T_{j}>\in \mathcal{P}| T_{j}\succ_{Rule} T_{i}|}
+    		\]
+    	\end{defn}
+     
+     
+    \subsubsection{Etapes de transformation des préférences utilisateurs en transaction de préférence}
+    
+       Cette étape consiste à transformer le couple $<t_{1},t_{2}>$ de préférences utilisateur en une transaction de formules que l'on appellera \textbf{transaction de préférence}.\\ 
+       \textbf{Principe}
+       Il se fonde sur le formalisme de Chomicky appliqué aux règles de préférence contextuelles comme précédemment énoncé. Ainsi la prise en compte de la symétrie et de l'asymétrie dans cette situation, nous amène à définir ci-dessous les items élémentaires qui seront utilisés dans les transactions de préférence:\\
+ 
+ 
+       \[
+       \begin{array}{l l}
+       \parbox{3.5cm}{Items symétriques\\ (Contexte)}&
+ 	  \left\{
+ 		  \begin{array}{l c l}
+ 		     C:\{x=y\}&\equiv& x=y\\
+ 		     C:\{x\neq y\}&\equiv& x\neq y\\
+ 		   	 C:\{x,y=a\}&\equiv& x=y\wedge x=a\wedge y=a\\
+ 		   	 C:\{x,y<a\}&\equiv& x<a\wedge y<a\\
+ 		   	 C:\{x,y>a\}&\equiv& x>a\wedge y>a
+ 	   	 \end{array}
+    	 \right.\\
+ 	&\\
+       \parbox{3.5cm}{Items asymétriques\\ (Préférences)}&
+ 	  \left\{
+ 		  \begin{array}{l c l}   	 
+ 		   	 P:\{x<y\}&\equiv& x<y\\
+ 		   	 P:\{x>y\}&\equiv& x>y\\
+ 		   	 P:\{x=a\} &\equiv& x=a \wedge x\neq y \\
+ 		   	 P:\{x<a\} &\equiv& x<a \wedge y\geqslant a\\
+ 			 P:\{x>a\} &\equiv& x>a \wedge y\leqslant a\\
+ 			 
+ 			 N:\{y>a\} &\equiv& y>a \wedge x\leqslant a\\
+ 			 N:\{y<a\} &\equiv& y<a \wedge x\geqslant a\\
+ 		   	 N:\{y=a\} &\equiv& y=a \wedge x\neq y\\	 
+ 	   	 \end{array}
+    	 \right.
+    	 \end{array}
+    	 \]		   	 	 		 
+ 	 
+ 	 Ces items sont obtenus suivant les conditions définies dans le tableau suivant:
+ 	 
+ 	\begin{center}
+ 	   \begin{tabular}{l|l|l|l|} 
+ 	   \cline{2-4}
+ 	     & \textbf{Valeurs Attr}& \textbf{Type Attr}& \textbf{Items de transaction de préférence}\\
+ 	    \hline
+ 	 	     	\parbox[t]{2mm}{\multirow{13}{*}{\rotatebox[origin=c]{90}{Attr monovalué}}}&
+ 	 	  		\multirow{4}{*}{\parbox{2cm}{$x=a,\; y=a$}} & \multirow{2}{*}{\parbox{2cm}{num/symb}} &$C:\{ x=y\}$\\
+ 	 	  		&&& $C:\{ x,y=a\}$\\
+ 	 	  		\cdashline{3-4}
+ 	 	  		&&\multirow{2}{*}{\parbox{2cm}{num}}& $C:\{ x,y<c\},\; \forall c| c< a$\\
+ 	 	  		&&& $C:\{ x,y>c\},\; \forall c| c> a$\\
+ 	 	    \cline{2-4}
+ 	 	  		&\multirow{9}{*}{\parbox{2cm}{$x=a,\; y=b$ avec $a\neq b$}}
+ 	 	  		&\multirow{3}{*}{\parbox{2cm}{num/symb}} & $P:\{ x=a\}$\\
+ 	 	  		&&& $N:\{ y=b\}$\\
+ 	 	  		&&& $C:\{ x\neq y\}$\\
+ 	 	  		\cdashline{3-4}
+ 	 	  		&&\multirow{8}{*}{\parbox{2cm}{num}}& $P:\{ x<y\},$ si $a<b$\\
+ 	 	  		&&& $P:\{ x>y\},$ si $a>b$\\
+ 	 	  		&&& $P:\{ x<c\},$ si $a<b$ et $\forall c |a<c\leqslant b$\\
+ 	 	  		&&& $P:\{ x>c\},$ si $a>b$ et $\forall c |a>c\geqslant b$\\
+ 	 	  		&&& $N:\{ y<c\},$ si $a>b$ et $\forall c |b<c\leqslant a$\\
+ 	 	  		&&& $N:\{ y>c\},$ si $a<b$ et $\forall c |b>c\geqslant a$\\
+ 	 	  		
+ 	 	  		&&& $C:\{ x,y<c\},\; \forall c| c< a\wedge c<b$\\
+ 	 	  		&&& $C:\{ x,y>c\},\; \forall c| c> a\wedge c>b$\\
+ 	 	  		
+ 	    \hline
+ 	   	     	 \parbox[t]{2mm}{\multirow{6}{*}{\rotatebox[origin=c]{90}{Attr multivalué}}}&
+ 	    \multirow{3}{*}{\parbox{2cm}{$x\in X, y\in Y$}} & \multirow{3}{*}{\parbox{2cm}{Set(symb)}} & $C:\{ x,y=c\},\;\forall c\in X\cap Y$\\
+ 	    &&&$P:\{ x=a\},\;\forall a\in X\backslash Y$\\
+ 	    &&&$N:\{ y=b\},\;\forall b\in Y\backslash X$\\
+ 	    &&&\\	  		
+ 	    &&&\\
+ 	    &&&\\		 	   
+ 	    \hline
+ 
+ 	   \end{tabular}
+ 	   \end{center} 
+ 	   
+ 	   Ainsi l'algorithme suivant effectue la transformation des tuples $<t_1,t_2>$ de préférence vers les transactions de préférence.
+ 	   
+ 	   \begin{algorithm}[H]
+ 	   	\Entree{x , y et l'attribut $A_{i}$ auquel ils sont liés}
+ 	   	\Sortie{items issus de la comparaison entre x et y}
+ 	   	
+ 	   	\Deb{
+ 	   		$\mathcal{E}=\emptyset$ \tcp*[r]{Ensemble des items générés}
+ 	   		
+ 	   		\uSi{$x=y$}
+ 	   		{
+ 	   			Ajouter $P:\{x_{A_{i}}=y_{A_{i}}\}$ à $\mathcal{E}$\;
+ 	   			Ajouter $P:\{x_{A_{i}}=y_{A_{i}}=x\}$ à $\mathcal{E}$\;
+ 	   			\PourCh{$c\in DomActif(A_{i})$ et $A_{i}$ numérique}
+ 	   			{
+ 	   				\uSi{$x<c$}
+ 	   				{
+ 	   					Ajouter $C:\{x_{A_{i}},y_{A_{i}}<c\}$ à $\mathcal{E}$\;
+ 	   				}
+ 	   				\SinonSi{$x>c$}
+ 	   				{
+ 	   					Ajouter $C:\{x_{A_{i}},y_{A_{i}}>c\}$ à $\mathcal{E}$\;
+ 	   				}
+ 	   			
+ 	   			}					
+ 	   		}
+ 	   		\SinonSi{$x\neq y$}
+ 	   		{
+ 	   			Ajouter $C:\{x_{A_{i}}\neq y_{A_{i}}\}$ à $\mathcal{E}$\;
+ 	   			Ajouter $P:\{x_{A_{i}}=x\}$ à $\mathcal{E}$\;
+ 	   			Ajouter $N:\{y_{A_{i}}=y\}$ à $\mathcal{E}$\;
+ 	   
+ 	   			\Si{$A_{i}$ numérique}
+ 	   			{
+ 	   				\Si{$x> y$}
+ 	   				{
+ 	   						Ajouter $P:\{x_{A_{i}}> y_{A_{i}}\}$ à $\mathcal{E}$\;
+ 	   				}
+ 	   				\Si{$x< y$}
+ 	   				{
+ 	   						Ajouter $P:\{x_{A_{i}}< y_{A_{i}}\}$ à $\mathcal{E}$\;
+ 	   				}
+ 	   				\PourCh{$c\in DomActif(A_{i})$}
+ 	   				{
+ 	   					\uSi{$x<c\wedge y\geqslant c$}
+ 	   					{
+ 	   						Ajouter $P:\{x_{A_{i}}<c\}$ à $\mathcal{E}$\;
+ 	   					}
+ 	   					\uSinonSi{$x\leqslant c\wedge y> c$}
+ 	   					{
+ 	   						Ajouter $N:\{y_{A_{i}}>c\}$ à $\mathcal{E}$\;
+ 	   					}
+ 	   					\uSinonSi{$x>c\wedge y \leqslant c$}
+ 	   					{
+ 	   						Ajouter $P:\{x_{A_{i}}>c\}$ à $\mathcal{E}$\;
+ 	   					}
+ 	   					\uSinonSi{$x\geqslant c\wedge y < c$}
+ 	   					{
+ 	   						Ajouter $N:\{x_{A_{i}}<c\}$ à $\mathcal{E}$\;
+ 	   					}
+ 	   					\uSinonSi{$x<c\wedge y<c$}
+ 	   					{
+ 	   						Ajouter $C:\{x_{A_{i}},y_{A_{i}}<c\}$ à $\mathcal{E}$\;
+ 	   					}
+ 	   					\SinonSi{$x>c\wedge y>c$}
+ 	   					{
+ 	   						Ajouter $C:\{x_{A_{i}},y_{A_{i}}>c\}$ à $\mathcal{E}$\;
+ 	   					}
+ 	   					
+ 	   				}
+ 	   				
+ 	   			}
+ 	   		}
+ 	   		
+ 	   	retourner $\mathcal{E}$\;
+ 	   	}
+ 	   	\caption{Comparaison}
+ 	   \end{algorithm}
+      
+ 	
+  
+ 	 
+      \subsubsection{Etape de l'extraction des règles interressantes minimales des transactions de préférence}
+ 	Cette étape peut utiliser toute méthode d'extraction d'itemsets intérresaants minimaux. Notre choix s'est porté sur une méthode d'extraction des itemsets fréquents minimaux décrite dans l'article \cite{SOUL}, du faite du peu de mémoire dont elle nécessite pour l'extraction.\\
+ 	\textbf{Principe}\\
+ 	Elle consiste en un parcours en profondeur basé sur le principe du calcul des objets critiques. On a que
+ 	\[
+ 		X\in \mathcal{F}\text{ est minimal ssi }\forall e \in X,\; \widehat{cov}(X,e)\neq \emptyset
+ 	\]
+ 	avec $\widehat{cov}(X,e)=cov(X\setminus e)\setminus cov(e)$ et $cov$ étant la couverture d'un itemset (nombre de transactions contenant l'itemset). Donc à chaque ajout d'un item à un itemset $X$ lors d'un parcours en profondeur, l'évaluation de la minimalité du nouvel itemset $Y$ obtenu se fait en utilisant l'égalité suivante:
+ 	\[
+ 		 	\widehat{cov}(Xe',e)=\widehat{cov}(X,e)\cap cov(e')
+ 	\]
+ 	Ainsi il suffit d'obtenir la couverture du nouvel item ajouté pour savoir si le nouvel itemset formé est minimal.
+ 	
+ 	A partir de cette procédure, étant donné que la minimalité que nous utilisons est une minimalité basée sur le support et sur la confiance, nous allons procéder comme suit:
+ 	\begin{itemize}
+ 	 \item Générer la base de transactions de préférences inverses et ajouter celle ci à la base de préférence initiale.
+ 	 \item Extraire à l'aide du procédé précédent, les itemsets minimaux suivant leur support
+ 	 \item Filtrer les itemsets obtenus suivant que leur support dans la base initiale soit supérieur au support seuil. 
+ 	\end{itemize}
+ 		
+ 		Cette procédure s'explique par le fait que si un itemset $X$ est minimal dans la base globale, c'est que 
+ 		\[
+ 		\forall e\in X,\; supp(X\setminus e)\neq supp(X)\text{ ou }conf(X\setminus e)\neq conf(X)
+ 		\]
+    
+    
+    
+    \subsection{Algorithme}
+    
+ \begin{algorithm}[H]
+ 
+ 
+ 	\Entree{Préférences utilisateur $\mathcal{P}$}
+ 	\Sortie{Règles de préférence interressantes $\mathcal{R}$}
+ 	
+ 	\Deb{
+ 		$\mathcal{P}_{S}=\emptyset$ \tcp*[l]{Ensemble des transactions obtenues des tuples de préférence}
+ 		\PourCh {$<T,U>\in \mathcal{P}$}
+ 		{
+ 			$\mathcal{P}_{TU}=\emptyset$\tcp*[r]{Ensemble des items}
+ 			\PourCh {$A_{i} \in R$}
+ 			{
+ 				$x=T.A_{i}$ \tcp*[l]{Val correspondante à l'attribut $A_{i}$ de $T$}
+ 				$y=U.A_{i}$\;
+ 				$\mathcal{P}_{TU}=\mathcal{P}_{TU}\bigcup$ Comparaison($x,y,A_{i}$)\;
+ 			}
+ 			Ajouter ${P}_{TU}$ à ${P}_{S}$\;
+ 		}
+ 		$\mathcal{F}=$ExtraireItemsetFréquents(${P}_{S}$)\;
+ 		$\mathcal{R}=$FiltrerRèglesInterressantes($\mathcal{F}$)\;
+ 		Retourner $\mathcal{R}$\;
+ 	}
+ 	\caption{Algorithme d'extraction de règles interressantes}
+ \end{algorithm}
+ 
+ 
+ 
+ 
+ 	
+ 
+ 
+ 
+    
+    
+    \subsection{Exemple d'extraction des règles de préférence}
+    Nous allons étudier deux situations:
+    \begin{itemize}
+    		\item Cas où le schémas relationel $\mathcal{R}(\mathcal{A}_{1},\mathcal{A}_{2},...,\mathcal{A}_{n})$ n'a que des attributs symboliques;
+    		\item Cas où le schémas relationnel $\mathcal{R}(\mathcal{A}_{1},\mathcal{A}_{2},...,\mathcal{A}_{n})$ a des attributs symboliques et numériques.\\
+    \end{itemize}
+    
+   \subsubsection{ Cas où le schémas relationnel  n'a que des attributs symboliques}
+      Prenons un schémas relationnel $\mathcal{R}(\mathcal{A}_{1},\mathcal{A}_{2})$ avec $A_{1}$ et $A_{2}$ de type symboliques. Soit la base de préférence ci dessous:
+      \begin{center}
+      \begin{tabular}{l|l|l|l|l| } 
+      
+       &\multicolumn{2}{c|}{$t_{1}$} & \multicolumn{2}{c|}{$t_{2}$}\\
+      \cline{2-5}
+   		$P_{1}$ & a & A & b & B\\
+   		$P_{2}$ & b & A & a & B\\
+   		$P_{3}$ & a & A & a & B\\
+   		$P_{4}$ & a & A & a & C\\
+   		$P_{5}$ & b & B & a & A\\
+   	\cline{2-5}
+      \end{tabular}
+      \end{center}   
+      
+        \textbf{Passage des préférences vers les transactions de préférence}\\
+        On a:\\
+   
+        
+        \noindent $P_{1}\Rightarrow T_{1}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=a\},N:\{y_{1}=b\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=A\},N:\{y_{2}=B\},\}$ \\
+        
+        \noindent $P_{2}\Rightarrow T_{2}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=b\},N:\{y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=A\},N:\{y_{2}=B\},\}$ \\
+        
+        \noindent $P_{3}\Rightarrow T_{3}=\{C:\{x_{1}=y_{1}\},C:\{x_{1},y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=A\},N:\{y_{2}=B\},\}$ \\
+        
+        \noindent $P_{4}\Rightarrow T_{4}=\{C:\{x_{1}=y_{1}\},C:\{x_{1},y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=A\},N:\{y_{2}=C\},\}$ \\
+        
+        \noindent $P_{5}\Rightarrow T_{5}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=b\},N:\{y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=B\},N:\{y_{2}=A\},\}$ \\
+        
+        
+        
+        \subsection{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}
+        
+        Itemsets interressants minimaux de taille 1 +++++++++++++++++++++++\\
+        
+        $I_{4}=\{P:\{x_{2}=A\},\}$  sup=4.0 conf=0.8\\
+        $I_{5}=\{N:\{y_{2}=B\},\}$  sup=3.0 conf=0.75\\
+        $I_{6}=\{P:\{x_{1}=b\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{7}=\{N:\{y_{1}=a\},\}$  sup=2.0 conf=0.666666666667\\
+        
+        Itemsets interressants minimaux de taille 2 ++++++++++++++++++++++\
+        
+        $I_{14}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{2}=A\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{15}=\{C:\{x_{1}\neq y_{1}\},N:\{y_{2}=B\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{29}=\{P:\{x_{2}=A\},C:\{x_{1}=y_{1}\},\}$  sup=2.0 conf=1.0\\
+        $I_{30}=\{P:\{x_{2}=A\},C:\{x_{1},y_{1}=a\},\}$  sup=2.0 conf=1.0\\
+        
+        
+        Pas d'itemsets interressant minimaux de taille 3\\
+        
+        
+        
+        \subsubsection{Cas où le schémas relationnel a des attributs numériques et symboliques}
+        	Prenons un schémas relationnel $\mathcal{R}(\mathcal{A}_{1},\mathcal{A}_{2})$ avec $A_{1}$ et $A_{2}$ de type symboliques. Soit la base de préférence ci dessous:
+        	\begin{center}
+        	\begin{tabular}{l|l|l|l|l| } 
+        	
+        	&\multicolumn{2}{c|}{$t_{1}$} & \multicolumn{2}{c|}{$t_{2}$}\\
+        	\cline{2-5}
+        		$P_{1}$ & a & 3 & b & 7\\
+        		$P_{2}$ & a & 3 & b & 3\\		
+        		$P_{3}$ & b & 3 & a & 7\\
+        		$P_{4}$ & a & 3 & a & 7\\
+        		$P_{5}$ & a & 3 & a & 9\\
+        		$P_{6}$ & b & 9 & a & 7\\
+        		$P_{7}$ & b & 7 & a & 3\\
+        	\cline{2-5}
+        	\end{tabular}
+        	\end{center}
+        
+        
+        Transactions de preference obtenues\\
+        
+        \noindent $P_{1}\Rightarrow T_{1}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=a\},N:\{y_{1}=b\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=3\},N:\{y_{2}=7\},P:\{x_{2}<y_{2}\},N:\{y_{2}>3\},P:\{x_{2}<7\},C:\{x_{2},y_{2}<9\},\}$ \\
+        
+        \noindent $P_{2}\Rightarrow T_{2}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=a\},N:\{y_{1}=b\},C:\{x_{2}=y_{2}\},C:\{x_{2},y_{2}=3\},C:\{x_{2},y_{2}<7\},C:\{x_{2},y_{2}<9\},\}$ \\
+        
+        \noindent $P_{3}\Rightarrow T_{3}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=b\},N:\{y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=3\},N:\{y_{2}=7\},P:\{x_{2}<y_{2}\},N:\{y_{2}>3\},P:\{x_{2}<7\},C:\{x_{2},y_{2}<9\},\}$ \\
+        
+        \noindent $P_{4}\Rightarrow T_{4}=\{C:\{x_{1}=y_{1}\},C:\{x_{1},y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=3\},N:\{y_{2}=7\},P:\{x_{2}<y_{2}\},N:\{y_{2}>3\},P:\{x_{2}<7\},C:\{x_{2},y_{2}<9\},\}$ \\
+        
+        \noindent $P_{5}\Rightarrow T_{5}=\{C:\{x_{1}=y_{1}\},C:\{x_{1},y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=3\},N:\{y_{2}=9\},P:\{x_{2}<y_{2}\},N:\{y_{2}>3\},N:\{y_{2}>7\},P:\{x_{2}<7\},P:\{x_{2}<9\},\}$ \\
+        
+        \noindent $P_{6}\Rightarrow T_{6}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=b\},N:\{y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=9\},N:\{y_{2}=7\},P:\{x_{2}>y_{2}\},P:\{x_{2}>7\},N:\{y_{2}<9\},C:\{x_{2},y_{2}>3\},\}$ \\
+        
+        \noindent $P_{7}\Rightarrow T_{7}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{1}=b\},N:\{y_{1}=a\},C:\{x_{2}\neq y_{2}\},P:\{x_{2}=7\},N:\{y_{2}=3\},P:\{x_{2}>y_{2}\},P:\{x_{2}>3\},N:\{y_{2}<7\},C:\{x_{2},y_{2}<9\},\}$ \\
+        
+        
+       \newpage
+       
+        \subsection{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}
+        
+        Itemsets interressants minimaux de taille 1 ++++++++++++++++++++\\
+        
+        $I_{4}=\{P:\{x_{2}=3\},\}$  sup=4.0 conf=0.8\\
+        $I_{5}=\{N:\{y_{2}=7\},\}$  sup=4.0 conf=0.8\\
+        $I_{6}=\{P:\{x_{2}<y_{2}\},\}$  sup=4.0 conf=0.666666666667\\
+        $I_{7}=\{N:\{y_{2}>3\},\}$  sup=4.0 conf=0.8\\
+        $I_{8}=\{P:\{x_{2}<7\},\}$  sup=4.0 conf=0.8\\
+        $I_{13}=\{P:\{x_{1}=b\},\}$  sup=3.0 conf=0.6\\
+        $I_{14}=\{N:\{y_{1}=a\},\}$  sup=3.0 conf=0.6\\
+        
+        Itemsets interressants minimaux de taille 2 +++++++++++++++++++\\
+        
+        $I_{32}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{2}=3\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{33}=\{C:\{x_{1}\neq y_{1}\},N:\{y_{2}=7\},\}$  sup=3.0 conf=0.75\\
+        $I_{35}=\{C:\{x_{1}\neq y_{1}\},N:\{y_{2}>3\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{36}=\{C:\{x_{1}\neq y_{1}\},P:\{x_{2}<7\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{74}=\{C:\{x_{2}\neq y_{2}\},P:\{x_{1}=b\},\}$  sup=3.0 conf=0.75\\
+        $I_{75}=\{C:\{x_{2}\neq y_{2}\},N:\{y_{1}=a\},\}$  sup=3.0 conf=0.75\\
+        $I_{79}=\{P:\{x_{2}=3\},N:\{y_{2}=7\},\}$  sup=3.0 conf=0.75\\
+        $I_{83}=\{P:\{x_{2}=3\},C:\{x_{2},y_{2}<9\},\}$  sup=3.0 conf=0.75\\
+        $I_{86}=\{P:\{x_{2}=3\},C:\{x_{1}=y_{1}\},\}$  sup=2.0 conf=1.0\\
+        $I_{87}=\{P:\{x_{2}=3\},C:\{x_{1},y_{1}=a\},\}$  sup=2.0 conf=1.0\\
+        $I_{89}=\{N:\{y_{2}=7\},P:\{x_{2}<y_{2}\},\}$  sup=3.0 conf=0.75\\
+        $I_{90}=\{N:\{y_{2}=7\},N:\{y_{2}>3\},\}$  sup=3.0 conf=0.75\\
+        $I_{91}=\{N:\{y_{2}=7\},P:\{x_{2}<7\},\}$  sup=3.0 conf=0.75\\
+        $I_{92}=\{N:\{y_{2}=7\},C:\{x_{2},y_{2}<9\},\}$  sup=3.0 conf=0.75\\
+        $I_{93}=\{N:\{y_{2}=7\},P:\{x_{1}=b\},\}$  sup=2.0 conf=1.0\\
+        $I_{94}=\{N:\{y_{2}=7\},N:\{y_{1}=a\},\}$  sup=2.0 conf=1.0\\
+        $I_{100}=\{P:\{x_{2}<y_{2}\},C:\{x_{2},y_{2}<9\},\}$  sup=3.0 conf=0.75\\
+        $I_{103}=\{P:\{x_{2}<y_{2}\},C:\{x_{1}=y_{1}\},\}$  sup=2.0 conf=1.0\\
+        $I_{104}=\{P:\{x_{2}<y_{2}\},C:\{x_{1},y_{1}=a\},\}$  sup=2.0 conf=1.0\\
+        $I_{107}=\{N:\{y_{2}>3\},C:\{x_{2},y_{2}<9\},\}$  sup=3.0 conf=0.75\\
+        $I_{110}=\{N:\{y_{2}>3\},C:\{x_{1}=y_{1}\},\}$  sup=2.0 conf=1.0\\
+        $I_{111}=\{N:\{y_{2}>3\},C:\{x_{1},y_{1}=a\},\}$  sup=2.0 conf=1.0\\
+        $I_{113}=\{P:\{x_{2}<7\},C:\{x_{2},y_{2}<9\},\}$  sup=3.0 conf=0.75\\
+        $I_{116}=\{P:\{x_{2}<7\},C:\{x_{1}=y_{1}\},\}$  sup=2.0 conf=1.0\\
+        $I_{117}=\{P:\{x_{2}<7\},C:\{x_{1},y_{1}=a\},\}$  sup=2.0 conf=1.0\\
+        $I_{127}=\{P:\{x_{1}=b\},P:\{x_{2}>y_{2}\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{130}=\{N:\{y_{1}=a\},P:\{x_{2}>y_{2}\},\}$  sup=2.0 conf=0.666666666667\\
+        
+        Itemsets interressants minimaux de taille 3 ++++++++++++++++++++++\\
+        
+        $I_{151}=\{C:\{x_{1}\neq y_{1}\},N:\{y_{2}=7\},P:\{x_{2}<y_{2}\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{154}=\{C:\{x_{2},y_{2}<9\},C:\{x_{1}\neq y_{1}\},N:\{y_{2}=7\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{160}=\{C:\{x_{2},y_{2}<9\},C:\{x_{1}\neq y_{1}\},P:\{x_{2}<y_{2}\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{197}=\{C:\{x_{2},y_{2}<9\},C:\{x_{2}\neq y_{2}\},P:\{x_{1}=b\},\}$  sup=2.0 conf=0.666666666667\\
+        $I_{198}=\{C:\{x_{2},y_{2}<9\},C:\{x_{2}\neq y_{2}\},N:\{y_{1}=a\},\}$  sup=2.0 conf=0.666666666667\\
+ 
+        
+        Pas d'itemsets interressant minimaux de taille 4\\
+%Déﬁnition 16. Soient $P_x$ et 
+%et  py
+%deux relations de preferences sur le même schema
+%relationnel R. La relation de composition pareto  px
+%⊗ py
+%est déﬁnie sur la relation R
+%comme suit : ∀ ti, tj de R, ti  px
+%⊗ py
+%tj ssi (ti  px
+%tj ∧¬(tj  py
+%ti)) ∨ (ti  py
+%tj ∧¬(tj  px
+%ti)).
+%Il est à noter que pour deux tuples t1  et t2  et une relation de préférence  p, ¬(t1  p
+%t2) ≡ (t2  t1) ∨ (t1 ∼ p t2). De façon intuitive sous la composition pareto, un tuple t est
+%préféré à un tuple u si t est au moins aussi préféré que u pour une relation de préférences
+%et que t est absolument plus préféré que u pour l’autre relation de préférences.
+%Exemple 11. La préférence pareto px ⊗py  (px  et py  sont déﬁnies dans l’exemple 10)
+%peut être déﬁni comme : ti  px
+%⊗ py
+%tj, si et seulement si, (ti   [genre] = ’drame’
+%∧  tj[genre]  =
+%0
+%comedy
+%0∧  ti[Language]  =
+%0
+%F rench
+%0∧  tj[Language]  =
+%0
+%English
+%0
+%)∨
+%(ti[Language]   =
+%0
+%F rench
+%0∧  tj[Language]   =
+%0
+%English
+%0∧  tj[genre]6=  ’Drame’) ∨
+%(ti[Language] =
+%0
+%F rench
+%0∧ tj[Language] =
+%0
+%English
+%0∧ ti[genre]6= ’comedy’).
+%Le modèle de préférence pareto peut être aussi appliqué sur des relations qui sont dé-
+%ﬁnies sur des schémas diﬀérents [SKP11]. Soient  px
+%et  py
+%deux relations de préférences
+%déﬁnies sur les schémas relationnels R et R
+%0
+%avec des domaines d’attributs dom(A) et
+%dom(A’) respectivement. La relation de préférence pareto multi-dimensionnelle  px
+%⊗ py
+%déﬁnie sur le produit cartésien R × R’ est un sous ensemble de dom(A)× dom(A’) tel que
+%(ti, t
+%0
+%i
+%)  px
+%⊗ py
+%(tj, t
+%0
+%j
+%) si et seulement si (ti  px
+%tj ∧ ¬(t
+%0
+%j
+% py
+%t
+%0
+%i
+%)) ∨ (t
+%0
+%i
+% py
+%t
+%0
+%j
+%∧ ¬(tj  px1.1 Notion de base sur les préférences 47
+%ti)) où ti  et tj  sont des tuples de R et t
+%0
+%i
+%et t
+%0
+%j
+%sont des tuples de R
+%0
+%.
+%1.1.3.3  Réseaux de preferences conditionnelles (CP-nets)
+%Les réseaux de préférences conditionnelles CP-nets permettent de représenter de façon
+%compacte et intuitive les relations de préférences. C’est un formalisme graphique qui
+%permet de modéliser les préférences conditionnelles de façon qualitative [BBD
+%+
+%03].
+%Un CP-net sur un ensemble d’attributs A = {A1, ..., Ad } est un graphe direct dans
+%lequel il existe un noeud pour chaque attribut Ai  dans A. Si une ﬂèche d’un attribut Aj
+%vers un attribut Ai  existe, alors Aj  est dit parent de Ai, on note Pa(Ai) tous les parents
+%d’une variable Ai.
+%Si P a(Ai) est l’ensemble des parents de Ai, les préférences sur l’attribut Ai  dépendent
+%de celles sur les attributs parents de Ai  .
+%Les tables de préférences conditionnelles (CPT) décrivent les préférences sur les va-
+%leurs Ai  en se basant sur la combinaison des valeurs des parents de Ai.
+%Une table de préférences conditionnelle de Ai, noté CPT(Ai), contient un ensemble de
+%règles de préférences de la forme zi  : ai1  ai2 ; où zi ∈dom(Pa(Ai)) et ai1, ai2  appar-
+%tiennent à dom(Ai).
+%Ces règles de préférences sont interprétées de la façon suivante : étant donnée zi, ai1  est
+%strictement préféré à ai2  (ceteris paribus).
+%En d’autres termes, cette règle de préférence indique qu’un tuple contenant zi  et ai1
+%est préféré à un tuple contenant zi  et ai2  ssi les valeurs des deux tuples sur les autres
+%attributs sont les mêmes.
+%Il est à noter que ces règles de préférences sont une spécialisation des règles de Wilson
+%présentées dans la Déﬁnition 10. Il suﬃt de constater que dans les règles présentées par
+%les CP-nets, Pa(Ai)=U et W = ∅. Nous allons ci après introduire la déﬁnition formelle
+%d’un CP-net [BBD
+%+
+%03].
+%Déﬁnition 17. Un CP-net sur les attributs A = {A1, ..., Ad } est un graphe orienté sur
+%les attributs {A1, A2, ..., Ad } où chaque noeud, Ai, est annoté avec une table de préférence
+%conditionnelle, CPT(Ai). Chaque table de préférence conditionnelle CPT(Ai) associe un
+%ordre total  i
+%zi
+%pour chaque instanciation zi  de Pa(Ai).
+%Exemple 12. En considérant la relation movies= {Genre, Director} tel que :
+%dom(Genre)  =  {comedy, drama}  et dom(Director)  =  {W.Allen, M.Curtiz}. Consi-
+%dérons l’expression de préférence suivant :
+%Préférer les ﬁlms de comédie aux ﬁlms de drames et préférer un ﬁlm dirigé par W.Allen48 Chapitre 1 : Définition des concepts
+%à un ﬁlm dirigé par M. Curtiz pour les ﬁlms de comédie et pour les ﬁlms de drames,
+%préférer les ﬁlms dirigés par M. Curtiz à ceux dirigés par W. Allen.
+%Le CP-net correspondant à cet exemple est représenté par la ﬁgure 1.1; l’élément le
+%Figure 1.1 – (a) CP-Nets correspondant aux ﬁlms; (b) le graphe de préférences induit.
+%plus au dessus du graphe est l’élément le moins préféré tandis que l’élément le plus en bas
+%du graphe est le meilleur élément. En considérant ce CP-net, l’élément (drama,W.Allen)
+%est le moins préféré tandis que l’élément (Comedy,W.Allen) est le plus préféré.
+%Si on note N ce CP-net sur les attributs Genre et Director, N contient l’ensemble de
+%préférences conditionnelles suivant :
+%N = {comedy  drama, comedy : W.Allen  M.Curtiz, drama : M.Curtiz  W.Allen}
+%Ces règles de préférence sont tout simplement les contraintes exprimées par les tables de
+%préférences conditionnelles associés aux noeuds du CP-net.
+%Nous allons maintenant montrer comment comparer deux transactions en utilisant un
+%CP-net.
+%Déﬁnition 18. Soit N un CP-net sur A, Ai ∈ A un attribut et P a(Ai) ⊂ A les parents
+%de Ai  dans A. Soit Y  = A − (P a(Ai) ∪ {Ai }). Soit  i
+%zi
+%l’ordre sur dom(Ai) induit par
+%CP T (Xi) pour chaque instanciation zi dans dom(P a(Ai)) des parents de Ai. Finalement,
+%soit  une relation de préférences sur dom(A). Une relation de préférences  satisfait
+% i
+%zi
+%ssi pour chaque y ∈dom(Y ) et chaque ai1, ai2 ∈ dom(Ai), si yai1zi  yai2zi  alors1.1 Notion de base sur les préférences 49
+%ai1  i
+%zi
+%ai2.
+%Une relation de préférences  satisfait la table de préférences conditionnelles CPT(Ai)
+%ssi elle satisfait  i
+%zi
+%pour chaque zi  dans dom(P a(Ai)). Une relation de préférences 
+%satisfait le CP-net N ssi elle satisfait CPT(Ai) pour chaque Ai.
+%Un CP-net est satisﬁable ssi il existe une relation de préférences  qui le satisfait.
+%Par conséquent, un réseaux N est satisfait par  ssi  satisfait chaque préférence
+%conditionnelle exprimée dans les tables de préférences conditionnelles de N sous les condi-
+%tions ceteris-paribus. [BBD
+%+
+%03] montre que tout CP-net acyclique est satisﬁable.
+%Exemple 13. La relation de préférences  qui induit l’ordre :{comedy ∧ W.Allen 
+%comedy ∧ M.curtiz  drama ∧ M.curtiz  drama ∧ W.Allen} est la seule qui satisfait
+%le CP-net de la ﬁgure 1.1.
+%L’implication dans les CP-net est déﬁnie de la façon standard.
+%Déﬁnition 19. Soit N un CP-net sur A et ti,tj ∈  dom(A) deux tuples, N implique
+%ti  tj  (i.e que l’objet ti  est préféré à tj) noté N |= ti  tj  ssi ti  tj  est vrai dans toute
+%relation de préférence qui satisfait N.
+%Exemple  14. Le CP-net de la ﬁgure 1.1 implique que comedyW.Allen    
+%comedyM.Curtiz puisque Cette préférence est vraie dans la seule relation de préférence
+%qui satisfait le CP-net.
+%Les préférences exprimées en utilisant le formalisme des CP-nets sont des préférences
+%conditionnelles sous l’hypothèse ceteris paribus. La préférence exprimée sur la valeur d’un
+%attribut dépend de la valeur d’autres attributs; avec les CP-nets,
+%il n’y a pas de préférences contradictoires : il n’est pas possible d’appliquer deux règles
+%en même temps.
+%Néanmoins, le pouvoir d’expression des CP-nets est limité, il n’est pas possible de repré-
+%senter toutes les préférences. Cependant, pour les utilisateurs, il est plus facile d’utiliser
+%le principe ceteris paribus.
+%Le formalisme proposé par Wilson [Wil04] constitue une extension des CP-nets, ce for-
+%malisme permet de manipuler des expressions plus générales. Pour rappel, les règles de
+%Wilson sont sous la forme u : x  x
+%0
+%[W ] (cf. Déﬁnition 10). Il est montré que ces expres-
+%sions généralisent celles des CP-nets qui sont obtenues si W= ∅.
+%En considérant l’exemple suivant :
+%Exemple 15. Préférer les ﬁlms de comédies aux ﬁlms de drames sans tenir compte du
+%directeur du ﬁlm.50 Chapitre 1 : Définition des concepts
+%Cette expression de préférence n’est pas représentable avec les CP-nets puisqu’ils uti-
+%lisent le principe du ceteris paribus. Par contre en utilisant le formalisme de Wilson, cette
+%préférence peut être représentée de la façon suivante. > : comedy  drame[Director].
+%
+%\textbf{Formulation de Werner Kießling}
+%
+%		
+%\end{defn}
+%
+%
+%Nous distinguons deux grandes approches pour représenter les préférences utilisateur: 
+%\begin{itemize}
+%\item L'approche quantitative
+%\item l'approche qualitative
+%\end{itemize}
+
+	\bibliographystyle{plain}
+	\bibliography{../biblio}
+
+
+
+
+\end{document}
+
+
+

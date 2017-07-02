@@ -1,0 +1,402 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[cyr]{aeguill}
+\usepackage[french]{babel}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage{tabularx}
+\usepackage[french,ruled,vlined]{algorithm2e} 
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{arydshln}
+
+
+\usepackage{float} %% Pour placer une figure à un endroit précis sans qu'il puisse être déplacé
+
+\newcounter{examplecounter}
+\newenvironment{example}{
+\begin{quote}%
+    \refstepcounter{examplecounter}%
+  \textbf{Example \arabic{examplecounter}}%
+  \quad
+
+\end{quote}%
+}
+
+\title{Algo}
+\author{Digonaou KPEKPASSI}
+\date{24 Mars 2015}
+
+\begin{document}
+\section{Définition des règles valides}
+Supposons des préférences sur un attribut A numérique. Comme exemple de préférence on a $a\succ b$ avec $a\neq b$. Ce qui nous donne  $x=a$ et $y=b$, on peut extraire de cette préférence les items élémentaires possibles:\\
+$\mathbf{C}:x\neq y$\\
+$\mathbf{C}:x,y<c\; (\forall c > Max(x,y))$\\
+$\mathbf{C}:x,y>d\; (\forall d < Min(x,y))$\\
+$\mathbf{C}:x<y\; si\; a<b$\\
+$\mathbf{C}:x>y\; si\; a>b$\\
+
+\noindent $\mathbf{P}:x=a$\\
+$\mathbf{N}:y=b$\\
+$\mathbf{P}:x<e\; (\forall e>x)$\\
+$\mathbf{P}:x>e'\; (\forall e'<x)$\\
+$\mathbf{N}:y<f\; (\forall f>y)$\\
+$\mathbf{N}:y>f'\; (\forall f'<y)$\\
+
+
+Par la suite les règles extraites sont des combinaisons de ces items élémentaires. Ainsi nous pourrons obtenir les combinaisons de type:\\
+
+\noindent \textbf{C} (valide quand il est combiné avec un ensemble préférence extrait d'un autre attribut)\\
+\textbf{P}\\
+\textbf{N}\\
+\textbf{CP}\\
+\textbf{CN}\\
+\textbf{CPN}\\
+\textbf{PN}\\
+
+\begin{landscape}
+
+
+Ainsi on a comme règles valides:\\
+
+\noindent \textbf{Règles de type C}\\
+$\mathbf{C}:x\neq y$\\
+$\mathbf{C}:x\neq y \wedge \mathbf{C}:x,y<c\; (\forall c>Max(x,y))$\\
+$\mathbf{C}:x\neq y \wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))$\\
+$\mathbf{C}:x\neq y \wedge \mathbf{C}:x,y<c (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))$\\
+
+
+\noindent \textbf{Règles de type P, N, PN}\\
+
+\noindent$\mathbf{P}:x=a$\\
+$\mathbf{P}:x=a\wedge \mathbf{N}:y=b$\\
+$\mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\;|\; f<a$\\
+$\mathbf{P}:x=a\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'>a$\\
+$\mathbf{N}:y=b$\\
+$\mathbf{N}:y=b \wedge \mathbf{P}:x<e\;(\forall e>x)\;| \; e<b$\\
+$\mathbf{N}:y=b \wedge \mathbf{P}:x>e'\;(\forall e'<x)\;| \; e'>b$\\
+$\mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{P}:x>e'(\forall e'<x)$\\
+$\mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)$\\
+$\mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+$\mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y)\;|\; f<e'$\\
+$\mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)$\\
+$\mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'<f\wedge (x<f'\vee x>f)$\\
+$\mathbf{N}:y=b\wedge \mathbf{P}:x<e,\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; e'<e\wedge (b<e'\vee b>e)$\\
+$\mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+$\mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'>f\wedge (f'<f)$\\
+$\mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f<e'\wedge e'<e$\\
+$\mathbf{N}:y>f'\; (\forall f'<y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f'>e\wedge e'<e$\\
+$\mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'<e\wedge f'<f\wedge (f<e'\vee e<f')$\\
+
+\noindent \textbf{Règles de type C,CP, CN, CPN}\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c > Max(x,y))\wedge \mathbf{P}:x=a$\\
+$\mathbf{C}:x,y>d\; (\forall d < Min(x,y))\wedge \mathbf{P}:x=a$\\
+$\mathbf{C}:x,y<c\; (\forall c > Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d < Min(x,y))\wedge \mathbf{P}:x=a$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c > Max(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\;|\; f<a$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\;|\; f<a$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y)) \wedge \mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\;|\; f<a$\\
+
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'>a$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'>a$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'>a$\\
+.\\
+$\mathbf{C}:x,y<c\; (\forall c > Max(x,y))\wedge \mathbf{N}:y=b$\\
+$\mathbf{C}:x,y>d\; (\forall d < Min(x,y))\wedge \mathbf{N}:y=b$\\
+$\mathbf{C}:x,y<c\; (\forall c > Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d < Min(x,y))\wedge \mathbf{N}:y=b$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{N}:y=b \wedge \mathbf{P}:x>e'\;(\forall e'<x)\;| \; e'>b$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y=b \wedge \mathbf{P}:x>e'\;(\forall e'<x)\;| \; e'>b$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y=b \wedge \mathbf{P}:x>e'\;(\forall e'<x)\;| \; e'>b$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{P}:x>e'(\forall e'<x)$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{P}:x>e'(\forall e'<x)$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{P}:x>e'(\forall e'<x)$\\
+
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)$\\
+
+
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\;(\forall e>x)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'>e$\\
+
+
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y)\;|\; f<e'$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y)\;|\; f<e'$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y)\;|\; f<e'$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)$\\
+
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'<f\wedge (x<f'\vee x>f)$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'<f\wedge (x<f'\vee x>f)$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x=a\wedge \mathbf{N}:y<f\;(\forall f>y)\wedge \mathbf{N}:y>f'\;(\forall f'<y)\;|\; f'<f\wedge (x<f'\vee x>f)$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{N}:y=b\wedge \mathbf{P}:x<e,\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; e'<e\wedge (b<e'\vee b>e)$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y=b\wedge \mathbf{P}:x<e,\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; e'<e\wedge (b<e'\vee b>e)$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y=b\wedge \mathbf{P}:x<e,\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; e'<e\wedge (b<e'\vee b>e)$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; f'<f\wedge (e<f')$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'>f\wedge (f'<f)$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'>f\wedge (f'<f)$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'>f\wedge (f'<f)$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f<e'\wedge e'<e$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f<e'\wedge e'<e$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y<f\; (\forall f>y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f<e'\wedge e'<e$\\
+
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{N}:y>f'\; (\forall f'<y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f'>e\wedge e'<e$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y>f'\; (\forall f'<y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f'>e\wedge e'<e$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{N}:y>f'\; (\forall f'<y)\wedge \mathbf{P}:x<e\; (\forall e>x) \wedge \mathbf{P}:x>e'\; (\forall e'<x)\;|\; f'>e\wedge e'<e$\\
+
+\noindent$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'<e\wedge f'<f\wedge (f<e'\vee e<f')$\\
+$\mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'<e\wedge f'<f\wedge (f<e'\vee e<f')$\\
+$\mathbf{C}:x,y<c\; (\forall c>Max(x,y))\wedge \mathbf{C}:x,y>d\; (\forall d<Min(x,y))\wedge \mathbf{P}:x<e\; (\forall e>x)\wedge \mathbf{P}:x>e'\; (\forall e'<x)\wedge \mathbf{N}:y<f\; (\forall f>y) \wedge \mathbf{N}:y>f'\; (\forall f'<y)\;|\; e'<e\wedge f'<f\wedge (f<e'\vee e<f')$\\
+
+\end{landscape}
+
+
+\section{Définition du support et de la confiance:}
+Le support est une valeur permettant de déterminer si un itemset extrait des transactions est fréquent dans le cas où ce support est supérieur à un seuil donné (support minimal). \\
+\[sup(Itemset)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|Itemset\subset <T_{i},T_{j}>|}{|\mathcal{P}|}\]
+
+La confiance d'une règle quand à elle est le taux de transactions vérifiant la règle par rapport au nombre de transactions contenant le contexte de la règle.
+
+\[
+	conf(Rule)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|}{|<T_{i},T_{j}>\in \mathcal{P}|Rule.C\subset <T_{i},T_{j}>|}
+\]
+
+
+\section{Algorithme d'extraction des règles interressantes}
+
+\begin{algorithm}[H]
+
+
+	\Entree{Préférences utilisateur $\mathcal{P}$}
+	\Sortie{Règles de préférence interressantes $\mathcal{R}$}
+	
+	\Deb{
+		$\mathcal{P}_{S}=\emptyset$ \tcp*[l]{Ensemble des transactions obtenues des tuples de préférence}
+		\PourCh {$<T,U>\in \mathcal{P}$}
+		{
+			$\mathcal{P}_{TU}=\emptyset$\tcp*[r]{Ensemble des items}
+			\PourCh {$A_{i} \in R$}
+			{
+				$x=T.A_{i}$ \tcp*[l]{Valeur correspondant à l'attribut $A_{i} de T$}
+				$y=U.A_{i}$\;
+				$\mathcal{P}_{TU}=\mathcal{P}_{TU}\bigcup$ Comparaison($x,y,A_{i}$)\;
+			}
+			Ajouter ${P}_{TU}$ à ${P}_{S}$\;
+		}
+		$\mathcal{F}=$ExtraireItemsetFréquents(${P}_{S}$)\;
+		$\mathcal{R}=$FiltrerRèglesInterressantes($\mathcal{F}$)\;
+		Retourner $\mathcal{R}$\;
+	}
+	\caption{Algorithme d'extraction de règles interressantes}
+\end{algorithm}
+
+
+
+\begin{algorithm}[H]
+	\Entree{x , y et l'attribut $A_{i}$ auquel ils sont liés}
+	\Sortie{items issus de la comparaison entre x et y}
+	
+	\Deb{
+		$\mathcal{E}=\emptyset$ \tcp*[r]{Ensemble des items générés}
+		
+		\uSi{$x=y$}
+		{
+			Ajouter $x_{A_{i}}=y_{A_{i}}$ à $\mathcal{E}$\;
+			Ajouter $x_{A_{i}}=y_{A_{i}}=x$ à $\mathcal{E}$\;
+			\PourCh{$c\in Dom(A_{i})$ et $A_{i}$ numérique}
+			{
+				\uSi{$x<c$}
+				{
+					Ajouter $x_{A_{i}},y_{A_{i}}<c$ à $\mathcal{E}$\;
+				}
+				\SinonSi{$x>c$}
+				{
+					Ajouter $x_{A_{i}},y_{A_{i}}>c$ à $\mathcal{E}$\;
+				}
+			
+			}
+					
+		}
+		\SinonSi{$x\neq y$}
+		{
+			Ajouter $x_{A_{i}}\neq y_{A_{i}}$ à $\mathcal{E}$\;
+			Ajouter $x_{A_{i}}=x$ à $\mathcal{E}$\;
+			Ajouter $y_{A_{i}}=y$ à $\mathcal{E}$\;
+
+			\Si{$A_{i}$ numérique}
+			{
+				\Si{$x> y$}
+				{
+						Ajouter $x_{A_{i}}> y_{A_{i}}$ à $\mathcal{E}$\;
+				}
+				\Si{$x< y$}
+				{
+						Ajouter $x_{A_{i}}< y_{A_{i}}$ à $\mathcal{E}$\;
+				}
+				\PourCh{$c\in Dom(A_{i})$}
+				{
+					\uSi{$x<c$}
+					{
+						Ajouter $x_{A_{i}}<c$ à $\mathcal{E}$\;
+						\uSi{$y<c$}
+						{
+							Ajouter $y_{A_{i}}<c$ à $\mathcal{E}$\;
+							Ajouter $x_{A_{i}},y_{A_{i}}<c$ à $\mathcal{E}$\;
+						}
+						
+					}
+					\SinonSi{$x>c$}
+					{
+						Ajouter $x_{A_{i}}>c$ à $\mathcal{E}$\;
+						\Si{$y>c$}
+						{
+							Ajouter $y_{A_{i}}>c$ à $\mathcal{E}$\;
+							Ajouter $x_{A_{i}},y_{A_{i}}>c$ à $\mathcal{E}$\;
+						}
+					}
+					
+				}
+				
+			}
+		}
+		
+	retourner $\mathcal{E}$\;
+	}
+	\caption{Comparaison}
+\end{algorithm}
+	
+\begin{algorithm}[H]
+	\Entree{Ensemble des transactions de tuples de préférence ${P}_{S}$}
+	\Sortie{Ensemble des itemsets fréquents $\mathcal{F}$}
+	
+	\Deb
+	{
+		$C_{1}=\emptyset$\;
+		$CP_{1}=\emptyset$\;
+		\PourTous{$\mathcal{P}_{TU}\in \mathcal{P}_{S}$}
+		{
+			\PourTous {$Itm \in \mathcal{P}_{TU}$}
+			{
+				$C_{1}=C_{1}\cup{Itm}$\;
+			}
+		}
+		$CP_{1}=\{\{Itm\}\subset C_{1}|Supp(\{Itm\},\mathcal{P}_{S})\geq \sigma\}$\;
+		
+		$i=0$\;
+		\Tq{$C_{i}\neq \emptyset$}
+		{
+				\PourTous{$ItmSet_{i+1}\subset \mathcal{P}_{TU}$ \textbf{tel que} $Card(ItmSet_{i+1})=i+1 \wedge \forall Itm_{1},Itm_{2}$ (numériques) $\in ItmSet_{i+1}\Rightarrow \neg Memetype(Itm1,Itm2)$}
+				{
+					\Si{$\forall SousItmSet\subset ItmSet_{i+1}\Rightarrow SousItemSet\in CP_{i}$}
+					{
+						$C_{i+1}=C_{i+1} \cup ItmSet_{i+1}$\;
+					}
+				}
+				$CP_{i+1}=\{ItmSet| ItmSet\subset C_{i+1}\wedge Supp(ItmSet,\mathcal{P})\geq \sigma\}$\;
+				$i=i+1$\;
+						
+		}
+	}
+	
+\caption{ExtraireItemsetFréquents}
+\end{algorithm}
+
+
+
+Ici la condition \textbf{Memetype()} vérifie si l'itemset contient des items numériques de même type (exemple deux items de forme $x<c$ ou $x>c$ ou $y<c$ ou $y>c$ ou $x,y>c$ ou $x,y<c$  sont de même type). De même on peut considérer que par exemple $x=a$ et $x<c$ sont de même type (Le second pouvant être déduit du premier) d'où une certaine de redondance et donc il n'est pas nécessaire d'extraire des règles contenant en même temps ces deux items. \\
+On a alors les éléments de même type suivants:\\
+$x<c$ et $x<d$\\
+$x>c$ et $x>d$\\
+$y<c$ et $y<d$ \\
+$y>c$ et $y>d$\\
+$x,y>c$ et $x,y>d$\\
+$x,y<c$ et $x,y<d$\\
+$x<c$ et $x=a$\\
+$x>c$ et $x=a$\\
+$y<c$ et $y=a$ \\
+$y>c$ et $y=a$\\
+
+
+
+\begin{algorithm}[H]
+	\Entree{Ensemble des itemsets Fréquents $\mathcal{F}$}
+	\Sortie{Règles interressantes $\mathcal{R}$}
+	
+	\Deb
+	{
+		\PourTous {Itemset $\in \mathcal{F}$}
+		{
+			Rule=$\emptyset$\;
+			\PourTous {$A_{i}$ numériquse concernés par l'Itemset}
+			{
+									
+				Rule:C=Rule:C $\cup$ ExtraireSousContexteLiéA($A_{i}$)\;
+				Rule:P=Rule:P $\cup $ExtraireSousEnsemblePréféréLiéA($A_{i}$)\;
+				Rule:P=Rule:P $\cup $ExtraireSousEnsembleNonPréféréLiéA($A_{i}$)\;
+			}
+			
+			\Si {Valide($Rule$)  $\wedge conf(Rule)>\sigma$}
+			{
+				Ajouter Rule à $\mathcal{R}$
+			}  
+		
+		}
+		
+	}
+	
+\caption{FiltrerRèglesInterressantes}
+\end{algorithm}
+\textbf{Rem:} Ici tout item de préférence veut implicitement signifier que $x\neq y$ au niveau de l'attribt concerné. Donc il n'est pas nécessaire d'avoir $x\neq y$ mentionné dans le contexte de la règle.
+
+Les fonctions \textbf{ExtraireSousContexteLiéA}, \textbf{ExtraireSousEnsemblePréféréLiéA} et \textbf{ExtraireSousEnsembleNonPréféréLiéA} consistent à construire respectivement la partie \textbf{contexte}, la partie \textbf{items préférés} et \textbf{items non préférés}de la règle.\\
+
+Ici la condition Valide($Rule$) permet de tester la validité de la règle \textbf{$Rule$} par rapport aux items de la partie contexte et préférence. L'exemple développé ci dessous peut permettre de mieux cerner cette condition.
+
+
+\begin{example}
+En prenant deux tuples $T_{1}$ et $T_{2}$ tel que $T_{1}=(A,a)>T_{1}=(B,b)$ avec A et B symboliques et a,c numériques.
+Supposons qu'on obtienne la règle suivante $C:\{X\neq Y\}P:\{x<c,y<c'\}$
+Celle ci porte à confusion puisque implicitement  $x$ et $y$ sont différents hors cette distinction n'est pas claire ici. D'où la necessité de passer par la fonction de Valide() pour déterminer la validité de la règle.
+C'en est de même pour la règle $C:\{X\neq Y\}P:\{x<c,y>c'\}$ avec $c>c'$\\
+\end{example}
+
+\end{document}
+
+
+
+
+
+

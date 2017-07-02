@@ -1,0 +1,118 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[cyr]{aeguill}
+\usepackage[french]{babel}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage{tabularx}
+\usepackage[french,ruled,vlined]{algorithm2e} 
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{arydshln}
+%\usepackage[counterclockwise]{rotating}
+
+
+\usepackage{float} %% Pour placer une figure à un endroit précis sans qu'il puisse être déplacé
+
+\newcounter{examplecounter}
+\newenvironment{example}{
+\begin{quote}%
+    \refstepcounter{examplecounter}%
+  \textbf{Example \arabic{examplecounter}}%
+  \quad
+
+\end{quote}%
+}
+
+\title{Algo}
+\author{Digonaou KPEKPASSI}
+\date{24 Mars 2015}
+
+\begin{document}
+Par rapport à l'algorithme de la semaine dernière nous avions échangé sur un problème concernant le cas où on a:\\
+$x=a$ , $y=a$\\
+$x=a$ , $y=d$\\
+$x=e$ , $y=a$\\
+$x=a$ , $y=e$\\
+$x=f$ , $y=a$\\
+
+On avait énumérer le fait que sur la première ligne
+
+Voici un exemple simplifié afin de fournir des règles de préférence.
+\begin{center}
+\begin{tabular}{ |l|l|r| } 
+\hline
+ Label & Genre & Annee\\
+ \hline
+ \hline
+T1	& Action	& 4\\
+T2	& Aventure	& 4\\
+T3	& Aventure	& 5\\
+T4	& Action	& 3\\
+T5	& Aventure	& 6\\
+T6	& Action &	2\\
+
+ \hline
+\end{tabular}
+\end{center}
+
+
+ Le tableau des préférences fournit ici est:	
+\begin{center}
+\begin{tabular}{ |l|l| } 
+T1 & T2\\
+T1 & T3\\
+T4 & T2\\
+T1 & T5\\
+T6 & T2\\
+\end{tabular}
+\end{center}
+On suppose que l'année va de 2 à 7.
+
+\begin{landscape}
+
+
+\begin{tabular}{ |c|c|c|c|c|c|c||c|c|c|c|c|c|c|c|c|c| } 
+\hline 
+& & \multicolumn{5}{c|}{GENRE} &\multicolumn{10}{c|}{Annee}\\
+\hline
+ & & Action & Aventure & Comedie & $x=y$& $x\neq y$ & 2 & 3 & 4 & 5 & 6 & 7 & $x=y$ & $x\neq y$ & $x<y$ & $x>y$\\
+\hline
+  \multirow{2}{4em}{<T1,T2>}  & x & = & & &\multirow{2}{4em}{} & \multirow{2}{4em}{/} &  &  & = &  &  & & \multirow{2}{4em}{/} & \multirow{2}{4em}{} & \multirow{2}{4em}{} &\multirow{2}{4em}{} \\  
+  \cdashline{3-5}							  &	y && = &&& &  & &=& & & &&&& \\
+\hline
+
+
+  \multirow{2}{4em}{<T1,T3>}  & x & = & & &\multirow{2}{4em}{} & \multirow{2}{4em}{/} &  &  & = &  &  & & \multirow{2}{4em}{} & \multirow{2}{4em}{/} & \multirow{2}{4em}{/} &\multirow{2}{4em}{} \\ \cdashline{3-5}
+  							  &	y && = &&& &  & & &=& & &&&& \\
+\hline
+
+  \multirow{2}{4em}{<T4,T2>}  & x & = & & &\multirow{2}{4em}{} & \multirow{2}{4em}{/} &  & = &  &  &  & & \multirow{2}{4em}{} & \multirow{2}{4em}{/} & \multirow{2}{4em}{/} &\multirow{2}{4em}{} \\ \cdashline{3-5} 
+  							  &	y && = &&& & & &=& & & &&&& \\
+\hline
+
+  \multirow{2}{4em}{<T1,T5>}  & x & = & & &\multirow{2}{4em}{} & \multirow{2}{4em}{/} & & & = & & & & \multirow{2}{4em}{} & \multirow{2}{4em}{/} & \multirow{2}{4em}{/} &\multirow{2}{4em}{} \\ \cdashline{3-5} 
+  							  &	y && = &&& & & & & &=& &&&& \\                                     
+\hline
+
+  \multirow{2}{4em}{<T6,T2>}  & x & = & & &\multirow{2}{4em}{} & \multirow{2}{4em}{/} & = & & & & & & \multirow{2}{4em}{} & \multirow{2}{4em}{/} & \multirow{2}{4em}{/} &\multirow{2}{4em}{} \\ \cdashline{3-5} 
+  							  &	y && = &&& & & &=& & & &&&& \\
+\hline
+
+
+\hline
+
+
+
+\end{tabular}
+
+Dans le cas de <T1,T2> nous remarquons que $x_{Annee}=y_{Annee}=4$. En supposant que le support est pris égal à 3, on peut obtenir la règle $C:\{x_{GENRE}\neq y_{GENRE}\}P:\{x_{GENRE}=Action,x_{Annee}=4,y_{GENRE}=Aventure\}$. Cette règle ne serait pas prise en compte si on considérait que les items $x=4$ et $y=4$ ne peuvent pas être pris séparément dans <T1,T2> étant donné que ces vleurs sont égales. 
+
+\end{landscape}
+
+
+\end{document}
