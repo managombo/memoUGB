@@ -32,12 +32,17 @@
 \usepackage{pdflscape}
 \usepackage{arydshln}
 \usepackage{amsthm}
+
+\usepackage{amssymb,fge}
+\newcommand{\mysetminus}{\mathbin{\fgebackslash}}
+
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{shapes.arrows}
 \usepackage{array}
 \usepackage{setspace}
 \onehalfspacing
-
+%\usepackage{titlesec}
+%\usepackage{lipsum}% just to generate text for the example
 
 \usepackage{float} %% Pour placer une figure à un endroit précis sans qu'il puisse être déplacé
 
@@ -592,41 +597,85 @@ Ainsi il a été proposé un algorithme glouton décrit ci dessous:
  --------------------------------------------------------------------------------\\
  
  \section{Définition et extraction des règles de préférence contextuelle}
- 	Soit $\mathcal{R}(R_{1},R_{2},...,R_{n})$ un schémas relationnel tel que pour chaque attribut $R_{i}$ on note son domaine de valeurs $Dom(\mathcal{A}_{i})$. Ainsi notons $Dom(\mathcal{A})=\prod_{1}^{n}Dom(\mathcal{A}_{i})$. On appelle une \textbf{transaction}, un élément de $Dom(\mathcal{A})$. Une base de transactions $\mathcal{B}$ est un ensemble de transactions, chacune associée à un identifiant unique. Avec $\mathbf{I}=\bigcup_{1}^{n}Dom(\mathcal{A}_{i})$, tout $i\in \mathbf{I}$ est appelé \textbf{item}. Tout sous ensemble d'une transaction $T$ est appelé \textbf{itemset}.
- 	\begin{example}
+ 	Soit $\mathcal{R}(R_{1},R_{2},...,R_{n})$ un schémas relationnel tel que pour chaque attribut $R_{i}$ on note son domaine de valeurs par $Dom(R_{i})$. 
+	Ainsi notons $Dom(\mathcal{R})=Dom(R_{1})\times Dom(R_{2})\times ...\times Dom(R_{n})$. On appelle une \textbf{transaction}, tout élément de $Dom(\mathcal{R})$. 
+	Soit $\mathbf{I}=\bigcup_{1}^{n}Dom(R_{i})$, tout élément $i$ tel que $i\in \mathbf{I}$, est appelé \textbf{item}.
+	En prenant une transaction $T={i_1,i_2,...,i_n}$, tout éléménent $I$ tel que $I\in T$ est appelé \textbf{itemset}.
+        Une \textbf{base de transactions} est un ensemble de transactions, chacun associé à un identifiant unique.	
+	Une \textbf{paire de transactions} $\left<T_1,T_2\right>$ est un vecteur de transactions tel que $\left<T_1,T_2\right>\neq \left<T_2,T_1\right>$
+ 
+	\begin{example}
  		Soit un schémas relationnel $\mathcal{R}(Genre, Acteur, Annee)$. Leur domaines de valeurs peuvent être les suivants:  $Dom(Genre)=\{Action, Aventure, Guerre,Comedie\}$, $Dom(Acteur)=\{Pierce Brosman, Sylvester Stalone, Harrison Ford\}$ et $Dom(Annee)=[1900;2020]$. $Dom(A)=Dom(Genre)\times Dom(Acteur)\times Dom(Annee)$ Ainsi $T=\{Action,Pierce Brosman,2010\}$ est une transaction de $Dom(A)$. $T'=\{Action,2010\}\in T$ est alors un itemset.
  	\end{example}
  	 
  \subsection{Préférences utilisateur}
  	\begin{defn}(Préférence utilisateur)\\
- 		Une \textbf{préférence utilisateur} est une paire de transactions $\left<t_{1},t_{2}\right>$ qui spécifie que l'utilisateur préfère $t_{1}$ à $t_{2}$. Elle est aussi écrite sous la forme $t_{1}\succ t_{2}$.\\
- 		Une \textbf{base de préférence} est un ensemble de préférences utilisateur.\\
+ 		Une \textbf{préférence utilisateur} est une paire de transactions $\left<T_{1},T_{2}\right>$ qui spécifie que l'utilisateur préfère $T_{1}$ à $T_{2}$. Elle est aussi écrite sous la forme $T_{1}\succ T_{2}$.\\
+ 	\end{defn}
+	\begin{defn}(Base de préférence)\\
+ 		Soit $\mathcal{D}$ un ensemble de transactions. Une \textbf{base de préférence}  $\mathcal{P}=\mathcal{D}\times\mathcal{D}$ d'un utilisateur est un ensemble de préférences utilisateur.\\
  	\end{defn}
  	\begin{defn}(Règle de préférence contextuelle)\\
- 		Une \textbf{règle de préférence contextuelle} est une règle de la forme $C\rightarrow X\succ Y$ signifiant que l'utilisateur préfère $X$ à $Y$ si le contexte $C$ est observé.\\
- 		Il est à noté que, pour généraliser, $C$,$X$,$Y$ peuvent être des \textbf{itemsets} (Ensemble d'items) ou des \textbf{itemsets de préférence} (conditions que doivent vérifier les items. Pour ces derniers nous en reparlerons à la suite du travail).
+		Soit des itemsets $C,X,Y$.
+ 		Une \textbf{règle de préférence contextuelle} est une règle de la forme $C\rightarrow X\succ Y$  signifiant que l'utilisateur préfère $X$ à $Y$ si le contexte $C$ est observé.\\
  	\end{defn}
  	\begin{example}
- 		La règle de préférence contextuelle $\{Action\}\rightarrow \{1990\}\succ \{2000\}$ (ici $C$, $X$, $Y$ sont des itemsets) signifie que dans le cas de films d'action, l'utilisateur préfère les films de 1990 aux films de 2000.\\
+ 		La règle de préférence contextuelle $\{Action\}\rightarrow \{1990\}\succ \{2000\}$ signifie que dans le cas de films d'action, l'utilisateur préfère les films de 1990 aux films de 2000.\\
  		
- 		La règle de préférence contextuelle $\{MemeGenre\}\rightarrow \{Avant\;l'annee\;2000\}\succ \{Apres\;l'annee\;2000\}$ (ici $C$, $X$, $Y$ sont des itemsets de préférence) signifie que dans le cas où deux films sont de même genre, l'utilisateur préfère les films produits au delà de l'année 2000.\\
+ 		La règle de préférence contextuelle $\{MemeGenre\}\rightarrow \{Avant\;l'annee\;2000\}\succ \{Apres\;l'annee\;2000\}$ signifie que dans le cas où deux films sont de même genre, l'utilisateur préfère les films produits au delà de l'année 2000.\\
  	\end{example}
  	
- 
- 	On dit qu'une préférence $<T_{1},T_{2}>$ \textbf{supporte} une règle de préférence contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ prenant en compte les items (resp les itemsets de préférence) si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $X\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $X$) et $Y\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $Y$).\\
- 	De même on dit qu'une préférence $<T_{1},T_{2}>$ \textbf{contredit} une règle de préférence contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ prenant en compte les items (resp les itemsets de préférence) si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $Y\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $Y$) et $X\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $X$).\\
+        Deux transactions sont \textbf{comparables} suivant la règle $C\rightarrow X\succ Y$ si les deux contiennent $C$ et si une des deux contient $X$ et l'autre $Y$.\\
+ 	On dit qu'une préférence $\left<T_{1},T_{2}\right>$ \textbf{supporte} une règle de préférence contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ prenant en compte les items (resp les itemsets de préférence) si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $X\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $X$) et $Y\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $Y$).\\
+	De même on dit qu'une préférence $\left<T_{1},T_{2}\right>$ \textbf{contredit} une règle de préférence contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ prenant en compte les items (resp les itemsets de préférence) si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $Y\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $Y$) et $X\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $X$).\\
  	\begin{example}
  		Avec $T_{1}=\{Action,Pierce\; Brosman,1990\}$ et $T_{2}=\{Action, Sylvester\; Stalone, 2000\}$, on constate que $<T_{1},T_{2}>$ supporte la règle de préférence $\{Action\}\rightarrow \{1990\}\succ \{2000\}$.\\
  	\end{example}
- 	De même on dit que une transaction $T_{1}$ est \textbf{préférée} à une transaction $T_{2}$ suivant une règle contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ et noté $T_{1}\succ_{\mathcal{R}} T_{2}$ si si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $Y\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $Y$) et $X\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $X$).\\
+ 	De même on dit qu'une transaction $T_{1}$ est \textbf{préférée} à une transaction $T_{2}$ suivant une règle contextuelle $\mathcal{R}=C\rightarrow X\succ Y$ et noté $T_{1}\succ_{\mathcal{R}} T_{2}$ si si $C\in T_{1}\cap T_{2}$ (resp $T_{1}$ et $T_{2}$ vérifient $C$) et si $Y\in T_{1}\backslash T_{1}\cap T_{2}$ (resp seul $T_{1}$ vérifie $Y$) et $X\in T_{2}\backslash T_{1}\cap T_{2}$ (resp seul $T_{2}$ vérifie $X$).\\
  	
  
- 
- 	 
- 	
- 
- 
- \subsection{Aperçut du formalisme de CHOMICKY}
+  
+    	\begin{defn}
+    		Le \textbf{support} d'un itemset (resp. règle de préférence) est le nombre de transactions de préférences contenant l'itemset (resp. supportant la règle de préférence)\\
+    		\[
+    		sup(Itemset)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|Itemset\subset <T_{i},T_{j}>|}{|\mathcal{P}|}\]
+    		
+    		
+    	\end{defn}
+    	\begin{defn}
+    		La \textbf{confiance} d'une règle de préférence quand à elle est le taux de transactions vérifiant la règle par rapport à la somme du nombre de transactions vérifiant et du nombre de transactions contredisant la règle.
+    		\[
+    			conf(Rule)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|}{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|+|<T_{i},T_{j}>\in \mathcal{P}| T_{j}\succ_{Rule} T_{i}|}
+    		\]
+    	\end{defn}
+
+
+
+\section{Utilisation des motifs séquentiels dans le cadre des préférences}
+
+Les travaux antérieurs se sont penchés sur des méthodes d'extraction de connaissance afin de les exploiter pour extraire les profils de préférence.
+C'est dans cette logique que le travail effectué au niveau de (Giacometti et al.) a permis de proposer un mode d'extraction de profil utilisateur inspiré de l'extraction des motifs séquentiels.Ils ont nommé cette approche \textbf{Sprex}(Sequence-pattern based preference rule extraction)
+Il a été ainsi adopté de nouvelles représentation des préférences utilisateurs inspirées de la erprésentation des motifs séquentiels.
+Nous allons dans les sous sections suivantes décrire cette nouvelle représentation et les différentes étapes de Sprex qui permettent de construire les profils de préférence (à l'aide de son module nommé \textbf{Sprex-Build}) et prédire les préférences (à l'aide de son module nommé \textbf{Sprex-Predict}). 
+
+\subsection{Représentation séquentielle des préférences}
+Soit I l'ensemble de tous les items. Un item de préférence est une paire $L:i$ où $L\in \{C,P,N\}$ est un label (avec $C\equiv $ Contexte, $P\equiv $ Préféré, $N\equiv $ Non-préféré) et i un item de $\mathcal{I}$.
+Soient deux transactions $T_1$ et $T_2$ telles que $T_1\succ T_2$. Dans leur cas, on défini par:
+
+\begin{itemize}
+\item \textbf{Itemset contextuel} l'ensemmble d'items de préférence $C=\{C:c_1,C:c_2,...,C:c_k\}$ tel que $\{c_1,c_2,...,c_k\}\equiv T_1\cap T_2$
+\item \textbf{Itemset préféré} l'ensemmble d'items de préférence $P=\{P:x_1,P:x_2,...,P:x_k\}$ tel que $\{x_1,x_2,...,x_k\}\equiv T_1 \mysetminus T_2$
+\item \textbf{Itemset non préféré} l'ensemmble d'items de préférence $N=\{N:y_1,N:y_2,...,N:y_k\}$ tel que $\{y_1,y_2,...,y_k\}\equiv T_2\mysetminus T_1$
+\end{itemize} 
+Ces types d'itemsets sont appelés \textbf{itemsets de préférence}.
+La \textbf{base de séquences de préférence} $\mathcal{P}$ correspondant à une \textbf{base de préférence} est l'ensemble des séquences de préférence qui correspondent à une préférence unique de la base de préférence.
+Dans ce cas on calcule le support $supp$ d'une séquence de préférence $s$ en comptant le nombre de séquences de préférence $s'$ de la base de séquence de préférence qui contiennent $s$.  
+\[
+	supp(s)=\{s'\in \mathcal{P}/s\subset s'\}
+\]
+On appelle \textbf{séquence de préférence} la séquence $\left<CPN\right>$ qui est une liste ordonnée des itemsets $C$,$P$,$N$ représentant la transaction de préférence $\left<T_1,T_2\right>$ avec $T_1=C\cup P$ et $T_2=C\cup N$. De même une règle de préférence contextuelle $C\rightarrow X\succ Y$ où $C=\{c_1,c_2,...,c_k\}$ , $X=\{x_1,x_2,...,x_3\}$, $Y=\{y_1,y_2,...,y_3\}$, peut être écrite sous forme de séquence de préférence $\left<C_C X_P Y_N\right>$.
+
+\subsection{Aperçut du formalisme de CHOMICKY}
  	CHOMICKI a dans l'article \cite{CHO} établit la notion de \textbf{relation de préférence} $\succ$ comme un  sous ensemble de $Dom(A)\times Dom(A)$. Ceci veut intuitivement dire que $\succ$ est une relation binaire entre des transactions d'une même instance $r$ du schémas relationnel $\mathcal{R}$. Ainsi on a $t_{1}$ est préféré à $t_{2}$ suivant $\succ$ si $t_{1}\succ t_{2}$. De même il a définit la notion de formule de préférence $C(t_{1},t_{1})$ comme étant une une formule de premier ordre définissant une relation de préférence $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$ \\
  	
  	 Cette formule est sous une forme normale disjonctive DNF mais sans considérer les quantificateurs. Ainsi on a:
@@ -746,19 +795,7 @@ Ainsi il a été proposé un algorithme glouton décrit ci dessous:
      	
      \noindent Le diagramme ci dessus énonce les différentes étapes du processus permettant l'extraction des règles de préférence intéressantes. Ces étapes seront décrites par la suite. Nous allons tout d'abord définir le support d'un itemset et la confiance d'une règle.
      
-     
-    	\begin{defn}
-    		Le \textbf{support} d'un itemset est le nombre de transactions de préférences contenant l'itemset \\
-    		\[
-    		sup(Itemset)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|Itemset\subset <T_{i},T_{j}>|}{|\mathcal{P}|}\]
-    		
-    		La \textbf{confiance} d'une règle quand à elle est le taux de transactions vérifiant la règle par rapport à la somme du nombre de transactions vérifiant et du nombre de transactionscontredisant la règle.
-    		
-    		\[
-    			conf(Rule)=\frac{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|}{|<T_{i},T_{j}>\in \mathcal{P}|T_{i}\succ_{Rule} T_{j}|+|<T_{i},T_{j}>\in \mathcal{P}| T_{j}\succ_{Rule} T_{i}|}
-    		\]
-    	\end{defn}
-     
+    
      
     \subsubsection{Etapes de transformation des préférences utilisateurs en transaction de préférence}
     
