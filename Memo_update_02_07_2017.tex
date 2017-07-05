@@ -650,18 +650,39 @@ Ainsi il a été proposé un algorithme glouton décrit ci dessous:
     	\end{defn}
 
 \begin{defn}(Règle de préférence contextuelle minimale)
-Une règle de préférence contextuelle $r=C\rightarrow X\succ Y$ est \textbf{minimale} par rapport à une base de préférences utilisateurs $\mathcal{P}$ si et seulement s'il n'existe aucune règle $r'=C'\rightarrow X'\succ Y'$ avec $r\neg r'$, tel que $C'\ineq C$, $X'\ineq X$ et $Y'\ineq Y$ avec $supp_\mathcal{P}(r)=supp_\mathcal{P}(r')$ $conf_\mathcal{P}(r)=conf_\mathcal{P}(r')$.
+Une règle de préférence contextuelle $r=C\rightarrow X\succ Y$ est \textbf{minimale} par rapport à une base de préférences utilisateurs $\mathcal{P}$ si et seulement s'il n'existe aucune règle $r'=C'\rightarrow X'\succ Y'$ avec $r\neq r'$, tel que $C'\subseteq C$, $X'\subseteq X$ et $Y'\subseteq Y$ avec $supp_\mathcal{P}(r)=supp_\mathcal{P}(r')$ $conf_\mathcal{P}(r)=conf_\mathcal{P}(r')$.
 \end{defn}
 
 \begin{defn}(Modèle de préférences)
-Un \textbf{modèle de préférence} $\mathcal{M}_\mathcal{P}$ sur une base de préférence $P$ est un ensemble trié et ordonné de règles de préférences minimales.
+Un \textbf{modèle de préférence} $\mathcal{M}_\mathcal{P}$ sur une base de préférence $P$ est un ensemble trié et ordonné de règles de préférences contextuelles minimales.
 \end{defn}
 Dans le cadre d'un utilisateur, le modèle de préférence de la base de préférence de cet utilisateur est appelé \textbf{profile de préférences} de cet utilisateur.
-Nous vous décrivons dans la suite certaines approches utilisées afin de construire des profils de préférence à partir de règles de préférences contextuelles minimales.
+Ce profil de préférence est construit de façon à ce qu'il soit textbf{précis} et \textbf{concis} par rapport à la base de préférences utilisateur. Le critère de concision est évalué par la cardinalité du profil de préférence (recherche de profils à faible cardinalité). Le critère de précision quand à lui est évalué par une \textbf{fonction de coût} que nous allons définir dans la suite de ce document.\\
+Soit une règle de préférence $\pi$ et une base de données de préférences $\mathcal{P}$. \\
+Nous définissons par:
+\begin{itemize}
+	\item $agree(\pi,\mathcal{P})$ l'ensemble des préférences qui supportent $\pi$ 
+	\item $contradict(\pi,\mathcal{P})$ l'ensemble des préférences qui contredisent $\pi$ 
+	\item $cover(\pi,\mathcal{P})$ l'ensemble des préférences qui supportent et contredisent $\pi$ ($cover(\pi,\mathcal{P})=agree(\pi,\mathcal{P})\cup contradict(\pi,\mathcal{P})$) 
+\end{itemize}
 
+Ainsi on peut étendre ces notations à un ensemble de règles de préférences de la manière suivante:
+\begin{itemize}
+	\item $agree(\Pi,\mathcal{P})=\cup_{\pi \in \Pi} agree(\pi,\mathcal{P})$ 
+	\item $contradict(\Pi,\mathcal{P}) =\cup_{\pi\in\Pi}contradict(\Pi,\mathcal{P})$
+	\item $cover(\Pi,\mathcal{P})=\cup_{\pi\in\Pi}cover(\Pi,\mathcal{P})$
+\end{itemize}
 
+\begin{defn}(fonction coût)
+Etant donné une base de préférences $\mathcal{P}$ et un ensemble de règles de préférences contextuelles $\Pi$, le coût de l'ensemble $\Pi$ par rapport à $\mathcal{P}$ noté $Cost(\Pi,\mathcal{P})$ est défini par:
+\[
+cost(\Pi,\mathcal{P})=\frac{|\mathcal{P}\mysetminus cover(\Pi,\mathcal{P})|+|contradict(\Pi,\mathcal{P})|}{|\mathcal{P}|}
+\]
+\end{defn}
+La précision d'un profil de préférence est caractérisée par la minimisation de la fonction coût définie ci dessus.
+Nous verrons par la suite quel traitement a été effectué pour que le profil de préférence respecte ces critères de précision et de concision.
 
-\section{Utilisation des motifs séquentiels dans le cadre des préférences}
+\section{Utilisation des motifs séquentiels dans le cadre des préférences contextuelles (approche Sprex)}
 
 Les travaux antérieurs se sont penchés sur des méthodes d'extraction de connaissance afin de les exploiter pour extraire les profils de préférence.
 C'est dans cette logique que le travail effectué au niveau de (Giacometti et al.) a permis de proposer un mode d'extraction de profil utilisateur inspiré de l'extraction des motifs séquentiels.Ils ont nommé cette approche \textbf{Sprex}(Sequence-pattern based preference rule extraction)
@@ -699,18 +720,75 @@ Soit la paire de transactions $\left< T_1,T_2\right>$ dont la séquence de préf
 Ces correspondances nous permettent de déduire que le support d'une règle de préférence  $C\rightarrow X\succ Y$ est égal au support de la séquence de préférence $\left<C_C X_P Y_N\right>$ qui lui correspond.
 De même le nombre de paires de préférence qui contredisent cette règle correspond au nombre de séquences de préférences qui supportent  $\left<C_C Y_P X_N\right>$.
 
-\subsection{Description de la consruction du profil de préférence par Sprex-Build}
+\subsection{Description de la construction du profil de préférence par Sprex-Build}
 Sprex-Build est la composante de Sprex dont le rôle est de permettre la construction d'un profil utilisateur (modèle de préférence) $\mathcal{M}_\mathcal{P}$ à partir d'une base de préférences utilisateur $\mathcal{P}$ en prennant en commpte le seuil minimal de support $\sigma$, le seuil minimal de confiance $\delta$ et en utilisant une fonction de modélisation $\pi$ (choisie par l'utilisateur). 
+Sprex build génère d'abord une base de séquence de préférences $\mathcal{P}_S$ à partir de la base des préférences de l'utilsateur $\mathcal{P}$ suivants les  correspondances entre séquences de préférence et préférence qu'on a vu précédamment.
+Suite à cela, l'ensemble des séquences fréquentes de préférences $\mathcal{F}$ est extrait de $\mathcal{P}_S$ en sélectionnnant toutes les séquences fréquentes dont le support $supp$ est au dessus du seuil $\sigma$ en utilisant n'imorte quel algorithme d'extraction de motifs séquentiels.(dans le cas de Sprex c'est lapproche \textbf{Patterngrowth} qui est utilisée). Sprex-build calcule ensuite pour chaque séquence fréquente de préférence sa confiance $conf_{\mathcal{P}_S}$ et l'ajoute au modèle $\mathcal{M}$ à condition que $conf_{\mathcal{P}_S}\geq \delta$. Ensuite une fonction de modélisation est utilisée pour construire le modèle de préférence final. \\
+Voici c dessous ces étapes résumées sous forme d'algorithme.\\
+
+
+
+\begin{algorithm}[H]
+	\Entree{l'ensemble des préférences de l'utilisateur $\mathcal{P}$, un seuil minimal de support $\delta$, un seuil minimal de confiance $\sigma$ et une fonction de modélisation $\pi$}
+ 	\Sortie{Modèle de règles de prférences $\mathcal{M}_\mathcal{P}$}
+ 	   	
+ 	   	\Deb{
+ 	   		$\mathcal{P}_S=\emptyset$\;
+ 	   		\PourCh{$\left<T,U\right>\in \mathcal{P}$}{
+				$C_c=\lambda_C(T\cap U), P_p=\lambda_P(T\mysetminus T\cap U), N_N=\lambda_N(U\mysetminus T\cap U)$\;
+				$\mathcal{P}_S=\mathcal{P}_S\cup \left< C_C P_P N_N\right>$\;
+			}
+			$\mathcal{F}=FrequentSequenceMining(\mathcal{P}_S,\sigma)$\;
+			$\mathcal{M}=\emptyset$\;
+
+			
+ 	   		\PourCh{$s\in \mathcal{F}$}{
+				\Si{$conf_{\mathcal{P}_S} \geq \delta$}{
+					$\mathcal{M}=\mathcal{M}\cup s$\;
+				}
+			}
+			$\mathcal{M}_\mathcal{P}=\pi(sort(\mathcal{M}))$\;
+			\textbf{Retourner} $\mathcal{M}_{\mathcal{P}}$;
+ 			}
+	\caption{Sprex-Build}
+\end{algorithm}
+
+Nous avions décrit antérieurement ce que c'est qu'un profil utilisateur et qu'il se doit de vérifier les critères de précision et de concision. Pour vérifier ces critères, Sprex le construit de la manière suivante:
+\begin{itemize}
+\item \textbf{A compléter}
+\end{itemize}
 
 
 
 
 
 
+\subsection{Description de l'approche utilisée pour la prédiction des prafarences utiliateurs (Sprex-Predict)}
+
+Sprex-Predict est le module de Sprex permettant d'effectuer des prédictions entre deux préférences. Nous le décrivons dans la suite du document.
+
+Etant donné un modèle de préférences $\mathcal{M}$, une \textbf{fonction de préférences} $\rho$ retourne un score $c$ entre 0 et 1 qui prédit entre les transactions $T$ et $U$, celle que l'utilisateur préfère en s'inspirant du modèle $\mathcal{M}$.
+\begin{itemize}
+\item Si $c>0.5$, il est prédit que l'utilisateur va préférer $T$ à $U$;
+\item Si $c<0.5$, il est prédit que l'utilisateur va préférer $U$ à $T$;
+\item Autrement Sprex-Predict retourne qu'il y'a une indécision au niveau du choix du plus préféré.
+\end{itemize}
+
+La fonction de préférence utilise des règles du modèle afin de déterminer quelle est la transaaction la plus préférée. 
+Une approche simple est d'utiliser la \textbf{meilleure règle} $r_{best}$ du modèle qui permet de comparer $T$ à $U$.
+Si $T$ est préféré à $U$ alors $r_{best}$ retourne une valeure $conf_\mathcal{P}(R_{best})$ (>0.5), si $U$ est préféré à $T$, $r_{best}$ retournera $1-conf_\mathcal{P}(r_b)$ (<0.5), autrement dans le cas de l'indécision ($T\sim U$), $r_{best}$ va retourner la valeur $0.5$.\\
+Malheureusement cette fonction mêne souvent à l'indécision suivant une étude de (de Amo et al. 2012) d'où Sprex-Predict utilise une fonction de préférence basée sur le \textbf{vote par valeur}. Il se décrit de la sorte: c'est sous forme d'une élection où les transactions d'un ensemble $\mathcal{E}$ votent pour les candidats $U$ ou $T$ suivant $r_{best}$ de telle façon que chacun accorde à chaque candidat la valeur retournée par $r_{best}$. Toutes ces valeurs sont sommées pour chaque candidat et celui ayant le plus haut score est le gagnant.
 
 
-
-
+\[\rho_{vote}=
+\left \{
+\begin{array}{c c}
+    1, si \sum_{V\in \mathcal{E}}\rho_{best}(\mathcal{M},\left<T,V\right>)>\sum_{V\in\mathcal{E}}\rho_{best}(\mathcal{M},\left<U,V\right>) \\
+    0, si \sum_{V\in \mathcal{E}}\rho_{best}(\mathcal{M},\left<T,V\right>)<\sum_{V\in\mathcal{E}}\rho_{best}(\mathcal{M},\left<U,V\right>) \\
+    0.5, si \sum_{V\in \mathcal{E}}\rho_{best}(\mathcal{M},\left<T,V\right>)=\sum_{V\in\mathcal{E}}\rho_{best}(\mathcal{M},\left<U,V\right>) \\
+\end{array}
+\right.
+\]
 
 
 

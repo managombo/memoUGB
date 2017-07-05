@@ -12,18 +12,19 @@
 \BOOKMARK [3][-]{subsubsection.2.1.3}{Classement d'objets}{subsection.2.1}% 12
 \BOOKMARK [1][-]{section.3}{D\351finition et extraction des r\350gles de pr\351f\351rence contextuelle}{}% 13
 \BOOKMARK [2][-]{subsection.3.1}{Pr\351f\351rences utilisateur}{section.3}% 14
-\BOOKMARK [1][-]{section.4}{Utilisation des motifs s\351quentiels dans le cadre des pr\351f\351rences}{}% 15
+\BOOKMARK [1][-]{section.4}{Utilisation des motifs s\351quentiels dans le cadre des pr\351f\351rences contextuelles \(approche Sprex\)}{}% 15
 \BOOKMARK [2][-]{subsection.4.1}{Repr\351sentation s\351quentielle des pr\351f\351rences}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.2}{Description de la consruction du profil de pr\351f\351rence par Sprex-Build}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.3}{Aper\347ut du formalisme de CHOMICKY}{section.4}% 18
-\BOOKMARK [2][-]{subsection.4.4}{D\351finition d'une r\350gle de pr\351f\351rence suivant le formalisme de CHOMICKY}{section.4}% 19
-\BOOKMARK [3][-]{subsubsection.4.4.1}{Cas concret d'une r\350gle de pr\351f\351rence contextuelle}{subsection.4.4}% 20
-\BOOKMARK [2][-]{subsection.4.5}{Processus d'extraction des r\350gles de pr\351f\351rence}{section.4}% 21
-\BOOKMARK [3][-]{subsubsection.4.5.1}{Etapes de transformation des pr\351f\351rences utilisateurs en transaction de pr\351f\351rence}{subsection.4.5}% 22
-\BOOKMARK [3][-]{subsubsection.4.5.2}{Etape de l'extraction des r\350gles interressantes minimales des transactions de pr\351f\351rence}{subsection.4.5}% 23
-\BOOKMARK [2][-]{subsection.4.6}{Algorithme}{section.4}% 24
-\BOOKMARK [2][-]{subsection.4.7}{Exemple d'extraction des r\350gles de pr\351f\351rence}{section.4}% 25
-\BOOKMARK [3][-]{subsubsection.4.7.1}{ Cas o\371 le sch\351mas relationnel n'a que des attributs symboliques}{subsection.4.7}% 26
-\BOOKMARK [2][-]{subsection.4.8}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.4}% 27
-\BOOKMARK [3][-]{subsubsection.4.8.1}{Cas o\371 le sch\351mas relationnel a des attributs num\351riques et symboliques}{subsection.4.8}% 28
-\BOOKMARK [2][-]{subsection.4.9}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.4}% 29
+\BOOKMARK [2][-]{subsection.4.2}{Description de la construction du profil de pr\351f\351rence par Sprex-Build}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.3}{Description de l'approche utilis\351e pour la pr\351diction des prafarences utiliateurs \(Sprex-Predict\)}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.4}{Aper\347ut du formalisme de CHOMICKY}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.5}{D\351finition d'une r\350gle de pr\351f\351rence suivant le formalisme de CHOMICKY}{section.4}% 20
+\BOOKMARK [3][-]{subsubsection.4.5.1}{Cas concret d'une r\350gle de pr\351f\351rence contextuelle}{subsection.4.5}% 21
+\BOOKMARK [2][-]{subsection.4.6}{Processus d'extraction des r\350gles de pr\351f\351rence}{section.4}% 22
+\BOOKMARK [3][-]{subsubsection.4.6.1}{Etapes de transformation des pr\351f\351rences utilisateurs en transaction de pr\351f\351rence}{subsection.4.6}% 23
+\BOOKMARK [3][-]{subsubsection.4.6.2}{Etape de l'extraction des r\350gles interressantes minimales des transactions de pr\351f\351rence}{subsection.4.6}% 24
+\BOOKMARK [2][-]{subsection.4.7}{Algorithme}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.8}{Exemple d'extraction des r\350gles de pr\351f\351rence}{section.4}% 26
+\BOOKMARK [3][-]{subsubsection.4.8.1}{ Cas o\371 le sch\351mas relationnel n'a que des attributs symboliques}{subsection.4.8}% 27
+\BOOKMARK [2][-]{subsection.4.9}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.4}% 28
+\BOOKMARK [3][-]{subsubsection.4.9.1}{Cas o\371 le sch\351mas relationnel a des attributs num\351riques et symboliques}{subsection.4.9}% 29
+\BOOKMARK [2][-]{subsection.4.10}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.4}% 30
