@@ -792,16 +792,35 @@ Malheureusement cette fonction mêne souvent à l'indécision suivant une étude
 
 
 
+\section{Contribution de notre travail}
 
-\subsection{Aperçut du formalisme de CHOMICKY}
- 	CHOMICKI a dans l'article \cite{CHO} établit la notion de \textbf{relation de préférence} $\succ$ comme un  sous ensemble de $Dom(A)\times Dom(A)$. Ceci veut intuitivement dire que $\succ$ est une relation binaire entre des transactions d'une même instance $r$ du schémas relationnel $\mathcal{R}$. Ainsi on a $t_{1}$ est préféré à $t_{2}$ suivant $\succ$ si $t_{1}\succ t_{2}$. De même il a définit la notion de formule de préférence $C(t_{1},t_{1})$ comme étant une une formule de premier ordre définissant une relation de préférence $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$ \\
- 	
- 	 Cette formule est sous une forme normale disjonctive DNF mais sans considérer les quantificateurs. Ainsi on a:
+Le travail de l'approche Sprex a consisté à exploiter l'efficacité des méthodes d'extraction des motifs séquentiels afin de l'appliquer à l'extraction des profils de préférence utilisateur. De même contrairement aux précédents travaux qui permettaient de comparer des items en fonction d'un contexte (repésentation des règles limitées à la forme $C\rightarrow i_1\succ i_2$ avec $i_1$, $i_2$ des items et $C$ un itemset), Sprex a permit d'améliorer l'approche en permettant d'étendre la comparaison à des itemsets(ensemble d'items) en fonction d'un contexte (représentation des règles sous la forme $C\rightarrow X\succ Y$ avec $X$,$Y$ et $C$ tous des itemsets). Cette extension des possibilités de comparaison, a permit l'enrichissement de l'expressivité des règles de préférences extraites et ainsi du profil utilisateur.\\
+ 
+Suite à cela, différentes approches ont étés étudiées afin d'enrichir encore plus cette expressivité des règles. C'est dans cette logique que s'est déroulé notre travail. Il a consisté à rehercher une formulation améliorée des règles de préférences afin de contribuer à l'amélioration de cette expressivité. 
+Au cours des travaux, l'approche que nous avons adopté s'est inspiré d'un travail de l'article (Chomicky et al..... à compléter) qui exploitait l'utilisation de prédicats logiques afin de représenter les préférences.
+
+
+
+\subsection{Formules de préférence(\cite{CHO})}
+
+
+ 	Une partie du travail de \cite{CHO} a porté sur l'étude de la représentation des préférences utilisateur en s'inspirant des formules de prédicat du premier ordre. Dans leur travail le terme \textbf{relations de préférences} est utilisé similairement au terme  \textbf{règle de préférence} de l'approche Sprex. Nous allons nous contenter de garder le terme règle de préférence. Nous allons décrire par la suite la formulation qu'ils ont proposé.\\
+
+\begin{defn}(formule de préférence)
+	Une  \textbf{formule de préférence} $C(t_{1},t_{1})$ est une \textbf{formule de premier ordre} (formule de prédicats) qui est utilisée pour définir une règle de préférence (relation de préférence) $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$, c'est à dire la transaction $t_1$ est préférée à la transaction $t_2$ suivant la préférence $\succ_C$ si et seullement si elles vérifient la formule de prédicat $C(t_1,t_2)$.\\
+\end{defn}
+L'utilisation des formules de préférence nécessite de préciser le type d'attribut auquel les items (des transactions) appartiennent.\\
+Ces formules de préférence sont écrites sous une \textbf{forme normale disjonctive}(DNF) excepté le fait que les quantificateurs ne sont pas utilisés contrairement aux formules des prédicats (dans la logique des prédicats). Ainsi elles se présentent comme suit:
  	 \[  
  	 	C(t_{1},t_{2})=\underset{i=1..k}{\bigvee}(\underset{j=1..l}{\bigwedge} f_{ij})
  	 \]
- 	  où $f_{ij}$  sont des formules atomiques sous la forme $x\delta y$ ou $x\delta c$ avec $x$ et $y$ des variables d'un attribut de $R$ correspondants respectivement à $t_{1}$ et $t_{2}$. $c$ quand à lui est une constante. 
- 	  $\delta$ prend les valeurs $=$,$\neq$ dans le cas où les éléments $x,y,c$ sont de type quelconque (Exemple: $x=y$,$x=a$,$y\neq a$),  et $\leqslant,\geqslant,<,>$ dans le cas où on a à faire à des valeurs numériques (Exemple: $x<y$,$x<a$,$y\geqslant a$).\\
+ 	  où $f_{ij}$  $\forall i =1..k,\; j=1..l$ sont des \textbf{formules atomiques} sous la forme $x\delta y$ ou $x\delta c$ avec $x$ et $y$ des variables (d'un type d'attribut donné) qui correspondent respectivement à la première transaction $t_{1}$ et à la deuxième transaction $t_{2}$. $c$ quand à lui est une constante.\\
+ 	  $\delta$ prend les valeurs
+\begin{itemize}
+\item  $=$,$\neq$ dans le cas où les éléments $x,y,c$ sont de type d'attribut quelconque (Exemple: $x=y$,$x=a$,$y\neq a$),  
+\item $\leqslant,\geqslant,<,>$ dans le cas où on a à faire à des types d'attributs numériques (Exemple: $x<y$,$x<a$,$y\geqslant a$).
+\end{itemize}
+
  	  \begin{example}
  		  \begin{itemize}
  		  
@@ -825,102 +844,64 @@ Malheureusement cette fonction mêne souvent à l'indécision suivant une étude
  		  \end{itemize}  
  	  \end{example}
  	 
- 	 \subsection{Définition d'une règle de préférence suivant le formalisme de CHOMICKY}
- 	 Dans notre travail, nous allons nous inspiré du formalisme de CHOMICKY décrit précédamment pour proposer un format de règle de préférence. Plus précisément les formules de préférences de CHOMICKY seront plus ou moins similaires à nos règles de préférence que nous définirons par la suite.
- 	 On sait qu'une formule de préférence de Chomicky est sous la forme:
+ 	 \subsection{Formules de préférence contextuelle}
+ 	 Dans notre travail, nous allons nous inspiré de la représentation en formules de préférences décrite précédamment pour l'appliquer au cas des règles de préférence contextuelles.
+ 	 Nous avions décrit précédamment la représentation des formules de préférences comme suit:
  	 	 \[  
  	 	 	C(t_{1},t_{2})=\underset{i=1..k}{\bigvee}(\underset{j=1..l}{\bigwedge} f_{ij})
  	 	 \]
- 	 Dans notre cas, le \textbf{profil} utilisateur est un ensemble de règles de préférence qui permettra de prédire la préférence de l'utilisateur. 
- 	 Nous constatons que les formules de préférence de CHOMICKY sont des DNF (Formes Normales Disjonctives) c'est à dire une disjonction de conjonctions de formules élémentaires. Dans notre cas les règles ne prendrons en compte que des conjonctions de formules élémentaires. Ainsi on a:
+ 	Afin d'appliquer cette formulation à notre cas de règles de préférences contextuelles, nous faisons le choix d'utiliser les formules de préférence comme étant des formules de préférence basées seulement sur les connecteurs logiques $\wedge$. Ainsi une formule logique $P(t_1,t_2)$ suivant notre approche sera sous la forme: 
  	     \begin{equation}
  	     	 P(t_{1},t_{2})=\underset{k\in E}{\bigwedge} P_{A_{k}}(t_{1},t_{2})
  	     \end{equation}
  	     	
      
-      avec $E\subset \{1,2,..,n\}$ où n le nombre d'attributs de $\mathcal{R}$ et $P_{A_{k}}(t_{1},t_{2})$  est la conjonction de formules atomiques définies sur l'attribut l'attribut $A_k$. 
+      avec $E\subset \{1,2,..,n\}$ où n est le nombre des différents types d'attributs $A_k$ qui définissent les items des transactions $t_1$, $t_2$ et $P_{A_{k}}(t_{1},t_{2}), k\in E$  est la conjonction de formules atomiques définissant les items pour chaque attribut $A_k, k\in E$. 
       
       \begin{example}
  	     Pour deux transactions $t_1=\{x_1,x_2\}$ et $t_2=\{y_1,y_2\}$, on a que $t_1\succ_P t_2$ ssi $P(t_1,t_2)=\{x_1=y_1\}\wedge \{x_2>4\}\wedge \{y_2<3\}$ est vrai.
       \end{example}
       
- 	\subsubsection{Cas concret d'une règle de préférence contextuelle}
- 	Le but maintenant est de passer d'une règle de préférence sous le formalisme de CHOMICKY à une règle de préférence contextuelle. Comme précédemment définie, une règle de préférence contextuelle $R$ est sous la forme $C\rightarrow X\succ Y$ de telle sorte que si on a $t_1\succ_R t_2$, $C$ est verifié par $t_1$ et $t_2$, $X$ est vérifié seulement par $t_1$ et $Y$ est vérifié seulement par $t_2$. \\
- 	Dans notre cas, une règle de préférence contextuelle $R'$ suivant le formalisme de CHOMICKY est sous la forme $C\rightarrow PN$ (peut être écrit $C\wedge PN$) où si on a $t_1\succ_{R'} t_2$, $C$ prend en compte les conditions communes à $t_1$ et $t_2$ et est alors symétrique (ie $C(t_1,t_2)\Rightarrow C(t_2,t_1)$) et $PN$ prend en compte les conditions qui permettent de distinguer $t_1$ de $t_2$ donc asymétrique (ie $C(t_1,t_2)\Rightarrow \neg C(t_2,t_1)$). On a alors la définition suivante:
- 	
- 	\begin{defn}(Règle de préférence contextuelle suivant le formalisme de CHOMICKY)\\
- 	Une règle de préférence contextuelle suivant le formalisme de CHOMICKY s'ecrit sous la forme:
- 	\[
- 		P(t_{1},t_{2})=\underset{k\in E}{\bigwedge} P_{A_{k}}(t_{1},t_{2})=C(t_{1},t_{2})\wedge\ PN(t_{1},t_{2})
- 	\]
- 	avec
- 	\[
- 	\begin{array}{rcl}
- 			C(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} C_{A_{k}}(t_{1},t_{2}) \text{ Conditions vérifiées communément par $t_1$ et $t_2$: symétrique}\\
- 			PN(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} PN_{A_{k}}(t_{1},t_{2})\text{ Conditions permettant de distinguer $t_1$ de $t_2$: asymétrique}\\
- 	\end{array}
- 	\]
- 	Il faut remarquer que $P_{A_{k}}= C_{A_{k}}\wedge PN_{A_{k}}$
- 	\end{defn}
- 			    
- 
- 
-       	\textbf{Condition de non redondance:}\\
-       	Il est à noter que les $P_{A_{k}}$ ne doivent pas contenir de redondance i.e si on considère $F_{k}$ l'ensemble des formules élémentaires constituant $P_{A_{k}}$ ($P_{A_{k}}=\underset{f\in F_{k}}{\bigwedge f}$), on a 
-       	\[
-       	 F'\subsetneq F\Rightarrow \neg (\underset{f\in F'}{\bigwedge f}\Rightarrow P_{A_{k}}).
-       	\]
-       	
-       
-        
-     \subsection{Processus d'extraction des règles de préférence}
-     Suite à la définition précédente des règles de préférence contextuelles basées sur le formalisme de CHOMICKY, nous allons à présent décrire le processus qui nous permettra d'extraire des règles de préférence d'une base de préférence utilisateur. \\
-     
-     
-     \begin{center}
-     
-     	\begin{tikzpicture}[
-     		auto,
-     	        decision/.style = { diamond, draw=blue, thick, fill=blue!20,
-     	                            text width=5em, text badly centered,
-     	                            inner sep=1pt, rounded corners },
-     	        block/.style    = { rectangle, draw=blue, thick, 
-     	                            fill=blue!20, text width=10em, text centered,
-     	                            rounded corners, minimum height=2em },
-     	        line/.style     = { draw, thick, ->, shorten >=2pt },
-     	      ]
-     	      % Define nodes in a matrix
-     	      \matrix [column sep=5mm, row sep=10mm] {
-                      & \node [block] (PU) {Préférences utilisateur}; & \\
-                      & \node [block] (TP)
-                          {Transactions de préférence};            & \\
-                      & \node [block] (IF)
-                          {Itemsets fréquents minimaux};          & \\
-                      & \node [block] (RI)
-  	                            {Règles de préférence intéressantes};          & \\
-     	    };
-     	      % connect all nodes defined above
-     	      \begin{scope} [every path/.style=line]
- 	    	        \path (PU)    --    node [near start] {Algorithme 2 }
- 	    	        (TP);
- 	    	        \path (TP)    --    node [near start] {Algorithme 3 }
- 	    	            	         (IF);
- 	    	        \path (IF)    --    node [near start] {Algorithme 4 } (RI);
-     	      \end{scope}
-     	
-     	    \end{tikzpicture}
-      \end{center}
-     	
-     \noindent Le diagramme ci dessus énonce les différentes étapes du processus permettant l'extraction des règles de préférence intéressantes. Ces étapes seront décrites par la suite. Nous allons tout d'abord définir le support d'un itemset et la confiance d'une règle.
-     
-    
-     
-    \subsubsection{Etapes de transformation des préférences utilisateurs en transaction de préférence}
-    
-       Cette étape consiste à transformer le couple $<t_{1},t_{2}>$ de préférences utilisateur en une transaction de formules que l'on appellera \textbf{transaction de préférence}.\\ 
-       \textbf{Principe}
-       Il se fonde sur le formalisme de Chomicky appliqué aux règles de préférence contextuelles comme précédemment énoncé. Ainsi la prise en compte de la symétrie et de l'asymétrie dans cette situation, nous amène à définir ci-dessous les items élémentaires qui seront utilisés dans les transactions de préférence:\\
- 
+Dans l'approche Sprex l'extraction d'une règle de préférence contextuelle $C\rightarrow X\succ Y$ à partir d'une paire de transactions $\left<t_1,t_2\right>$ se fait en comparant les items de $t_1$ et de $t_2$. Ainsi $C\subseteq t_1\cap t_2$, $X\subseteq t_1\mysetminus t_2$ et $Y\subseteq t_2\mysetminus t_2$. 
+Dans notre approche l'extraction des règles de préférence contextuelles d'une paire de transaction $t_1,t_2$ se rapporte à extraire des formules de préférence de cette paire de transaction. Ceci se fait en comparaisant les items des transactions $t_1$ et $t_2$ et en inférant des formules logiques issues cette comparaison. Soit $\mathcal{F}$ l'ensemble des formules générées par la comparaisons entre les items de $t_1$  et ceux de $t_2$ (items de même type d'attribut). Soit $A_k$ un type d'attribut donné. \\
+
+On a plusieurs cas:
+\begin{itemize}
+	
+	\item Cas où les items de type $A_k$ prennent des valeurs numériques.\\ 
+	Soit un item $x$ de $t_1$ de type $A_k$ et $y$ un item de $t_2$ de type $A_k$.
+	
+	\begin{itemize}
+	
+		\item Si $x$ et $y$ sont tous deux égaux à une valeur $a$ alors les formules $x=y$ et $x=y\wedge x=a\wedge y=a$ sont vraies d'où elles sont ajoutées à $\mathcal{F}$;
+		\item Si $x$ est différent de $y$ alors la formule $x\neq y$ est vraie et donc ajoutée à $\mathcal{F}$ de même
+		\begin{itemize}
+			\item Si $x<y$ alors la formule $x<y$ est vraie et donc ajoutée à $\mathcal{F}$
+			\item Si $x>y$ alors la formule $x>y$ est vraie et donc ajoutée à $\mathcal{F}$
+	
+		\end{itemize}
+		\item Si $\forall a$ appartennant à l'ensemble des valeurs possibles des items de type $A_k$, 
+		\begin{itemize}
+			\item $x<a$ et $y<a$ alors la formule $x<a\wedge y<a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $x>a$ et $y>a$ alors la formule $x>a\wedge y>a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $x<a$ et $y\geq a$ alors la formule $x<a\wedge y\geq a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $x>a$ et $y\leq a$ alors la formule $x>a\wedge y\leq a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $y>a$ et $x\leq a$ alors la formule $y>a\wedge y\leq a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $y<a$ et $x\geq a$ alors la formule $y<a\wedge y\geq a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $x=a$ et $y\neq a$ alors la formule $x=a\wedge y\neq a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+			\item $y=a$ et $y\neq a$ alors la formule $y=a\wedge x\neq a$ est vérifiée et donc ajoutée à $\mathcal{F}$ 
+		\end{itemize}
+	\end{itemize}
+
+	\item Cas où pour un type d'attribut donné, les items prennent des valeurs symboliques.\\ 
+
+\end{itemize}
+
+Afin de fournir une représentation plus compacte de ces différents cas, nous écrivons les formules de la façon suivante:
+
+
+
+
  
        \[
        \begin{array}{l l}
@@ -950,9 +931,19 @@ Malheureusement cette fonction mêne souvent à l'indécision suivant une étude
  	   	 \end{array}
     	 \right.
     	 \end{array}
-    	 \]		   	 	 		 
- 	 
- 	 Ces items sont obtenus suivant les conditions définies dans le tableau suivant:
+    	 \]		   	 	 		\\ 
+
+Dans cette représentation nous faisons la distinction entre deux types de formules:\\
+
+\begin{itemize}
+	\item Les formules symétriques $C(t_1,t_2)$ caractérisées par la propriété de symétrie c'est à dire  $C(t_1,t_2)\Rightarrow  C(t_2,t_1)$. Dans le diagramme ci dessus elles sont écrites sous la forme par exmple $C:\{\text{exemple de formule}\}$
+	\item Les items asymétriques $P(t_1,t_2)$ (ou resp $N(t_1,t_2)$) caractérisées par la propriété d'asymétrie c'est à dire $P(t_1,t_2)\Rightarrow \neg P(t_2,t_1)$ (ou resp $N(t_1,t_2)\Rightarrow \neg N(t_2,t_1)$ ). Dans le diagramme ci dessus elles sont écrites par exemple sous la forme $P:\{\text{exemple de formule}\}$ ou $N:\{\text{exemple de formule}\}$.
+\end{itemize}
+
+
+
+Le tableau suivant résume de façon générale la manière dont ont été définies les formules de préférence dans notre cas:
+ 
  	 
  	\begin{center}
  	   \begin{tabular}{l|l|l|l|} 
@@ -989,11 +980,38 @@ Malheureusement cette fonction mêne souvent à l'indécision suivant une étude
  	    &&&\\	  		
  	    &&&\\
  	    &&&\\		 	   
- 	    \hline
+ 	    \hline 
  
- 	   \end{tabular}
+ 	   \end{tabular}\\
  	   \end{center} 
- 	   
+
+
+	
+ 	\begin{defn}(Formule de préférence contextuelle)\\
+ 	Une formule de préférence contextuelle s'ecrit alors sous la forme:
+ 	\[
+ 		\mathcal{P}(t_{1},t_{2})=C(t_{1},t_{2})\wedge\ PN(t_{1},t_{2})
+ 	\]
+ 	avec
+ 	\[
+ 	\begin{array}{rcl}
+ 			C(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} C_{A_{k}}(t_{1},t_{2}) \text{ conjonction de formules de préférence symétriques}\\
+ 			PN(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} PN_{A_{k}}(t_{1},t_{2})\text{ conjonction de formules de préférence asymétriques}\\  	\end{array}
+ 	\]
+ 
+ 	\end{defn}
+	 $PN_{A_k}(t_1,t_2)$ est soit une formule de type $P_{A_k}(t_1,t_2)$ ou $N_{A_k}(t_1,t_2)$.\\
+
+ 
+ 
+       	\textbf{Condition de non redondance:}\\
+       	Il est à noter que les $P_{A_{k}}$ ne doivent pas contenir de redondance i.e si on considère $F_{k}$ l'ensemble des formules élémentaires constituant $P_{A_{k}}$ ($P_{A_{k}}=\underset{f\in F_{k}}{\bigwedge f}$), on a 
+       	\[
+       	 F'\subsetneq F\Rightarrow \neg (\underset{f\in F'}{\bigwedge f}\Rightarrow P_{A_{k}}).
+       	\]
+       	
+
+ 	 	   
  	   Ainsi l'algorithme suivant effectue la transformation des tuples $<t_1,t_2>$ de préférence vers les transactions de préférence.
  	   
  	   \begin{algorithm}[H]
@@ -1073,7 +1091,62 @@ Malheureusement cette fonction mêne souvent à l'indécision suivant une étude
  	   	\caption{Comparaison}
  	   \end{algorithm}
       
- 	
+ 
+
+
+
+ 	Dans notre cas, une règle de préférence contextuelle $R'$ suivant le formalisme de CHOMICKY est sous la forme $C\rightarrow PN$ (peut être écrit $C\wedge PN$) où si on a $t_1\succ_{R'} t_2$, $C$ prend en compte les conditions communes à $t_1$ et $t_2$ et est alors symétrique (ie $C(t_1,t_2)\Rightarrow C(t_2,t_1)$) et $PN$ prend en compte les conditions qui permettent de distinguer $t_1$ de $t_2$ donc asymétrique (ie $C(t_1,t_2)\Rightarrow \neg C(t_2,t_1)$). On a alors la définition suivante:
+        
+        
+     \subsection{Processus d'extraction des règles de préférence}
+     Suite à la définition précédente des règles de préférence contextuelles basées sur le formalisme de CHOMICKY, nous allons à présent décrire le processus qui nous permettra d'extraire des règles de préférence d'une base de préférence utilisateur. \\
+     
+     
+     \begin{center}
+     
+     	\begin{tikzpicture}[
+     		auto,
+     	        decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+     	                            text width=5em, text badly centered,
+     	                            inner sep=1pt, rounded corners },
+     	        block/.style    = { rectangle, draw=blue, thick, 
+     	                            fill=blue!20, text width=10em, text centered,
+     	                            rounded corners, minimum height=2em },
+     	        line/.style     = { draw, thick, ->, shorten >=2pt },
+     	      ]
+     	      % Define nodes in a matrix
+     	      \matrix [column sep=5mm, row sep=10mm] {
+                      & \node [block] (PU) {Préférences utilisateur}; & \\
+                      & \node [block] (TP)
+                          {Transactions de préférence};            & \\
+                      & \node [block] (IF)
+                          {Itemsets fréquents minimaux};          & \\
+                      & \node [block] (RI)
+  	                            {Règles de préférence intéressantes};          & \\
+     	    };
+     	      % connect all nodes defined above
+     	      \begin{scope} [every path/.style=line]
+ 	    	        \path (PU)    --    node [near start] {Algorithme 2 }
+ 	    	        (TP);
+ 	    	        \path (TP)    --    node [near start] {Algorithme 3 }
+ 	    	            	         (IF);
+ 	    	        \path (IF)    --    node [near start] {Algorithme 4 } (RI);
+     	      \end{scope}
+     	
+     	    \end{tikzpicture}
+      \end{center}
+     	
+     \noindent Le diagramme ci dessus énonce les différentes étapes du processus permettant l'extraction des règles de préférence intéressantes. Ces étapes seront décrites par la suite. Nous allons tout d'abord définir le support d'un itemset et la confiance d'une règle.
+     
+    
+     
+    \subsubsection{Etapes de transformation des préférences utilisateurs en transaction de préférence}
+    
+       Cette étape consiste à transformer le couple $<t_{1},t_{2}>$ de préférences utilisateur en une transaction de formules que l'on appellera \textbf{transaction de préférence}.\\ 
+       \textbf{Principe}
+       Il se fonde sur le formalisme de Chomicky appliqué aux règles de préférence contextuelles comme précédemment énoncé. Ainsi la prise en compte de la symétrie et de l'asymétrie dans cette situation, nous amène à définir ci-dessous les items élémentaires qui seront utilisés dans les transactions de préférence:\\
+ 
+	
   
  	 
       \subsubsection{Etape de l'extraction des règles interressantes minimales des transactions de préférence}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.7.2)  4 JUL 2017 22:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.7.2)  6 JUL 2017 19:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1238,7 +1238,11 @@ LaTeX Font Warning: Font shape `U/fgeit/m/n' in size <20.74> not available
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
  <./logo.png>] [2]
-(./Memo_update_02_07_2017.toc [3])
+(./Memo_update_02_07_2017.toc
+
+LaTeX Warning: Citation `CHO' on page 3 undefined on input line 21.
+
+[3])
 \tf@toc=\write7
 \openout7 = `Memo_update_02_07_2017.toc'.
 
@@ -1513,217 +1517,255 @@ Underfull \hbox (badness 10000) in paragraph at lines 724--728
  []
 
 [23] [24] [25]
-
-LaTeX Warning: Citation `CHO' on page 26 undefined on input line 797.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 797--798
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 802--805
+LaTeX Warning: Citation `CHO' on page 26 undefined on input line 804.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 804.
+
+
+LaTeX Warning: Citation `CHO' on page 26 undefined on input line 807.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 807--808
 
  []
 
 [26]
-Overfull \hbox (27.1857pt too wide) detected at line 814
-[]
+Underfull \hbox (badness 10000) in paragraph at lines 809--811
+
  []
 
 
-Overfull \hbox (11.11852pt too wide) in paragraph at lines 817--818
+Overfull \hbox (3.87968pt too wide) in paragraph at lines 820--821
+[]$\OT1/cmr/m/n/12 =$\T1/cmr/m/n/12 ,$\OMS/cmsy/m/n/12 6\OT1/cmr/m/n/12 =$ \T1/
+cmr/m/n/12 dans le cas où les élé-ments $\OML/cmm/m/it/12 x; y; c$ \T1/cmr/m/n/
+12 sont de type d'at-tri-but quel-conque (Exemple :
+ []
+
+
+Overfull \hbox (27.1857pt too wide) detected at line 833
+[]
+ []
+
+[27]
+Overfull \hbox (11.11852pt too wide) in paragraph at lines 836--837
 []\T1/cmr/m/n/12 En pre-nant en compte les va-leurs nu-mé-riques, soit deux tra
 n-sac-tions $\OML/cmm/m/it/12 t[] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/
 m/it/12 x[]; x[]; x[]\OMS/cmsy/m/n/12 g$
  []
 
 
-Overfull \hbox (41.4821pt too wide) detected at line 823
-[]
- []
-
-[27]
-Overfull \hbox (14.3843pt too wide) detected at line 862
+Overfull \hbox (41.4821pt too wide) detected at line 842
 []
  []
 
 [28]
-Underfull \hbox (badness 10000) in paragraph at lines 877--878
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 920--923
+Underfull \hbox (badness 10000) in paragraph at lines 865--867
 
  []
 
 [29]
-Overfull \hbox (2.57411pt too wide) in paragraph at lines 962--962
-[][] 
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
  []
 
 
-Overfull \hbox (2.57411pt too wide) in paragraph at lines 985--985
-[][] 
+Underfull \hbox (badness 10000) in paragraph at lines 934--935
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 936--937
+
  []
 
 [30]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1073
+Overfull \hbox (2.57411pt too wide) in paragraph at lines 953--953
+[][] 
+ []
+
+
+Overfull \hbox (2.57411pt too wide) in paragraph at lines 976--976
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1003--1004
+
+ []
+
+[31]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1091
 .
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [31]
+) [32]
 Overfull \vbox (82.62892pt too high) has occurred while \output is active []
 
 
-[32]
-
-LaTeX Warning: Citation `SOUL' on page 33 undefined on input line 1080.
-
 [33]
-Underfull \hbox (badness 10000) in paragraph at lines 1147--1148
+Underfull \hbox (badness 10000) in paragraph at lines 1102--1103
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1145--1148
 
  []
 
 [34]
-Underfull \hbox (badness 10000) in paragraph at lines 1166--1168
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1170--1171
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1172--1173
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1174--1175
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1176--1177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1178--1179
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1184--1185
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1186--1190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1193--1197
-
- []
+LaTeX Warning: Citation `SOUL' on page 35 undefined on input line 1153.
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 1199--1200
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1222--1223
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1224--1225
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1226--1227
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1228--1229
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1230--1231
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1232--1233
+Underfull \hbox (badness 10000) in paragraph at lines 1220--1221
 
  []
 
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 1234--1235
+Underfull \hbox (badness 10000) in paragraph at lines 1239--1241
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1236--1237
-
- []
-
-[37]
 Underfull \hbox (badness 10000) in paragraph at lines 1243--1244
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1245--1252
+Underfull \hbox (badness 10000) in paragraph at lines 1245--1246
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1253--1254
+Underfull \hbox (badness 10000) in paragraph at lines 1247--1248
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1255--1282
+Underfull \hbox (badness 10000) in paragraph at lines 1249--1250
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1251--1252
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1258
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1259--1263
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1266--1270
+
+ []
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 1272--1273
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1295--1296
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1297--1298
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1299--1300
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1301--1302
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1303--1304
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1305--1306
 
  []
 
 [38]
-Underfull \hbox (badness 10000) in paragraph at lines 1283--1284
+Underfull \hbox (badness 10000) in paragraph at lines 1307--1308
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1285--1290
+Underfull \hbox (badness 10000) in paragraph at lines 1309--1310
+
+ []
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 1316--1317
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1292--1499
+Underfull \hbox (badness 10000) in paragraph at lines 1318--1325
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1326--1327
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1328--1355
+
+ []
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 1356--1357
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1358--1363
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1365--1572
 
  []
 
 No file Memo_update_02_07_2017.bbl.
 
 AED: lastpage setting LastPage
-[39]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1506.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1506.
+[41]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1579.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1579.
  (./Memo_update_02_07_2017.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1506.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1506.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1579.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1579.
 
 Package rerunfilecheck Info: File `Memo_update_02_07_2017.out' has not changed.
 
-(rerunfilecheck)             Checksum: 0FD0F72F1C062BA5B61DCBAB78C08780;3285.
+(rerunfilecheck)             Checksum: F668DA53E141015F02B9EC0B83B5EF24;3188.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -1732,16 +1774,16 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1506.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1579.
  ) 
 Here is how much of TeX's memory you used:
- 21277 strings out of 493029
- 383048 string characters out of 6136235
- 493657 words of memory out of 5000000
- 24237 multiletter control sequences out of 15000+600000
+ 21281 strings out of 493029
+ 383062 string characters out of 6136235
+ 488656 words of memory out of 5000000
+ 24238 multiletter control sequences out of 15000+600000
  33628 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,24n,69p,856b,974s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,24n,69p,887b,974s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
@@ -1764,10 +1806,10 @@ public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx
 /texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/p
 ublic/cm-super/sfrm2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1
 200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Memo_update_02_07_2017.pdf (39 pages, 595359 bytes).
+Output written on Memo_update_02_07_2017.pdf (41 pages, 600962 bytes).
 PDF statistics:
- 511 PDF objects out of 1000 (max. 8388607)
- 439 compressed objects within 5 object streams
- 116 named destinations out of 1000 (max. 500000)
+ 520 PDF objects out of 1000 (max. 8388607)
+ 446 compressed objects within 5 object streams
+ 119 named destinations out of 1000 (max. 500000)
  258 words of extra memory for PDF output out of 10000 (max. 10000000)
 
