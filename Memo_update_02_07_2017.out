@@ -16,15 +16,22 @@
 \BOOKMARK [2][-]{subsection.4.1}{Repr\351sentation s\351quentielle des pr\351f\351rences}{section.4}% 16
 \BOOKMARK [2][-]{subsection.4.2}{Description de la construction du profil de pr\351f\351rence par Sprex-Build}{section.4}% 17
 \BOOKMARK [2][-]{subsection.4.3}{Description de l'approche utilis\351e pour la pr\351diction des prafarences utiliateurs \(Sprex-Predict\)}{section.4}% 18
-\BOOKMARK [1][-]{section.5}{Contribution de notre travail}{}% 19
-\BOOKMARK [2][-]{subsection.5.1}{Formules de pr\351f\351rence\(CHO\)}{section.5}% 20
-\BOOKMARK [2][-]{subsection.5.2}{Formules de pr\351f\351rence contextuelle}{section.5}% 21
-\BOOKMARK [2][-]{subsection.5.3}{Processus d'extraction des r\350gles de pr\351f\351rence}{section.5}% 22
-\BOOKMARK [3][-]{subsubsection.5.3.1}{Etapes de transformation des pr\351f\351rences utilisateurs en transaction de pr\351f\351rence}{subsection.5.3}% 23
-\BOOKMARK [3][-]{subsubsection.5.3.2}{Etape de l'extraction des r\350gles interressantes minimales des transactions de pr\351f\351rence}{subsection.5.3}% 24
-\BOOKMARK [2][-]{subsection.5.4}{Algorithme}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.5}{Exemple d'extraction des r\350gles de pr\351f\351rence}{section.5}% 26
-\BOOKMARK [3][-]{subsubsection.5.5.1}{ Cas o\371 le sch\351mas relationnel n'a que des attributs symboliques}{subsection.5.5}% 27
-\BOOKMARK [2][-]{subsection.5.6}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.5}% 28
-\BOOKMARK [3][-]{subsubsection.5.6.1}{Cas o\371 le sch\351mas relationnel a des attributs num\351riques et symboliques}{subsection.5.6}% 29
-\BOOKMARK [2][-]{subsection.5.7}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.5}% 30
+\BOOKMARK [1][-]{section.5}{Extraction des pr\351f\351rences contextuelles dans notre approche}{}% 19
+\BOOKMARK [2][-]{subsection.5.1}{Formules de pr\351f\351rence suivant les travaux de \(CHO\)}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.2}{Formules de pr\351f\351rence suivant notre approche}{section.5}% 21
+\BOOKMARK [3][-]{subsubsection.5.2.1}{S\351quences de formules de pr\351f\351rence \351l\351mentaires}{subsection.5.2}% 22
+\BOOKMARK [2][-]{subsection.5.3}{Construction du profil utilisateur}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.4}{Pr\351diction des pr\351f\351rences utilisateur}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.5}{Impl\351mentation du travail}{section.5}% 25
+\BOOKMARK [3][-]{subsubsection.5.5.1}{Le programme Sprex}{subsection.5.5}% 26
+\BOOKMARK [3][-]{subsubsection.5.5.2}{Le programme Colico}{subsection.5.5}% 27
+\BOOKMARK [2][-]{subsection.5.6}{Evaluations exp\351rimentales}{section.5}% 28
+\BOOKMARK [3][-]{subsubsection.5.6.1}{Interpr\351tation}{subsection.5.6}% 29
+\BOOKMARK [3][-]{subsubsection.5.6.2}{Etapes de transformation des pr\351f\351rences utilisateurs en transaction de pr\351f\351rence}{subsection.5.6}% 30
+\BOOKMARK [3][-]{subsubsection.5.6.3}{Etape de l'extraction des r\350gles interressantes minimales des transactions de pr\351f\351rence}{subsection.5.6}% 31
+\BOOKMARK [2][-]{subsection.5.7}{Algorithme}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.8}{Exemple d'extraction des r\350gles de pr\351f\351rence}{section.5}% 33
+\BOOKMARK [3][-]{subsubsection.5.8.1}{ Cas o\371 le sch\351mas relationnel n'a que des attributs symboliques}{subsection.5.8}% 34
+\BOOKMARK [2][-]{subsection.5.9}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.5}% 35
+\BOOKMARK [3][-]{subsubsection.5.9.1}{Cas o\371 le sch\351mas relationnel a des attributs num\351riques et symboliques}{subsection.5.9}% 36
+\BOOKMARK [2][-]{subsection.5.10}{Determination des itemsets interressants minimaux avec supmin=2 et confmin=0.5}{section.5}% 37
