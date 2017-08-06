@@ -195,20 +195,21 @@ Comme exemple nous pouvons prendre le cas où on a deux tuples $t_1$ et $t_2$, a
 Il y'a une panoplie de travaux qui ont été menés sur l'étude de modèles de préférences quantitatives, comme les travaux utilisant le boosting, le SVM, la descente de gradient etc.Nous n'allons pas explicité ces travaux vu que nous nous focaliseront sur les modèles de préférence qualitatifs qui sont le cadre dans lequel s'effectue notre travail.
 
 \subsection{Modèles de préférence qualitatifs}
-Les modèles de préférence qualitatifs sont en quelque sorte des relations binaires qui à partir des objets à comparer, déterminent quel objet est plus préféré qu'un autre. Ces modèles de préférences peuvent se distinguer par:
+Les modèles de préférence qualitatifs définissent des relations binaires qui déterminent quel objet est plus préféré qu'un autre. Ces modèles de préférences peuvent se distinguer par:
 \begin{itemize}
-\item les différentes propriétés les caractérisant en tant que relation binaires (réflexivité, transitivité, ..),
-\item  les formulations utilisés dans ces modèles (formules logiques, contextes,..),
-\item  les différentes combinaisont qui peuvent être effectués entre ces modèles pour construire d'autres formes de modèles.\\
+\item les propriétés caractérisant les relation binaires comme la réflexivité, la transitivité, etc..,
+\item  les formulations utilisés dans ces modèles comme la représentation en formules logiques, à base de contextes contextes, etc ..,
+\item  leur constitution en tant que combinaison d'autres modèles.
 \end{itemize}
- Ainsi dans la suite de ce document nous allons tout d'abord faire un rappel sur les propriétés qui peuvent caractériser les relations binaires puis nous allons décrire les différentes formulations rencontrées dans la description des modèles de préférence qualitatifs ainsi que les les différentes manières de faire des compositions de modèles.
+ Ainsi dans la suite de ce document nous allons tout d'abord faire un rappel sur différentes propriétés sur les relations binaires puis nous allons décrire les différentes formulations rencontrées dans la description des modèles de préférence qualitatifs ainsi que différentes formes de composition (combinaisons) de modèles.
 
 \subsubsection{Propriétés qui peuvent caractériser les relations binaires}
 
 \begin{defn}\textbf{Relation binaire}\\
 
-Une relation binaire $\mathcal{R}$ sur un ensemble $E$ est un sous-ensemble du produit cartésien $E \times E$ ie un ensemble de couples $(x,y)$ d'éléments de E.
+Une relation binaire $\mathcal{R}$ sur un ensemble $E$ est un sous-ensemble du produit cartésien $E \times E$ c'est à dire un ensemble de couples $(x,y)$ d'éléments de E.
 Nous noterons $x\mathcal{R}y$ pour indiquer que le couple (x,y) appartient à la relation $\mathcal{R}$.
+
 \end{defn}
 
 Une relation binaire est:
@@ -226,24 +227,23 @@ Une relation binaire est:
 \end{itemize}
 
 
-\begin{defn}\textbf{Relation d'indifférence}
-        Etant donnée une relation $\mathcal{R}$  sur un ensemble $E$, la relation d'indifférence noté $\tilde{\mathcal{R}}$ est définie pout out $x,y\in E$ par $\tilde{\mathcal{R}} si x\mathcal{R}y$ et $y\mathcal{R}x$.
+\begin{defn}\textbf{Indifférence par rapport à une relation}
+        Etant donnée une relation $\mathcal{R}$  sur un ensemble $E$, et un couple $(x,y)\in E\times E$, $x$  est indifférent à $y$ par rapport à $\mathcal{R}$ (noté $x\tilde{\mathcal{R}}y$) si on a $x\mathcal{R}y\wedge y\mathcal{R}x$.
 \end{defn}
 
-\begin{defn}\textbf{Relation d'incompatibilité}
-        Etant donnée une relation $\mathcal{R}$ sur un ensemble $E$, la relation d'incompatibilité notée $||_{\mathcal{R}}$ est définie pour tout $x,y\in E$ par: $x||_{\mathcal{R}}y$ si $\neg(x\mathcal{R}y)$ et $\neg (y\mathcal{R}x)$
+\begin{defn}\textbf{Incompatibilité par rapport à une relation}
+        Etant donnée une relation $\mathcal{R}$ sur un ensemble $E$, et un couple $(x,y)\in E$, $x$ est incompatiple à $y$ par rapport à la relation $\mathcal{R}$ (noté $x||_\mathcal{R}y$) si $\neg(x\mathcal{R}y)\wedge\neg (y\mathcal{R}x)$
 \end{defn}
 
 \begin{defn}\textbf{Relation d'ordre}
         On appelle relation d'ordre sur un ensemble $E$, toute relation binaire sur E qui est réflexive, antisymétrique et transitive.
 \end{defn}
 
-Si la relation d’ordre est complète, elle est dite ordre total sinon l’ordre est partiel.
+Si la relation d’ordre est complète, c'est à dire tous les éléments de $E$ sont comparables par cette relation, elle est appellée relation d'ordre totale sinon ele est appellée relation d'ordre partiel.
+
 \begin{defn}\textbf{Préordre}
 Un préordre sur un ensemble E est une relation binaire réflexive et transitive.
 \end{defn}
-
-Á une relation d’ordre on peut associer une relation obtenue en ôtant de celle-ci les couples d’éléments identiques.
 
 \begin{defn}(Relation d’ordre strict)
  Une relation d’ordre strict sur un ensemble E est une relation binaire irréflexive et transitive. L’ordre strict est dit faible, s’il est partiel et négativement transitif.
@@ -253,26 +253,35 @@ Un préordre sur un ensemble E est une relation binaire réflexive et transitive
 
 \subsubsection{Formulations rencontrés dans les modèles de préférence qualitatives}
 
-Nous appellons par structures les formes de représentations urilisées dans la constitution d'un modèle de préférence qualitatif.\\
-Ainsi nous allons définir par la suite les formulations les plus couramment rencontrées.
+Les règles constituant les modèles de préférences qualitatives peuvent être représentées par différentes formulations que nous allons exposer dans la suite de cette sous-section.
 
 \begin{enumerate}
-\item \textbf{Formulation à base de formules logiques}
+\item \textbf{Formulations à base de formules logiques}
 Les travaux de \cite{CHO} nous montrent comment peuvent être utiliées les formules logiques pour décrire les modèles de préférence. En effet dans ces travaux on parle de formules de préférences qui sont des formules logique de premier ordre appliquées à des couples de transactions afin de déterminer lequel est plus préféré. Elles sont sous la forme:
 \[
-	C(t_1,t_2)=\bigvee_{i=1,..,k}(\bigwedge_{j=1,..,k_i}f_{ij})
+	C(t_1,t_2)=\bigvee\limits_{i=1}^k\bigwedge\limits_{j=1}^{k_i}f_{ij}
 \]
+\begin{example}
+                        Soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(Plat,TypePlat, TypeVin). On a qu'ils vérifient la formule de préférence $C$ si et seulement si
+                        \[
+                                \begin{array}{rcl}
+                                C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2="fish"\wedge y_2="fish"\wedge x_3="white"\wedge y_3="red")\\
+                                &&\vee (x_1=y_1\wedge x_2="meat"\wedge y_2="meat"\wedge x_3="red"\wedge y_3="white")
+                                \end{array}
+                        \]
+                         est vérifié. Cette condition veut dire que dans le cas où c'est un plat à base de poisson, le client préfère le vin blanc au vin rouge et dans le cas où c'est un plat à base de viande, le client préfère le vin rouge au vin blanc.
 
+\end{example}
 
 \item \textbf{Formulations à base de contextes}
-Les préférences entre les objets peuvent varier en fonction du contexte dans lequel ils se trouvent. Par exemple lorsque l'on prend des films, dans le contexte où on a afaire à des films de comédie, on peut préférer les fims de certains acteurs  alors que si on a affaire à des films d'action, on peut préférer des films ou jouent certains autres acteurs. Tout dépend du contexte qui est ici la catégorie du film. \\
+Les préférences entre les objets peuvent varier en fonction du contexte dans lequel ils se trouvent. Par exemple lorsque l'on prend des films, en fonction d'un contexte commun aux deux films comme le cas où les deux films sont des films de comédie, on peu préférer ceux où jouent certains acteurs alors que ceux ci peuvent ne pas être les plus préférés dans le contexte où c'est des films d'action. Tout dépend ainsi du contexte qui est ici la catégorie du film. \\
 Différents travaux ont recours à l'utilisation de contextes dans la définition de leur modèles. Ainsi nous pouvons parler:\\
 	\begin{itemize}
-		\item Des \textbf{CP-nets}. Soit $\mathcal{A}=\{A_1,...,A_n\}$ un ensemble d'attributs d'objets. Un CP-nets sur $\mathcal{A} $ est un graphe direct dans lequel il existe un noeud pour chaque attribut $A_i$ de $\mathcal{A}$. Si pour deux attribut $A_i,A_j$ on a une flèche du noeud de $A_i$ vers le noeud de $A_j$, alors $A_i$ est appellé un parent de $A_j$. L'ensemble de tous les parents d'un attribut $A_i$ est noté $P(A_i)$. Pour chaque attribut $A_i$, son noeud dispose d'une table de préférence conditionnelle $CPT(A_i)$ qui contient un ensemble de règles de préférence conditionnelles de la forme $z_i:a_{i_1}\succ a_{i_2}$ où $z_i\in dom(Pa(A_i))$ et $a_{i_1},a_{i_2}$ appartiennent à $dom(A_i)$. Ces règles signifient: étant donné $z_1$ (dans notre cas ici c'est une forme de contexte), $a_{i_1}$ est strictement préféré à $a_{i_2}$ ceteris paribus (toute autre chose étant égale: c'est à quelque soient les autres valeurs fixées au niveau des attributs autre que $A_i$ et $P(A_i)$).\\
+		\item Des \textbf{CP-nets}. Soit $\mathcal{A}=\{A_1,...,A_n\}$ un ensemble d'attributs d'objets. Un CP-nets sur $\mathcal{A} $ est un graphe direct dans lequel il existe un noeud pour chaque attribut $A_i$ de $\mathcal{A}$. Si pour deux attribut $A_i,A_j$ on a une flèche du noeud de $A_i$ vers le noeud de $A_j$, alors $A_i$ est appellé un parent de $A_j$. L'ensemble de tous les parents d'un attribut $A_i$ est noté $P(A_i)$. Pour chaque attribut $A_i$, son noeud dispose d'une table de préférence conditionnelle $CPT(A_i)$ qui contient un ensemble de règles de préférence conditionnelles de la forme $z_i:a_{i_1}\succ a_{i_2}$ où $z_i\in dom(Pa(A_i))$ et $a_{i_1},a_{i_2}$ appartiennent à $dom(A_i)$. Ces règles signifient: étant donné $z_1$ (dans notre cas ici c'est une forme de contexte), $a_{i_1}$ est strictement préféré à $a_{i_2}$ ceteris paribus (toute autre chose étant égale: c'est à dire que la règle est vraie quelle que soient les autres valeurs prises au niveau des attributs de $\mathcal{A}\mysetminus(\{A_i\}\cup P(A_i))$.\\
 En des termes plus simples, cette règle de préférence indique qu'un tuple contenant $z_i$ et $a_{i_1}$ est préféré à un tuple contenant $z_i$ et $a_{i_2}$ en considérant que les valeurs des tuples sur les autres attributs sont les mêmes.
 
 \begin{example}
-        Cas des préférences au niveau des plats de riz. L'utilisateur préfère accompagner le riz au poisson plutôt qu'à la viande, et dans le cas du spagetti, il préfère la viande au poisson.
+        Cas des préférences au niveau des plats de riz. L'utilisateur préfère accompagner le riz au poisson plutôt qu'à la viande, et dans le cas du spagetti, il préfère la viande au poisson.\\
         \begin{center}
                    \begin{tabular}{|l|l|}
                    \hline
@@ -283,6 +292,9 @@ En des termes plus simples, cette règle de préférence indique qu'un tuple con
                    \end{tabular}
         \end{center}
 \end{example}
+
+\bigskip
+
 
 L'ensemble de ces tables de préférences conditionnelles vont former les CP-nets comme on peut le voir au niveau de l'exemple ci dessous.
 
@@ -300,9 +312,22 @@ Meme genre que l'exemple précédent.
                       ]
                       % Define nodes in a matrix
                       \matrix [column sep=2mm, row sep=10mm] {
-                             & \node [block] (PU) {Plat}; & \\
-                             & \node [block] (TP)
-                                 {Garn};            & \\
+                             & \node [block,label=right:                           
+						\begin{tabular}{|l|l|}
+        			                  \hline
+	                                        Poisson$\succ$ Viande\\
+                                        	\hline
+                           			\end{tabular}
+				   ] (PU) {Plat};& \\
+                             & \node [block,label=right:
+					 \begin{tabular}{|l|l|}
+				                \hline
+                	        	        Poisson: Riz $\succ$ Spaghetti\\
+        	                        	\hline
+		                                Viande: Spaghetti $\succ$ Riz\\
+        	                        	\hline
+                			\end{tabular}
+					] (TP) {Garn};& \\
                     };
                       % connect all nodes defined above
                       \begin{scope} [every path/.style=line]
@@ -314,51 +339,48 @@ Meme genre que l'exemple précédent.
                     \end{tikzpicture}
              \end{center}
 
-        \begin{center}
-
-                           \begin{tabular}{|l|l|}
-                           \hline
-                                        Poisson$\succ$ Viande\\
-                                        \hline
-                           \end{tabular}
-
-                   \begin{tabular}{|l|l|}
-                   \hline
-                                Riz & Poisson$\succ$ Viande\\
-                                \hline
-                                Spaghetti & Viande$\succ$ Poisson\\
-                                \hline
-                   \end{tabular}
-        \end{center}
-\end{example}
-
+       \end{example}
+\bigskip
 Soit un CP-nets N sur $\mathcal{A}$. Soit $A_i$ un attribut de $\mathcal{A}$ et $Y=\mathcal{A}\mysetminus(Pa(A_i)\cup{A_i})$.\\
 Pour toute instance $z_i$ de $Pa(A_i)$ on associe l'ordre $\succ_{z_i}^i$ induit sur $dom(A_i)$ par la table de préférence $CPT(X_i)$a.\\
+
 Une relation de préférence $\succ$ satisfait $\succ_{z_i}^i$ ssi pour $y\in dom(Y)$ et $a_{i_1},a_{i_2}\in dom(A_i)$, si $ya_{i_1}z_i\succ ya_{i_2}z_i$ alors $a_{i_1}\succ_{z_i}^i a_{i_2}$.\\
 Une relation de préférence satisfait $CPT(A_i)$ ssi elle satisfait $\succ_{z_i}^i$ pour chaque $z_i\in dom(Pa(A_i))$.\\
 Une relation de préférences $\succ$ satisfait le CP-net N ssi elle satisfait $CPT(A_i)$ pour chaque $A_i$.\\
+
 Ainsi un modèle de préférence basé sur le CP-net est une relation de préférence qui satisfait le CP-net.\\
 
 \item Des \textbf{règles de préférence contextuelles}
 Une paire de transaction est une paire sous la forme $\left<t_1,t_2\right>$ avec $t_1$ et $t_2$ des transactions caractérisant des objets. Cette paire décrit le fait que $t_1$ est préféré à $t_2$. Nous les utiliseront pour décrire les règles de préférence contextuelles.\\
-Les règles de préférence contextuelles ont été étudiées dans les travaux de \cite{..},\cite{..}. Elles ont une formulation similaire aux règles de préférence conditionnelles (dans les CP-nets) suivant leur formulation. Exemple avec des ensembles $C,X,Y$ disjoints la règle $C\rightarrow X\succ Y$ veut dire que pour toutes transactions $t_1$ et $t_2$ qui ont en commun le contexte $C$, et $t_1$ contient $X$ et ne contient pas  $Y$ et $t_2$ contient $Y$ et ne contient pas $X$, alors $t_1$ est préféré à $t_2$. La différence avec les CP-nets est la manière dont les règles sont utilisées dans le modèle de préférence. En effet la caractéristique des règles de préférences contextuelles est qu'elles sont disposées sous forme de liste ordonnée dans les modèles de préférences. Différentes règls de tri peuvent être utilisées pour le tri de la liste. Par exmple la méthode de tri avec \textit{best rule} permet de classer les règles suivant la valeur de leur confidence (taux de paires de transactions vérifiant la règle parmis les paires de transactions contenant le contexte de la règle) ensuite si la valeur de la confidence est égale elles sont triées suivant la valeur du support (taux de paires de transations vérifiant la règles parmis toutes les transactions de la base).
+Les règles de préférence contextuelles ont été étudiées dans les travaux de \cite{..},\cite{..}. Elles ont une formulation similaire aux règles de préférence conditionnelles (CP-nets). Exemple avec des ensembles $C,X,Y$ disjoints la règle $C\rightarrow X\succ Y$ veut dire que pour toutes transactions $t_1$ et $t_2$ qui ont en commun le contexte $C$, et $t_1$ contient $X$ et ne contient pas  $Y$ et $t_2$ contient $Y$ et ne contient pas $X$, alors $t_1$ est préféré à $t_2$. La différence avec les CP-nets est la manière dont les règles sont utilisées dans le modèle de préférence. En effet la caractéristique des règles de préférences contextuelles est qu'elles sont disposées sous forme de liste ordonnée dans les modèles de préférences. Différentes règles de tri peuvent être utilisées pour ordonner la liste des règles dans les modèles de préférences. Par exmple la méthode \textit{best rule} permet de classer les règles suivant la valeur de leur confidence (taux de paires de transactions vérifiant la règle parmis les paires de transactions contenant le contexte de la règle) ensuite si la valeur de la confidence est égale, les règles sont triées suivant la valeur du support (taux de paires de transations vérifiant la règle parmis toutes les transactions de la base).
+
+\begin{example}
+ 		La règle de préférence contextuelle $\{Action\}\rightarrow \{1990\}\succ \{2000\}$ signifie que dans le cas de films d'action, l'utilisateur préfère les films de 1990 aux films de 2000.\\ 		
+\end{example}
 	\end{itemize}
 
 \item \textbf{Formulations lexicographiques}
-Dans le modèle de préférence lexicographique, les préférences sont définies sur les attributs et sur un ordre d'importance entre les attributs. Ainsi si on a deux attributs munis de leur relation de préférence $(A_i,\succ_i)$ et $(A_j,\succ_j)$ de telle sorte que $A_i$ est plus important que $A_j$, alors pour deux transactions $t_1,t_2$, $t_1\succ t_2$ ssi $(t_1.a_i\succ_i t_2.a_i)\vee (t_1.a_i=t_2.a_i\wedge t_1.a_j\succ_j t_2.a_j)$ avec $t_1.a_k,t_2.a_k\in A_k,k=1,2$.
+Dans le modèle de préférence lexicographique, les préférences sont définies sur les attributs et sur un ordre d'importance entre les attributs. Ainsi si on a deux attributs munis de leur relation de préférence $(A_i,\succ_i)$ et $(A_j,\succ_j)$ de telle sorte que $A_i$ est plus important que $A_j$ par rapport à la préférence lexicographique $\succ \equiv \succ_i \&\succ_j$, alors pour deux transactions $t_1,t_2$, $t_1\succ t_2$ ssi $(t_1.a_i\succ_i t_2.a_i)\vee (t_1.a_i=t_2.a_i\wedge t_1.a_j\succ_j t_2.a_j)$ avec $t_1.a_k,t_2.a_k\in A_k,k=1,2$. 
+
+\begin{example}
+Soit le modèle lexicographique sur deux attributs \textit{genre} et \textit{directeur} de telle sorte que l'attribut \textit{genre} est plus important que \textit{directeur}. Sur l'attribut genre, on a que $comedy\succ_{genre} drame$ et sur l'attribut directeur, on a $W.Allen\succ_{directeur} M.Curtis$. Si l'ensemble des transactions est $t_1=\{comedy, W.allen\}$, $t_2=\{comedy, M.Curtiz\}$, $t_3=\{drame, W.Allen\}$, $t_4=\{drame, M.Curtiz\}$ avec le premier attribut étant le genre et le deuxieme le directeur, alors l'ordre lexicographique $\succ\equiv \succ_{genre}\&\succ_{directeur}$ classe ces transaction de la manière suivante:
+\[
+	t_1\succ t_2\succ t_3\succ t_4
+\]
+\end{example}
 
 \item \textbf{Modèle de pareto}
-Dans le modèle de préférence pareto c'est les préférences sur les attributs des objets qui sont mis en avant. Aini il y'a une relation de préférence $\succ_i$ sur chaque attribut $A_i$ de telle sorte que pour le modèle de préférence de pareto $\succ$, $t_1\succ t_2$ ssi $t_1.a_i\succ_i t_2.a_i$ avec $t_1.a_i,t_2.a_i\in dm(A_i)$ pour tout attribut $A_i$ de l'ensemble des attributs $\mathcal{A}=\{A_1,A_2,...,A_n\}$. On note $\succ\equiv \succ_1\otimes\succ_2\otimes ...\otimes\succ_n$
-\item \textbf{Formulations à base de constructeurs de base} 
+Dans le modèle de préférence pareto c'est les préférences sur les attributs des objets qui sont mis en avant. Aini il y'a une relation de préférence $\succ_i$ sur chaque attribut $A_i$ de telle sorte que pour le modèle de préférence de pareto $\succ$, $t_1\succ t_2$ ssi $t_1.a_i\succ_i t_2.a_i$ avec $t_1.a_i,t_2.a_i\in dm(A_i)$ pour tout attribut $A_i$ de l'ensemble des attributs $\mathcal{A}=\{A_1,A_2,...,A_n\}$. On note $\succ\equiv \succ_1\otimes\succ_2\otimes ...\otimes\succ_n$. On constate que contrairement au modèle de préférence lexicographique, les attributs ont la même importance.
 \end{enumerate}
 
 
 
-\subsubsection{Compositions des modèles de préférence qualitatives}
+\subsubsection{Compositions des modèles de préférences qualitatives}
+Les modèles de préférences peuvent être combinés pour former des modèles de préférence plus complexes. Ainsi nous présentons ci dessous des approches qui exposent certaines formes de combinaisons possibles entre des relations de préférence qui représentent des modèles de préférence.
 \begin{enumerate}
 
 \item \textbf{Composition de préférence prioritaires}
-La composition de préférence prioritaire prend en compte la notion de préiorités entre les relations de préférence. Ainsi si on a deux relations $\succ_i$ et $\succ_j$, alors la préférence prioritaire $\succ_i\&\succ_j$ est définie par: pour deux transactions $t_1,t_2$, $t_1\succ_i\&\succ_j t_2 \Leftrightarrow (t_1\succ_i t_2)\vee(t_1\sim_i t_2\wedge t_1\succ_j t_2)$.
+La composition de préférence prioritaire prend en compte la notion de priorité entre les relations de préférence. Ainsi si on a deux relations $\succ_i$ et $\succ_j$, alors la préférence prioritaire $\succ_i\&\succ_j$ est définie par: pour deux transactions $t_1,t_2$, $t_1\succ_i\&\succ_j t_2 \Leftrightarrow (t_1\succ_i t_2)\vee(t_1\sim_i t_2\wedge t_1\succ_j t_2)$.
 
 \item \textbf{Composition de pareto}
 La composition de pareto de deux relations de préférences $\succ_l$ et $\succ_m$ est une composition définie par :
@@ -370,12 +392,14 @@ La composition de pareto de deux relations de préférences $\succ_l$ et $\succ_
 
 
 
-Après la decsriptions des différentes sortes de modèles de préférence, nous allons développer l'étude des modèles de préférence à base de règles de préférence contextuelles et l'étude de la formalisation à base de formules de préférence puisque nous nous sommes basé sur ces approches pour la réalisation de notre travail.
+Après la description des différentes sortes de modèles de préférence, nous allons nous focaliser sur l'étude des modèles de préférence à base de règles de préférence contextuelles (que nous avions présenté antérieurement) de même que l'étude de la formalisation à base de formules de préférence, cs deux approches étant le socle de notre travail.
 
 
  
  \section{Modèles de préférence à base de règles de préférence contextuelle}
- 	Soit $\mathcal{R}(R_{1},R_{2},...,R_{n})$ un schémas relationnel tel que pour chaque attribut $R_{i}$ on note son domaine de valeurs par $Dom(R_{i})$. 
+ 	
+
+	Soit $\mathcal{R}(R_{1},R_{2},...,R_{n})$ un schémas relationnel tel que pour chaque attribut $R_{i}$ on note son domaine de valeurs par $Dom(R_{i})$. 
 	Ainsi notons $Dom(\mathcal{R})=Dom(R_{1})\times Dom(R_{2})\times ...\times Dom(R_{n})$. On appelle une \textbf{transaction}, tout élément de $Dom(\mathcal{R})$. 
 	Soit $\mathbf{I}=\bigcup_{1}^{n}Dom(R_{i})$, tout élément $i$ tel que $i\in \mathbf{I}$, est appelé \textbf{item}.
 	En prenant une transaction $T={i_1,i_2,...,i_n}$, tout éléménent $I$ tel que $I\in T$ est appelé \textbf{itemset}.
@@ -499,9 +523,8 @@ La précision d'un profil de préférence est caractérisée par la minimisation
 
 \section{Utilisation des motifs séquentiels dans le cadre des préférences contextuelles (approche Sprex)}
 
-Les travaux antérieurs se sont penchés sur des méthodes d'extraction de connaissance afin de les exploiter pour extraire les profils de préférence.
-C'est dans cette logique que le travail effectué au niveau de (Giacometti et al.) a permis de proposer un mode d'extraction de profil utilisateur inspiré de l'extraction des motifs séquentiels.Ils ont nommé cette approche \textbf{Sprex}(Sequence-pattern based preference rule extraction)
-Il a été ainsi adopté de nouvelles représentation des préférences utilisateurs inspirées de la erprésentation des motifs séquentiels.
+Le travail effectué par  Giacometti et al. a permis de proposer un mode d'extraction de profil utilisateur inspiré de l'extraction des motifs séquentiels.Ils ont nommé cette approche \textbf{Sprex}(Sequence-pattern based preference rule extraction).\\
+Ainsi une nouvelle forme de représentation des préférences utilisateurs a été proposée de façon à être similaire à la représentation utilisée dans les motifs séquentiels.
 Nous allons dans les sous sections suivantes décrire cette nouvelle représentation et les différentes étapes de Sprex qui permettent de construire les profils de préférence (à l'aide de son module nommé \textbf{Sprex-Build}) et prédire les préférences (à l'aide de son module nommé \textbf{Sprex-Predict}). 
 
 \subsection{Représentation séquentielle des préférences}
@@ -536,10 +559,10 @@ Ces correspondances nous permettent de déduire que le support d'une règle de p
 De même le nombre de paires de préférence qui contredisent cette règle correspond au nombre de séquences de préférences qui supportent  $\left<C_C Y_P X_N\right>$.
 
 \subsection{Description de la construction du profil de préférence par Sprex-Build}
-Sprex-Build est la composante de Sprex dont le rôle est de permettre la construction d'un profil utilisateur (modèle de préférence) $\mathcal{M}_\mathcal{P}$ à partir d'une base de préférences utilisateur $\mathcal{P}$ en prennant en commpte le seuil minimal de support $\sigma$, le seuil minimal de confiance $\delta$ et en utilisant une fonction de modélisation $\pi$ (choisie par l'utilisateur). 
-Sprex build génère d'abord une base de séquence de préférences $\mathcal{P}_S$ à partir de la base des préférences de l'utilsateur $\mathcal{P}$ suivants les  correspondances entre séquences de préférence et préférence qu'on a vu précédamment.
-Suite à cela, l'ensemble des séquences fréquentes de préférences $\mathcal{F}$ est extrait de $\mathcal{P}_S$ en sélectionnnant toutes les séquences fréquentes dont le support $supp$ est au dessus du seuil $\sigma$ en utilisant n'imorte quel algorithme d'extraction de motifs séquentiels.(dans le cas de Sprex c'est lapproche \textbf{Patterngrowth} qui est utilisée). Sprex-build calcule ensuite pour chaque séquence fréquente de préférence sa confiance $conf_{\mathcal{P}_S}$ et l'ajoute au modèle $\mathcal{M}$ à condition que $conf_{\mathcal{P}_S}\geq \delta$. Ensuite une fonction de modélisation est utilisée pour construire le modèle de préférence final. \\
-Voici c dessous ces étapes résumées sous forme d'algorithme.\\
+Sprex-Build est la composante de Sprex dont le rôle est de permettre la construction d'un profil utilisateur (modèle de préférence) $\mathcal{M}_\mathcal{P}$ à partir d'une base de préférences utilisateur $\mathcal{P}$ en considérant un seuil minimal de support $\sigma$, un seuil minimal de confiance $\delta$ et en utilisant une fonction de modélisation $\pi$ (choisie par l'utilisateur).\\ 
+Sprex build génère d'abord une base de séquences de préférences $\mathcal{P}_S$ à partir de la base des préférences de l'utilsateur $\mathcal{P}$ en convertissant les couples de transaction de préférence en séquence de préférence comme vu précédamment.\\
+Suite à cela, l'ensemble des séquences fréquentes de préférences $\mathcal{F}$ est extrait de $\mathcal{P}_S$ en sélectionnnant toutes les séquences fréquentes dont le support $supp$ est au dessus du seuil $\sigma$ (en utilisant n'importe quel algorithme d'extraction de motifs séquentiels: dans le cas de Sprex c'est lapproche \textbf{Patterngrowth} qui est utilisée). Sprex-build calcule ensuite pour chaque séquence fréquente de préférence sa confiance $conf_{\mathcal{P}_S}$ et l'ajoute au modèle $\mathcal{M}$ à condition que $conf_{\mathcal{P}_S}\geq \delta$. Ensuite une fonction de modélisation est utilisée pour construire le modèle de préférence final. \\
+Voici ci dessous ces étapes résumées sous forme d'algorithme.\\
 
 
 
@@ -578,7 +601,7 @@ Nous avions décrit antérieurement ce que c'est qu'un profil utilisateur et qu'
 
 
 
-\subsection{Description de l'approche utilisée pour la prédiction des prafarences utiliateurs (Sprex-Predict)}
+\subsection{Description de l'approche utilisée pour la prédiction des préférences utiliateurs (Sprex-Predict)}
 
 Sprex-Predict est le module de Sprex permettant d'effectuer des prédictions entre deux préférences. Nous le décrivons dans la suite du document.
 
@@ -586,13 +609,13 @@ Etant donné un modèle de préférences $\mathcal{M}$, une \textbf{fonction de 
 \begin{itemize}
 \item Si $c>0.5$, il est prédit que l'utilisateur va préférer $T$ à $U$;
 \item Si $c<0.5$, il est prédit que l'utilisateur va préférer $U$ à $T$;
-\item Autrement Sprex-Predict retourne qu'il y'a une indécision au niveau du choix du plus préféré.
+\item Autrement si $c=0.5$, Sprex-Predict retourne qu'il y'a une indécision au niveau du choix du plus préféré.
 \end{itemize}
 
-La fonction de préférence utilise des règles du modèle afin de déterminer quelle est la transaaction la plus préférée. 
-Une approche simple est d'utiliser la \textbf{meilleure règle} $r_{best}$ du modèle qui permet de comparer $T$ à $U$.
-Si $T$ est préféré à $U$ alors $r_{best}$ retourne une valeure $conf_\mathcal{P}(R_{best})$ (>0.5), si $U$ est préféré à $T$, $r_{best}$ retournera $1-conf_\mathcal{P}(r_b)$ (<0.5), autrement dans le cas de l'indécision ($T\sim U$), $r_{best}$ va retourner la valeur $0.5$.\\
-Malheureusement cette fonction mêne souvent à l'indécision suivant une étude de (de Amo et al. 2012) d'où Sprex-Predict utilise une fonction de préférence basée sur le \textbf{vote par valeur}. Il se décrit de la sorte: c'est sous forme d'une élection où les transactions d'un ensemble $\mathcal{E}$ votent pour les candidats $U$ ou $T$ suivant $r_{best}$ de telle façon que chacun accorde à chaque candidat la valeur retournée par $r_{best}$. Toutes ces valeurs sont sommées pour chaque candidat et celui ayant le plus haut score est le gagnant.
+La fonction de préférence utilise des règles du modèle afin de déterminer quelle est la transaction la plus préférée. 
+Une approche simple est \textbf{best rule} $r_{best}$ définit par: si $T$ est préféré à $U$ alors $r_{best}$ retourne une valeure $conf_\mathcal{P}(R_{best})$ ($>0.5$), si $U$ est préféré à $T$, $r_{best}$ retournera $1-conf_\mathcal{P}(r_b)$ ($<0.5$), autrement dans le cas de l'indécision ($T\sim U$), $r_{best}$ va retourner la valeur $0.5$.\\
+Malheureusement cette fonction mêne souvent à l'indécision suivant une étude de (de Amo et al. 2012) d'où Sprex-Predict utilise une fonction de préférence basée sur \textbf{range voting} (vote par valeur) qui se décrit sous forme d'une élection où les transactions d'un ensemble $\mathcal{E}$ votent pour les candidats $U$ ou $T$ de telle façon que chaque transaction accorde à chaque candidat la valeur retournée par $r_{best}$ de la paire de transaction $\left<candidat,votant\right>$. Ces valeurs sont ensuite sommées pour chaque candidat et celui ayant le plus haut score est le gagnant. \\
+Ci dessous voici $\rho_{vote}$ qui retourne 1 si la valeur totale du vote de $T$ est supérieure à celle de $V$, 0 si celle de  $V$ est supérieur à celle de $T$ et 0.5 si les deux valeurs sont égales.
 
 
 \[\rho_{vote}=
@@ -609,23 +632,20 @@ Malheureusement cette fonction mêne souvent à l'indécision suivant une étude
 
 \section{Extraction des préférences contextuelles dans notre approche}
 
-Le rôle de  Sprex a consisté à exploiter l'efficacité des méthodes d'extraction des motifs séquentiels afin de l'appliquer à l'extraction des profils de préférence utilisateur. De même contrairement aux précédents travaux qui permettaient de comparer des items en fonction d'un contexte (repésentation des règles limitées à la forme $C\rightarrow i_1\succ i_2$ avec $i_1$, $i_2$ des items et $C$ un itemset), Sprex a permit d'améliorer l'approche en permettant d'étendre la comparaison à des itemsets(ensemble d'items) en fonction d'un contexte (représentation des règles sous la forme $C\rightarrow X\succ Y$ avec $X$,$Y$ et $C$ tous des itemsets). Cette extension des possibilités de comparaison, a permit l'enrichissement de l'expressivité des règles de préférences extraites et ainsi du profil utilisateur.\\
- 
-Suite à cela, différentes approches ont étés étudiées afin d'enrichir encore plus cette expressivité des règles. C'est dans cette logique que s'est déroulé notre travail. Il a consisté à rehercher une formulation améliorée des règles de préférences afin de contribuer à l'amélioration de cette expressivité. 
-Au cours des travaux, l'approche que nous avons adopté s'est inspiré d'un travail de l'article (Chomicky et al..... à compléter) qui exploitait l'utilisation de prédicats logiques afin de représenter les préférences.
-
+Sprex s'est basé sur l'efficacité des méthodes d'extraction des motifs séquentiels afin de l'appliquer à l'extraction des profils de préférence utilisateur. De même contrairement aux précédents travaux qui permettaient de comparer des items un à un en fonction d'un contexte (repésentation des règles limitées à la forme $C\rightarrow i_1\succ i_2$ avec $i_1$, $i_2$ des items et $C$ un itemset), Sprex a permit d'améliorer l'approche en permettant d'étendre la comparaison à des itemsets(ensemble d'items) en fonction d'un contexte (représentation des règles sous la forme $C\rightarrow X\succ Y$ avec $X$,$Y$ et $C$ tous des itemsets). Cette extension des possibilités de comparaison, a permit l'enrichissement de l'expressivité des règles de préférences extraites et ainsi du profil utilisateur.\\ 
+Suite à cela, différentes approches ont étés étudiées afin d'enrichir encore plus cette expressivité des règles. C'est dans cette logique que s'est déroulé notre travail. Il a consisté à s'inspirer de l'article (Chomicky et al) qui utilise des prédicats logiques afin de représenter les relations de préférences.\\
+ Ainsi nous allons décrire cette approche dans la sous section suivante puis présenter comment nous avons adapté cette approche pour notre cas spécifique de règles de préférences contextuelles.
 
 
 \subsection{Formules de préférence suivant les travaux de (\cite{CHO})}
 
-
- 	Une partie du travail de \cite{CHO} a porté sur l'étude de la représentation des préférences utilisateur en s'inspirant des formules de prédicat du premier ordre. Dans leur travail le terme \textbf{relations de préférences} est utilisé similairement au terme  \textbf{règle de préférence} de l'approche Sprex. Nous allons nous contenter de garder le terme règle de préférence. Nous allons décrire par la suite la formulation qu'ils ont proposé.\\
+ 	Une partie du travail de \cite{CHO} a porté sur l'étude de la représentation des relations de préférences par des formules de prédicat du premier ordre. Ainsi nous avons la définition suivante:
 
 \begin{defn}(formule de préférence)
-	Une  \textbf{formule de préférence} $C(t_{1},t_{1})$ est une \textbf{formule de premier ordre} (formule de prédicats) qui est utilisée pour définir une règle de préférence (relation de préférence) $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$, c'est à dire la transaction $t_1$ est préférée à la transaction $t_2$ suivant la préférence $\succ_C$ si et seullement si elles vérifient la formule de prédicat $C(t_1,t_2)$.\\
+	Une  \textbf{formule de préférence} $C(t_{1},t_{1})$ est une \textbf{formule de premier ordre} (formule de prédicats) qui est utilisée pour définir une relation de préférence $\succ_{C}$ de telle sorte que $t_{1}\succ_{C} t_{2}\equiv C(t_{1},t_{2})$, c'est à dire la transaction $t_1$ est préférée à la transaction $t_2$ suivant la relation de préférence $\succ_C$ si et seullement si elles vérifient la formule de prédicat $C(t_1,t_2)$.\\
 \end{defn}
 L'utilisation des formules de préférence nécessite de préciser le type d'attribut auquel les items (des transactions) appartiennent.\\
-Ces formules de préférence sont écrites sous une \textbf{forme normale disjonctive}(DNF) excepté le fait que les quantificateurs ne sont pas utilisés contrairement aux formules des prédicats (dans la logique des prédicats). Ainsi elles se présentent comme suit:
+Ces formules de préférence sont similaires aux \textbf{formes normales disjonctives}(DNF) excepté le fait que les quantificateurs des DNF ne sont pas utilisés dans notre cas. Ainsi elles se présentent comme suit:
  	 \[  
  	 	C(t_{1},t_{2})=\underset{i=1..k}{\bigvee}(\underset{j=1..l}{\bigwedge} f_{ij})
  	 \]
@@ -637,26 +657,15 @@ Ces formules de préférence sont écrites sous une \textbf{forme normale disjon
 \end{itemize}
 
  	  \begin{example}
- 		  \begin{itemize}
- 		  
- 		  	\item Soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(Plat,TypePlat, TypeVin). On a qu'ils vérifient la formule de préférence $C$ si et seulement si
- 		  	\[
- 			  	\begin{array}{rcl}
- 			  	C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2="fish"\wedge y_2="fish"\wedge x_3="white"\wedge y_3="red")\\
- 			  	&&\vee (x_1=y_1\wedge x_2="meat"\wedge y_2="meat"\wedge x_3="red"\wedge y_3="white")
- 			  	\end{array}
- 		  	\]
- 		  	 est vérifié. Cette condition veut dire que dans le cas où c'est un plat à base de poisson, le client préfère le vin blanc au vin rouge et dans le cas où c'est un plat à base de viande, le client préfère le vin rouge au vin blanc. 
- 		  	 
- 		  	 \item En prenant en compte les valeurs numériques, soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(TypeFilm,Annee, Acteur). On a $t_1\succ_C t_2$ ssi:
+ 	  	 
+ 		  	  En prenant en compte les valeurs numériques, soit deux transactions $t_1=\{x_1,x_2,x_3\}$ et $t_2=\{y_1,y_2,y_3\}$ d'une instance de la relation R(TypeFilm,Annee, Acteur). On a $t_1\succ_C t_2$ ssi:
   		  	\[
  	 		  	\begin{array}{rcl}
  	 		  	C(t_1,t_2)&\equiv&(x_1=y_1\wedge x_2>2010\wedge y_2<2000)\\
  	 		  	&&\vee (x_1=y_1\wedge x_2=y_2\wedge x_3=\text{"Sylvester Stalone"}\wedge y_3=\text{"Pierce Brosnan"})
  	 		  	\end{array}
   		  	\]
-  		  	Cette règle veux tout simplement dire que le client préfère pour des films de même type, des films au delà de 2010 aux films produits avant 2000, et si les films sont de même type et de meême anné, il préfère ceux avec l'acteur Sylvester Stalone à ceux avec l'acteur Pierce Brosnan.
- 		  \end{itemize}  
+  		  	Cette règle veut tout simplement dire que le client préfère pour des films de même genre, des films au delà de 2010 aux films produits avant 2000, et si les films sont de même genre et de même année, il préfère ceux où joue Sylvester Stalone à ceux où joue Pierce Brosnan.
  	  \end{example}
  	
 
@@ -685,15 +694,15 @@ Ces formules de préférence sont écrites sous une \textbf{forme normale disjon
 
 Après avoir définit les formules de préférence élémentaires, nous allons définir les formules de préférence.
 \begin{defn}
-Une \textbf{formule de préférence élémentaire} est une conjonction de formules atomiques (définies dans \cite{CHO}) construite à partir de la comparaison de deux items $x$,$y$ de même type d'attribut.
+Une \textbf{formule de préférence élémentaire} est une conjonction de formules atomiques (définies dans \cite{CHO}) construites à partir de la comparaison de deux items $x$,$y$ appartenant au même domaine d'attribut.
 \end{defn}
 
 \begin{example}
-	Si on a deux items $x$ et $y$ de type année de valeurs 2000 et 2002, alors par comparaison, on obtient les formules de préférence élémentaires $x<y$, $x\neq y$, $x<2003\wedge y<2003$, $x>1999\wedge y> 1999$ etc.. 
+	Si on a deux items $x$ et $y$ définis sur le domaine de l'attribut année, de valeurs respectivement 2000 et 2002, alors en les comparant, on peut déduire les formules de préférence élémentaires $x<y$, $x\neq y$, $x<2003\wedge y<2003$, $x>1999\wedge y> 1999$ etc.. 
 \end{example}
 
-Nous fournissont ci dessous les types de formules de préférences élémentaires que nous allons prendre en compte dans notre travail.
-Soit $\mathcal{F}$ l'ensemble des formules de préférence élémentaires issues de la comparaisons entre deux items de $t_1$ et de $t_2$i ayant un même type d'attribut $A_k$ donné.\\
+Nous fournissons ci dessous les types de formules de préférences élémentaires que nous allons prendre en compte dans notre travail.
+Soit $\mathcal{F}$ l'ensemble des formules de préférence élémentaires issues de la comparaison entre deux items de $t_1$ et de $t_2$ ayant un même type d'attribut $A_k$ donné.\\
 
 Les formules de préférences élémentaires qui peuvent être déduites sont:
 \begin{itemize}
@@ -732,7 +741,7 @@ Les formules de préférences élémentaires qui peuvent être déduites sont:
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Séquences de formules de préférence élémentaires}
+\subsubsection{Itemsets de formules de préférence élémentaires}
 
 Avant d'aller plus en détail, nous faisons un rappel sur ce que sont les relations binaires symétriques et les relations binaires asymétriques.
 \begin{defn}(relation binaire symétrique)
@@ -765,14 +774,14 @@ Une relation binaire $\mathcal{R}$ est symétrique si:
 \end{defn}
 
 
-Nous nous rappellons que l'approche Sprex a décrit les séquences de préférences comme étant un itemset composé de trois parties à savoir une partie \textit{contextuelle} qui rassemble les items communs à $t_1$ et $t_2$ une la partie \textit{préférée} distinguant les items qui sont dans $t_1$ et pas dans $t_2$ et une partie \textit{non préférée} distinguant les items qui sont dans $t_2$ et pas dans $t_1$.\\
-Dans notre cas où i s'agit de séquences de formules de préférences élémentaires, nous ne parlons pas d'items mais de formules de préférences élémentaires au niveau de la composition des séquences de préférences élémentaires.\\
-Ainsi nous définissons différamment la composition de ces séquences de formules de préférence élémentaires. Elles sont décomposées en deux parties: une partie rassemblant les formules de préférences élémentaires symétriques, appellée contexte, et une partie rassemblant les formules de préférence élémentaires asymétriques, appellées préférence.\\
-Cette approche s'explique par le fait que la partie contexte regroupe les formules vérifiées autant par la paire de transaction $\left<t_1,t_2\right>$ que $\left<t_2,t_1\right>$ (ce sont les formules de préférence élémentaires symétriques). La partie préférence permet de spécifier les formules de préférence élémentaires qui permettent de différencier la paire $\left<t_1,t_2\right>$ de la paire $\left<t_2,t_1\right>$ (ce sont les formules de préférence élémentaires asymétriques).\\
+L'approche Sprex a définit trois parties dans l'itemset représentant une paire de transaction $\left<t_1,t_2\right>$ à savoir une partie \textit{contextuelle} qui rassemble les items communs à $t_1$ et $t_2$ une la partie \textit{préférée} distinguant les items qui sont dans $t_1$ et pas dans $t_2$ et une partie \textit{non préférée} distinguant les items qui sont dans $t_2$ et pas dans $t_1$.\\
+Dans notre approche les items sont des formules de préférence élémentaires.\\
+Ainsi nous définissons différamment la composition des itemsets de formules de préférence élémentaires. Ils sont décomposés en deux parties: une partie rassemblant les formules de préférences élémentaires symétriques, appellée partie contexte, et une partie rassemblant les formules de préférence élémentaires asymétriques, appellée partie préférence.\\
+Cette approche s'explique par le fait que la partie contexte regroupe les formules vérifiées autant par la paire de transaction $\left<t_1,t_2\right>$ que $\left<t_2,t_1\right>$ (ce sont les formules de préférence élémentaires symétriques). La partie préférence rassemble les formules de préférence élémentaires qui sont en accord avec la paire de transaction $\left<t_1,t_2\right>$ mais en contradiction avec la paire de transaction $\left<t_2,t_1\right>$ (ce sont les formules de préférence élémentaires asymétriques).\\
 
-Ainsi nous définisons une séquence de formules de préférences élémentaires comme suit:
-\begin{defn}(Séquence de formules de préférence élémentaire)
-Pour une paire de transaction $\left<t_1,t_2\right>$, la séquence de formules de préférence élémentaires est la suite de préférences élémentaires $\left< C,PN\right>$ tel que\\ 
+Ainsi nous résumons un itemset de formules de préférences élémentaires comme suit:
+\begin{defn}(Itemset de formules de préférence élémentaire)
+Pour une paire de transaction $\left<t_1,t_2\right>$, l'itemset de formules de préférence élémentaires correspondant est l'union de deux itemsets $C$ et $PN$ tel que:\\ 
 \begin{itemize}
 	\item	$C\equiv\{F(t_1,t_2)/F(t_1,t_2)\in \mathcal{F}(t_1,t_2)\text{ et  symétrique}\}$
 	\item	$PN\equiv\{F(t_1,t_2)/F(t_1,t_2)\in \mathcal{F}(t_1,t_2)\text{ et  asymétrique}\}$
@@ -820,43 +829,28 @@ Dans ce diagramme, nous avons à droite des équivalences ($\equiv$), les formul
 
 
 Nous pouvons à présent définir les formules de préférence qui vont caractériser les règles de préférence contextuelles qu'on aura à extraire.
- 
- 	\begin{defn}(Formules de préférence)\\
- 	Une formule de préférence définissant une règle de préférence suivant est une formule qui s'écrit sous la forme:
- 	\[
- 		\mathcal{P}(t_{1},t_{2})=C(t_{1},t_{2})\wedge\ PN(t_{1},t_{2})
- 	\]
-et qui équivaut à une règle de préférence contextuelle $C\rightarrow PN$
- 	avec
+	\begin{defn}(Règle de préférénce contextuelle à base de formules de préférences élémentaires)
+		Une règle de préférence contextuelle à base de formules de préférence élémentaire est une règle sous la forme $C\rightarrow XY$ où $C$ est un itemset de formules de préférences élémentaires symétriques et $XY$ est un itemset de formules de préférences élémentaires asymétriques. Ainsi on la résume part:
  	\[
  	\begin{array}{rcl}
- 			C(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} C_{A_{k}}(t_{1},t_{2}) \text{ conjonction de formules de préférence élémentaires symétriques}\\
- 			PN(t_{1},t_{2})&=&\underset{k\in E}{\bigwedge} PN_{A_{k}}(t_{1},t_{2})\text{ conjonction de formules de préférence élémentaires asymétriques}\\  	
+ 			C(t_{1},t_{2})&=&\underset{k\in E}{\bigcup} C_{A_{k}}(t_{1},t_{2}) \text{ ensemble de formules de préférence élémentaires symétriques}\\
+ 			XY(t_{1},t_{2})&=&\underset{k\in E}{\bigcup} XY_{A_{k}}(t_{1},t_{2})\text{ ensemble de formules de préférence élémentaires asymétriques}\\  	
 	\end{array}
  	\]
  
  	\end{defn}
-	Ici $PN_{A_k}(t_1,t_2)$ est soit une formule de type $P_{A_k}(t_1,t_2)$ ou $N_{A_k}(t_1,t_2)$.\\
-	
-	$C(t_1,t_2)$ sera définie comme  la \textbf{partie contexte}  de la formule de préférence contextuelle et $PN(t_1,t_2)$ sera définie comme la \textbf{partie préférence} de la formule de préférence contextuelle.\\
-
-Une formule de préférence $\mathcal{P}(t_{1},t_{2})=C(t_{1},t_{2})\wedge\ PN(t_{1},t_{2})$ peut être écrite sous forme d'une séquence de formule de préférences $\left< \lambda(C),\lambda(PN)\right>$ avec $\lambda(C)$ est l'ensemble des formules de préférence élémentaires constituant $C(t_1,t_2)$ et $\lambda(PN)$ est l'ensemble des formules de préférence élémentaires constituant $PN(t_1,t_2)$.
- 		 
- 
+	$C(t_1,t_2)$ est défini comme  la \textbf{partie contexte}  de la règle de préférence contextuelle et $PN(t_1,t_2)$ est définie comme la \textbf{partie préférence} de la règle de préférence contextuelle.\\
 
 
        	\textbf{Condition de non redondance:}\\
-       	Il est à noter que les $P_{A_{k}}$ ne doivent pas contenir de redondance i.e si on considère $F_{k}$ l'ensemble des formules élémentaires constituant $P_{A_{k}}$ ($P_{A_{k}}=\underset{f\in F_{k}}{\bigwedge f}$), on a 
+       	Il est à noter que $XY_{A_{k}}$ ne doit pas contenir de redondance i.e si on considère $F_{k}$ l'ensemble des formules élémentaires constituant $P_{A_{k}}$ ($P_{A_{k}}=\underset{f\in F_{k}}{\bigwedge f}$), on a 
        	\[
        	 F'\subsetneq F\Rightarrow \neg (\underset{f\in F'}{\bigwedge f}\Rightarrow P_{A_{k}}).
        	\]
- 
-
-
+ 	C'est la notion de minimalité au niveau des règles qui permettra d'éliminer les règles de préférences contextuelles ayant des redondances.
 
 
 Le tableau ci dessous résume les différents cas évoqués en ce qui concerne les formules de préférence élémentaires:
- 
  	 
  	\begin{center}
  	   \begin{tabular}{l|l|l|l|} 
@@ -909,12 +903,43 @@ Le tableau ci dessous résume les différents cas évoqués en ce qui concerne l
  
         
      \subsection{Construction du profil utilisateur}
+De façon générale, pour passer des paires de transaction à un profil utilisateur, plusieurs étapes de traitement sont effectuées comme le montre le schémas ci dessous:
 
-Après avoir défini ce qu'est une séquence de formules de préférences, nous pouvons à présent utiliser cette formulation pour construire le profil utilisateur. En effet nous nous inspirons de Sprex afin de construire ce pofil. Nous utilisons l'algorithme de Sprex-Build tout en remplaçant l'étape qui permet la conversion des paires de transactions en séquences de préférence, par l'étape qui permettra la conversion des paires de transactions en séquence de formules de préférence.\\
+  \begin{center}
 
-Voici l'algorithme Sprex-Build-Formula de construction du profil obtenu dans ce cas (qui est une modification de Sprex-Build):\\
+        \begin{tikzpicture}[
+                auto,
+                decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                                    text width=5em, text badly centered,
+                                    inner sep=1pt, rounded corners },
+                block/.style    = { rectangle, draw=blue, thick,
+                                    fill=blue!20, text width=10em, text centered,
+                                    rounded corners, minimum height=2em },
+                line/.style     = { draw, thick, ->, shorten >=2pt },
+              ]
+              % Define nodes in a matrix
+              \matrix [column sep=5mm, row sep=10mm] {
+                      & \node [block] (PT)
+                                {Paires de transaction}; & \\
+                      & \node [block] (IF)
+                          {Itemsets de formules de préférence};            & \\
+                      & \node [block] (RPI)
+                          {Règles de préférence interressantes};          & \\
+                     & \node [block] (PP)
+                                    {Profil de préférence};          & \\
+            };
+              % connect all nodes defined above
+              \begin{scope} [every path/.style=line]
+                        \path (PT)    --    node [near start] { FormulaItemset} (IF);
+                        \path (IF)    --    node [near start] { InterestingRules} (RPI);
+                        \path (RPI)    --    node [near start] { $\pi$ (fonction de modélisation)} (PP);
+              \end{scope}
+
+            \end{tikzpicture}
+      \end{center}
 
 
+L'algorithme d'extraction du profil \textit{FormulaProfileMining} que nous définissons est construit suivant ces étapes.\\ 
 
 \begin{algorithm}[H]
 	\Entree{l'ensemble des préférences de l'utilisateur $\mathcal{P}$, un seuil minimal de support $\delta$, un seuil minimal de confiance $\sigma$ et une fonction de modélisation $\pi$}
@@ -923,24 +948,16 @@ Voici l'algorithme Sprex-Build-Formula de construction du profil obtenu dans ce 
  	   	\Deb{
  	   		$\mathcal{P}_S=\emptyset$\;
  	   		\PourCh{$\left<T,U\right>\in \mathcal{P}$}{
-				$\mathcal{P}_S =\mathcal{P}_S\cup SequenceFormula(\left<T,U\right>)$	
+				$\mathcal{P}_S =\mathcal{P}_S\cup FormulaItemset(\left<T,U\right>)$	
 			}
-			$\mathcal{F}=FrequentSequenceMining(\mathcal{P}_S,\sigma)$\;
-			$\mathcal{M}=\emptyset$\;
-
-			
- 	   		\PourCh{$s\in \mathcal{F}$}{
-				\Si{$conf_{\mathcal{P}_S} \geq \delta$}{
-					$\mathcal{M}=\mathcal{M}\cup s$\;
-				}
-			}
+			$\mathcal{M}=InterestingRules(\mathcal{P}_S,\delta,\sigma)$\;
 			$\mathcal{M}_\mathcal{P}=\pi(sort(\mathcal{M}))$\;
 			\textbf{Retourner} $\mathcal{M}_{\mathcal{P}}$;
  			}
-	\caption{Sprex-Build-Formula}
+	\caption{FormulaProfileMining}
 \end{algorithm}
 
-L'algorithme Sprex-Builds-Formula utilise la fonction SequenceFormula() qui permet la transformation d'une paire de transaction $\left< T, U\right>$ en séquences de formules de préférences. Cette fonction est définie comme suit:\\
+\textit{FormulaItemset} permet la transformation d'une paire de transaction $\left< T, U\right>$ en un Itemset de formules de préférences élémentaires. Elle est définie comme suit:\\
 
  
 \begin{algorithm}[H]
@@ -956,14 +973,10 @@ L'algorithme Sprex-Builds-Formula utilise la fonction SequenceFormula() qui perm
 			}
 
 		}
-	\caption{SequenceFormula}
+	\caption{ItemsetFormula}
 \end{algorithm}
 
-CompareFormula quand à elle est la fonction qui effectue la comparaison entre deux items respectivement de $T$ et $U$ afin de générer les formules de préférences élémentaires correspondantes. Elle est définie comme suis:
-
-	
-  	 	   
- 	   
+\textit{CompareFormula} effectue la comparaison entre deux items respectivement de $T$ et $U$ afin de générer les formules de préférences élémentaires correspondantes. Elle est définie comme suit:\\
  	   \begin{algorithm}[H]
  	   	\Entree{x , y et l'attribut $A_{i}$ auquel ils sont liés}
  	   	\Sortie{items issus de la comparaison entre x et y}
@@ -973,8 +986,7 @@ CompareFormula quand à elle est la fonction qui effectue la comparaison entre d
  	   		
  	   		\uSi{$x=y$}
  	   		{
- 	   			Ajouter $P:\{x_{A_{i}}=y_{A_{i}}\}$ à $\mathcal{E}$\;
- 	   			Ajouter $P:\{x_{A_{i}}=y_{A_{i}}=x\}$ à $\mathcal{E}$\;
+ 	   			Ajouter $P:\{x_{A_{i}}=y_{A_{i}}\}$ et $P:\{x_{A_{i}}=y_{A_{i}}=x\}$ à $\mathcal{E}$\;
  	   			\PourCh{$c\in DomActif(A_{i})$ et $A_{i}$ numérique}
  	   			{
  	   				\uSi{$x<c$}
@@ -990,9 +1002,7 @@ CompareFormula quand à elle est la fonction qui effectue la comparaison entre d
  	   		}
  	   		\SinonSi{$x\neq y$}
  	   		{
- 	   			Ajouter $C:\{x_{A_{i}}\neq y_{A_{i}}\}$ à $\mathcal{E}$\;
- 	   			Ajouter $P:\{x_{A_{i}}=x\}$ à $\mathcal{E}$\;
- 	   			Ajouter $N:\{y_{A_{i}}=y\}$ à $\mathcal{E}$\;
+ 	   			Ajouter $C:\{x_{A_{i}}\neq y_{A_{i}}\}$, $P:\{x_{A_{i}}=x\}$ et $N:\{y_{A_{i}}=y\}$ à $\mathcal{E}$\;
  	   
  	   			\Si{$A_{i}$ numérique}
  	   			{
@@ -1043,6 +1053,108 @@ CompareFormula quand à elle est la fonction qui effectue la comparaison entre d
 
  	
      Cette fonction est équivalente à la description qu'on avait faite antérieurement sur les formules de préférence élémentaires qui peuvent re générées par la comparaison de deux items.\\
+
+
+\subsubsection{L'algorithme InterestingRules}
+
+L'algorithme que nous avons nommé ici \textit{InterrestingRules} est basé sur les travaux de l'article \cite{..} portant sur l'extraction de motifs minimaux à l'aide d'un algorithme qui a l'avantage d'être polynomial en espace. La consommation réduite de mémoire est un avantage dans notre approche vu que les itemsets obtenus sont de grande taille et engendrent l'usage de plus de mémoire dans l'extraction des règles de préférence interressantes que dans l'approche Sprex.\\
+
+\textbf{Extraction de motifs minimaux}
+\begin{defn}(Motif minimal)
+Un motif est minimal pour une fonction $f$ et un langage \mathcal{L} si sa valeur pour $f$ est distincte de celle de chacun de ses sous ensembles.
+\end{defn}
+\begin{example}
+\end{example}
+
+\textit{InterestingRules} est un algorithme basé sur les travaux antérieurs de (Soulet et Al) et qui avait pour objectif l'extraction de motifs minimaux avec l'avantage d'être polynomial-delay et polynomial-space. En effet au cours du travail, l'utilisation initiale du programme $Sprex$ utilisant $Patterngrowth$ pour extraire les règles de préférences interressantes nous a confronté à un problème lié à la saturation mémoire. La nouvelle formulation créant des itemsets de préférences avec un plus grand nombre d'items que dans le cas initial des travaux de $Sprex$, celui ci bien qu'ayant pu être être utilisé avec succès dans le travail antéreur s'est avéré inadéquat dans notre cas. Nous nous sommes alors replié sur cette approche d'extraction de motifas fréquent qu'on va décrire dans l'algorithme \textit{InterrestingRules}.
+
+Avant de définir l'algorithme InterestingRules, nous allons expliquer cette approche après avoir fourni des définitions de base.
+
+
+
+\begin{defn}(Opérateur de couverture)
+ Soit un ensemble d'objets $\mathcal{O}$, un opérateur de couverture $cov: 2^E\rightarrow 2^\mathcal{O}$ satisfait $cov(X\cup Y)=cov(X)\cap cov(Y)$ pour tout $X,Y\in 2^E$
+\end{defn}
+
+\begin{defn}(Opérateur canonique)
+        Etant donné deux systèmes d'ensembles $(\mathcal{F},E)$ et $(\mathcal{G},E)$, un opérateur canonique $\phi: \mathcal{F}\cup \mathcal{G}\rightarrow \mathcal{F}$ est une fonction satisfaisant: (i) $X\in Y\Rightarrow \phi(X)\in \phi(Y)$ et (ii) $X\in \mathcal{F}\Rightarrow\phi(X)=X$ pour tout les ensembles $X,Y\in \mathcal{G}$.
+\end{defn}
+
+\begin{defn}(Système minimisable d'ensembles)
+
+Un système minimisable d'ensembles est un tuple $\left< (\mathcal{F},\mathcal{E},\mathcal{G}, cov,\phi)\right>$ où:
+\begin{itemize}
+        \item $(\mathcal{F},E)$ est un système d'ensembles fini et fortement accessible. Un ensemble acceptable dans $\mathcal{F}$ est appelé motif.
+        \item  $(\mathcal{G},E)$ est un système d'ensembles fini et fortement accessible satisfaisant pour chaque couple d'ensembles acceptables $X,Y\in \mathcal{F}$ tels que $X\subseteq Y$ et chaque élémément $e\in E$, $X\mysetminus\{e\}\in \mathcal{G}$. Un ensemble acceptable de $\mathcal{G}$ est appellé \textit{généralisation}.
+        \item $cov: 2^E\rightarrow 2^\mathcal{O}$ est un \textit{opérateur de couverture}.
+        \item $\phi: \mathcal{F}\cup \mathcal{G}\rightarrow \mathcal{F}$ est un \textit{opérateur canonique} tel que pour chaque ensemble accepatble $X\in \mathcal{G}$, on ait $cov(\phi(X))=cov(X)$.
+\end{itemize}
+
+\end{defn}
+
+\begin{defn}(Motif minimal)
+Un motif $X$ est \textit{minimal} pour $\left< (\mathcal{F},E),\mathcal{G},cov,\phi \right>$ ssi $X\in \mathcal{F}$ et pour chaque généralisation $Y\in\mathcal{G}$ telle que $Y\subset X, cov(Y)\neq cov(X)$. $\mathcal{M}(\mathcal{S})$
+dénote l'ensemble des motifs minimaux.
+\end{defn}
+
+\begin{theorem}(Représentation condensée)
+L'ensemble des motifs minimaux est une représentation condensée de $\mathcal{F}$ adéquate pour le calcul de cov: pour tout motif $W\in \mathcal{F}$, il existe $Y\in X$ tel que $\phi(Y)\in \mathcal{M}(\mathcal{S})$ et $cov(\phi)=cov(X)$.
+\end{theorem}
+
+\begin{theorem}(Systeme indépendant)
+Si un motif $X$ est minimal pour S, alors tout motif $Y\in \mathcal{F}$ satisfaisant $Y\subseteq X$ est aussi minimal pour $S$.
+\end{theorem}
+
+\begin{lemma}
+Si $X$ n'est pas minimal, $\exists e \in X$ tel que $X\mysetminus \{e\}\in \mathcal{G}$ et $cov(X)=cov(X\mysetminus\{e\})$.
+\end{lemma}
+
+\begin{defn}(Objets critiques)
+Pour un motif X, les objets critiques d'un élément $e\in X$, notés $\widehat{cov}(X,e)$ sont l'ensemble d'objets qui appartiennent à la couverture de $X$ privé de $e$ mais pas à la couverture de $e$: $\widehat{cov}(X,e)=cov(X\mysetminus {e})\mysetminus cov(e)$.
+\end{defn}
+
+\begin{property} (Minimalité)
+$X\in \mathcal{F}$ est minimal si $\forall e \in X$ tel que $X\mysetminus e\in \mathcal{G}, \widehat{X,e}\neq \emptyset $
+\end{property}
+
+\begin{property}
+L'égalité suivante est vraie pour tout motif $X\in \mathcal{F}$ et deux éléments $e,e'\in E$:
+\[
+        \widehat{cov}(Xe',e)=\widehat{cov}(X,e)\cap cov(e').
+\]
+\end{property}
+
+
+\textbf{Algorithme DEFME}
+
+
+           \begin{algorithm}[H]
+                \Entree{$X$ est un motif, tail est l'ensemble des items restant à utiliser pour générer les candidats. Valeurs initiales: $X=\emptyset$, $tail=E$.}
+                \Sortie{Calcul des motifs minimaux de manière incrmentale polynomiale}
+
+                \Deb{
+
+                        \Si{$\forall e \in X,\widehat{cov}(X,e)\neq \emptyset$}{
+                                print $X$\;
+                                \PourCh{$e\in tail$}{
+                                        \Si{$Xe\in \mathcal{F}$}{
+                                                $tail:=tail\mysetminus\{e\}$\;
+                                                $Y:=Xe$\;
+                                                $cov(Y):=cov(X)\cap cov(e)$\;
+                                                $\widehat{cov}(Y,e):=cov(X)\mysetminus cov(e)$\;
+
+                                                \PourCh{$e'\in X$}{
+                                                        $\widehat{cov}(Y,e'):=\widehat{cov}(X,e')\cap cov(e)$\;
+                                                }
+                                                DEFME($Y,tail$)\;
+                                        }
+                                }
+                        }
+                }
+                \caption{DEFME}
+           \end{algorithm}
+
+
 
 
 
