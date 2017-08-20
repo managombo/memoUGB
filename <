@@ -32,7 +32,7 @@
 \usepackage{pdflscape}
 \usepackage{arydshln}
 \usepackage{amsthm}
-\usepackage{afterpage}
+
 \usepackage{amssymb,fge}
 \newcommand{\mysetminus}{\mathbin{\fgebackslash}}
 
@@ -67,29 +67,29 @@
 \newtheorem{lemma}[theorem]{Lemma}
 
 \title{
-\vspace{-3cm}
  \begin{center}
 \begin{figure}[h]
 \center
-  \includegraphics[height=5cm]{logo_univ_tours}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \includegraphics[height=4.5cm]{logo}\\
+  \includegraphics[scale=0.3]{logo_univ_tours}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \includegraphics[scale=0.3]{logo}\\
 \end{figure}
-{ \huge{Rapport de stage de Recherche}\\\vspace{0.5cm}
-\large 29 Juillet 2015\\\vspace{1cm}
-\Large Effectué à\\
-\Large{l'UNIVERSIT\'E FRAN\c{C}OIS - RABELAIS de TOURS}\\\vspace{0.5cm} Laboratoire d'Informatique, \'Equipe BDTLN\\\vspace{1cm}
+{ \Large{Rapport de stage de Recherche}\\\vspace{2cm}
+Effectué à\\
+\Large{l'UNIVERSIT\'E FRAN\c{C}OIS - RABELAIS de TOURS}\\\vspace{0.5cm} Laboratoire d'Informatique, \'Equipe BDTLN\\\vspace{2cm}
 \underline{ Présenté par}:\\
 }
-\large{\rmfamily{\textbf{KPEKPASSI Digonaou}}}\\
- etudiant en Master 2 Informatique (M2ITIC)\\ Université GASTON BERGER - SENEGAL\\ \vspace{1cm}
+\large{\rmfamily{\textbf{KPEKPASSI Digonaou}}}
+ etudiant en Master 2 Informatique (M2ITIC)\\ Université GASTON BERGER - SENEGAL\\ \vspace{2cm}
 \end{center}
 \underline{Encadrants}:\\
 \large{
-M. Arnault GIACOMETTI \;\; Université François Rabelais de Tours\\
-M. Cheikh Talibouya DIOP\;\; Université Gaston Berger - Sénégal\\
-M. Arnaud SOULET\;\;  Université François Rabelais de Tours\\
-M. Dominique LI\;\;   Université François Rabelais de Tours\\
+Université de TOURS\\
+Arnault Giacometti \\
+Arnault SOULET\\
+Dominique H. Li\\
+Université Gaston Berger\\
+Cheick Talibouya Diop\\
 }
-\date{}
+\date{29 Juillet 2015}
 }
 \pagestyle{headings}
 \pagestyle{fancy}
@@ -105,15 +105,7 @@ M. Dominique LI\;\;   Université François Rabelais de Tours\\
 \renewcommand{\footrulewidth}{0.8pt}  %\renewcommand{\labelenumi}{\Roman{enumi}}
 
 \begin{document}
-\pagenumbering{gobble}% Remove page numbers (and reset to 1)
-
-\begin{titlepage}
 \maketitle
-\end{titlepage}
-\pagenumbering{arabic}% Arabic page numbers (and reset to 1)
-
-\newpage
-\section*{Remerciements}
 \newpage
 \tableofcontents
 \newpage
@@ -297,7 +289,7 @@ Les travaux de \cite{CHO} nous montrent comment peuvent être utiliées les form
 Les préférences entre les objets peuvent varier en fonction du contexte dans lequel ils se trouvent. Par exemple lorsque l'on prend des films, en fonction d'un contexte commun aux deux films comme le cas où les deux films sont des films de comédie, on peu préférer ceux où jouent certains acteurs alors que ceux ci peuvent ne pas être les plus préférés dans le contexte où c'est des films d'action. Tout dépend ainsi du contexte qui est ici la catégorie du film. \\
 Différents travaux ont recours à l'utilisation de contextes dans la définition de leur modèles. Ainsi nous pouvons parler:\\
 	\begin{itemize}
-		\item Des \textbf{CP-nets} \cite{BOU}. Soit $\mathcal{A}=\{A_1,...,A_n\}$ un ensemble d'attributs d'objets. Un CP-nets sur $\mathcal{A} $ est un graphe direct dans lequel il existe un noeud pour chaque attribut $A_i$ de $\mathcal{A}$. Si pour deux attribut $A_i,A_j$ on a une flèche du noeud de $A_i$ vers le noeud de $A_j$, alors $A_i$ est appellé un parent de $A_j$. L'ensemble de tous les parents d'un attribut $A_i$ est noté $P(A_i)$. Pour chaque attribut $A_i$, son noeud dispose d'une table de préférence conditionnelle $CPT(A_i)$ qui contient un ensemble de règles de préférence conditionnelles de la forme $z_i:a_{i_1}\succ a_{i_2}$ où $z_i\in dom(Pa(A_i))$ et $a_{i_1},a_{i_2}$ appartiennent à $dom(A_i)$. Ces règles signifient: étant donné $z_1$ (dans notre cas ici c'est une forme de contexte), $a_{i_1}$ est strictement préféré à $a_{i_2}$ ceteris paribus (toute autre chose étant égale: c'est à dire que la règle est vraie quelle que soient les autres valeurs prises au niveau des attributs de $\mathcal{A}\mysetminus(\{A_i\}\cup P(A_i))$.\\
+		\item Des \textbf{CP-nets}. Soit $\mathcal{A}=\{A_1,...,A_n\}$ un ensemble d'attributs d'objets. Un CP-nets sur $\mathcal{A} $ est un graphe direct dans lequel il existe un noeud pour chaque attribut $A_i$ de $\mathcal{A}$. Si pour deux attribut $A_i,A_j$ on a une flèche du noeud de $A_i$ vers le noeud de $A_j$, alors $A_i$ est appellé un parent de $A_j$. L'ensemble de tous les parents d'un attribut $A_i$ est noté $P(A_i)$. Pour chaque attribut $A_i$, son noeud dispose d'une table de préférence conditionnelle $CPT(A_i)$ qui contient un ensemble de règles de préférence conditionnelles de la forme $z_i:a_{i_1}\succ a_{i_2}$ où $z_i\in dom(Pa(A_i))$ et $a_{i_1},a_{i_2}$ appartiennent à $dom(A_i)$. Ces règles signifient: étant donné $z_1$ (dans notre cas ici c'est une forme de contexte), $a_{i_1}$ est strictement préféré à $a_{i_2}$ ceteris paribus (toute autre chose étant égale: c'est à dire que la règle est vraie quelle que soient les autres valeurs prises au niveau des attributs de $\mathcal{A}\mysetminus(\{A_i\}\cup P(A_i))$.\\
 En des termes plus simples, cette règle de préférence indique qu'un tuple contenant $z_i$ et $a_{i_1}$ est préféré à un tuple contenant $z_i$ et $a_{i_2}$ en considérant que les valeurs des tuples sur les autres attributs sont les mêmes.
 
 \begin{example}
@@ -379,7 +371,7 @@ Les règles de préférence contextuelles ont été étudiées dans les travaux 
 \end{example}
 	\end{itemize}
 
-\item \textbf{Formulations lexicographiques}\cite{KOS}
+\item \textbf{Formulations lexicographiques}
 Dans le modèle de préférence lexicographique, les préférences sont définies sur les attributs et sur un ordre d'importance entre les attributs. Ainsi si on a deux attributs munis de leur relation de préférence $(A_i,\succ_i)$ et $(A_j,\succ_j)$ de telle sorte que $A_i$ est plus important que $A_j$ par rapport à la préférence lexicographique $\succ \equiv \succ_i \&\succ_j$, alors pour deux transactions $t_1,t_2$, $t_1\succ t_2$ ssi $(t_1.a_i\succ_i t_2.a_i)\vee (t_1.a_i=t_2.a_i\wedge t_1.a_j\succ_j t_2.a_j)$ avec $t_1.a_k,t_2.a_k\in A_k,k=1,2$. 
 
 \begin{example}
@@ -389,7 +381,7 @@ Soit le modèle lexicographique sur deux attributs \textit{genre} et \textit{dir
 \]
 \end{example}
 
-\item \textbf{Modèle de pareto}\cite{KOS}
+\item \textbf{Modèle de pareto}
 Dans le modèle de préférence pareto c'est les préférences sur les attributs des objets qui sont mis en avant. Aini il y'a une relation de préférence $\succ_i$ sur chaque attribut $A_i$ de telle sorte que pour le modèle de préférence de pareto $\succ$, $t_1\succ t_2$ ssi $t_1.a_i\succ_i t_2.a_i$ avec $t_1.a_i,t_2.a_i\in dm(A_i)$ pour tout attribut $A_i$ de l'ensemble des attributs $\mathcal{A}=\{A_1,A_2,...,A_n\}$. On note $\succ\equiv \succ_1\otimes\succ_2\otimes ...\otimes\succ_n$. On constate que contrairement au modèle de préférence lexicographique, les attributs ont la même importance.
 \end{enumerate}
 
@@ -542,7 +534,7 @@ cost(\Pi,\mathcal{P})=\frac{|\mathcal{P}\mysetminus cover(\Pi,\mathcal{P})|+|con
 
 \section{Utilisation des motifs séquentiels dans le cadre des préférences contextuelles (approche Sprex)}
 
-Le travail effectué par \cite{GIA} a permis de proposer un mode d'extraction de profil utilisateur inspiré de l'extraction des motifs séquentiels.Ils ont nommé cette approche \textbf{Sprex}(Sequence-pattern based preference rule extraction).\\
+Le travail effectué par  Giacometti et al. a permis de proposer un mode d'extraction de profil utilisateur inspiré de l'extraction des motifs séquentiels.Ils ont nommé cette approche \textbf{Sprex}(Sequence-pattern based preference rule extraction).\\
 Ainsi une nouvelle forme de représentation des préférences utilisateurs a été proposée de façon à être similaire à la représentation utilisée dans les motifs séquentiels.
 Nous allons dans les sous sections suivantes décrire cette nouvelle représentation et les différentes étapes de Sprex qui permettent de construire les profils de préférence (à l'aide de son module nommé \textbf{Sprex-Build}) et prédire les préférences (à l'aide de son module nommé \textbf{Sprex-Predict}). 
 
@@ -656,7 +648,7 @@ Suite à cela, différentes approches ont étés étudiées afin d'enrichir enco
  Ainsi nous allons décrire cette approche dans la sous section suivante puis présenter comment nous avons adapté cette approche pour notre cas spécifique de règles de préférences contextuelles.
 
 
-\subsection{Formules de préférence suivant les travaux de \cite{CHO}}
+\subsection{Formules de préférence suivant les travaux de (\cite{CHO})}
 
  	Une partie du travail de \cite{CHO} a porté sur l'étude de la représentation des relations de préférences par des formules de prédicat du premier ordre. Ainsi nous avons la définition suivante:
 
@@ -1341,18 +1333,13 @@ Par l'analyse sur la précision, nous pouvons alors conclure que le taux des pr�
 Ceci est rendu possible du fait que les items de formules de ppréférence on des propriétés qui permettent de plus généraliser les transactions. C'est comme le cas où par exemple ne règle à base de formule de préférence indique que les valeurs au delà de la veleur 5 sont plus préférées que les valeurs inférieure à 5. Elle est plus générale qu'une règle indiquant par exemple que la valeur 6 est préférée à la valeur 4. Ainsi l'approche par formule de préférence a l'avantage de réduire les cas d'indécisions.
 La contrepartie par rapport à cet avantage est que l'extraction des modèle de formules de préférence prend un temps considérable et un plus grand espace de stockage comparé à l'extraction des modèles de préférence de Sprex. 
 
-\newpage 
 
 \section{Conclusion}
 Notre travail a eu pour but d'améliorer l'expressivité des règles de préférence contextuelles en modifiant la formulation proposée dans les travaux de Arnault G. et al. L'utilisation des représentations à l'aide des formules de préférences basées sur des  prédicats logiques, nous a permit de proposer une formulation qui permet d'étendre la couverture des règles de préférence. Nous avons pu ainsi constater une réduction du taux d'indécidabilité des prédictions par rapport au travail antérieur portant sur Sprex. 
 Nous avions été confrontés à plusieurs problèmes qui ont necessité un temps considérable afin  de les résoudre. Ainsi la constitution des nouvelles formulations des items élémentaires sous forme de formule de préférence a necessité de les analyser afin d'éliminer la redondance dans la composition des règles, d'aboutir à la notion de symétrie et d'assymétrie des items de formule de préférence dans la composition des règles de préférence. De même comme nous l'avions expliqué, nous avions utilisé le programme de Sprex pour l'extraction des règles de préférence interressantes minimales mais nous avons été confronté à un problème de saturation mémoire qui n'a pas pu être résolut malgré de multiples tentatives d'amélioration du programme Sprex. C'est ce qui nous a mené au final vers l'utilisation du programme basé sur l'algorithme InterestingRules, qui nous a permit de résoudre ce problème de congestion mémoire. De même les différentes phases de traitement de la phase d'extraction à la phase de prédiction ont necessité un temps considérable afin d'obtenir les résultats finaux d'évaluation.
 Tout de même nous sommes satisfaits d'avoir obtenu un résultat comparatif des deux travaux mais nous espérions une amélioration des valeurs de précison, ce qui n'a pas répondu à nos attentes.
 Ainsi comme perspectives nous proposons une amélioration de la formulation afin d'améliorer les valeurs des précisions.
-
-
-\newpage
-
-	\bibliographystyle{apalike}
+	\bibliographystyle{plain}
 	\bibliography{./biblio}
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.7.2)  5 AUG 2017 22:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.7.2)  20 AUG 2017 19:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1105,6 +1105,12 @@ Package: amsthm 2015/03/04 v2.20.2
 \thm@headsep=\skip94
 \dth@everypar=\toks50
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks51
+\AP@partial=\box54
+\AP@footins=\box55
+)
 (/usr/share/texlive/texmf-dist/tex/latex/fge/fge.sty
 Package: fge 2015/05/19 1.25 fge symbol support package
 \symfgerm=\mathgroup6
@@ -1121,40 +1127,52 @@ Package: fge 2015/05/19 1.25 fge symbol support package
 LaTeX Warning: Unused global option(s):
     [openany].
 
-(./Memo_update_21_07_2017.aux)
+(./Memo_update_21_07_2017.aux
+
+LaTeX Warning: Label `fig:length_eight_mouse' multiply defined.
+
+
+LaTeX Warning: Label `fig:length_eight_mouse' multiply defined.
+
+
+LaTeX Warning: Label `fig:length_eight_mouse' multiply defined.
+
+
+LaTeX Warning: Label `fig:length_eight_mouse' multiply defined.
+
+)
 \openout1 = `Memo_update_21_07_2017.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 95.
-LaTeX Font Info:    ... okay on input line 95.
-LaTeX Info: Redefining \degres on input line 95.
-LaTeX Info: Redefining \dots on input line 95.
-LaTeX Info: Redefining \up on input line 95.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Info: Redefining \degres on input line 107.
+LaTeX Info: Redefining \dots on input line 107.
+LaTeX Info: Redefining \up on input line 107.
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count160
 \scratchdimen=\dimen195
-\scratchbox=\box54
+\scratchbox=\box56
 \nofMPsegments=\count161
 \nofMParguments=\count162
-\everyMPshowfont=\toks51
+\everyMPshowfont=\toks52
 \MPscratchCnt=\count163
 \MPscratchDim=\dimen196
 \MPnumerator=\count164
 \makeMPintoPDFobject=\count165
-\everyMPtoPDFconversion=\toks52
+\everyMPtoPDFconversion=\toks53
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1170,8 +1188,8 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box55
-Package hyperref Info: Link coloring OFF on input line 95.
+\AtBeginShipoutBox=\box57
+Package hyperref Info: Link coloring OFF on input line 107.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1181,9 +1199,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count166
 )
-LaTeX Info: Redefining \ref on input line 95.
-LaTeX Info: Redefining \pageref on input line 95.
-LaTeX Info: Redefining \nameref on input line 95.
+LaTeX Info: Redefining \ref on input line 107.
+LaTeX Info: Redefining \pageref on input line 107.
+LaTeX Info: Redefining \nameref on input line 107.
 
 (./Memo_update_21_07_2017.out) (./Memo_update_21_07_2017.out)
 \@outlinefile=\write6
@@ -1191,131 +1209,133 @@ LaTeX Info: Redefining \nameref on input line 95.
 
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 95.
+(lastpage)             ! on input line 107.
 
 ABD: EveryShipout initializing macros
-<logo.png, id=159, 402.50375pt x 396.48125pt>
+<logo_univ_tours.jpg, id=131, 903.375pt x 903.375pt>
+File: logo_univ_tours.jpg Graphic file (type jpg)
+ <use logo_univ_tours.jpg>
+Package pdftex.def Info: logo_univ_tours.jpg used on input line 112.
+(pdftex.def)             Requested size: 142.25475pt x 142.26378pt.
+
+<logo.png, id=132, 402.50375pt x 396.48125pt>
 File: logo.png Graphic file (type png)
  <use logo.png>
-Package pdftex.def Info: logo.png used on input line 97.
-(pdftex.def)             Requested size: 160.99864pt x 158.58968pt.
+Package pdftex.def Info: logo.png used on input line 112.
+(pdftex.def)             Requested size: 129.98303pt x 128.0374pt.
+LaTeX Font Info:    Try loading font information for U+msa on input line 112.
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--97
-
- []
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 97.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 97.
+LaTeX Font Info:    Try loading font information for U+msb on input line 112.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+fgerm on input line 97.
+LaTeX Font Info:    Try loading font information for U+fgerm on input line 112.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/fge/Ufgerm.fd
 File: fgerm.fd 2015/05/19 1.25 fge roman symbol font definitions
 )
-
-LaTeX Font Warning: Font shape `U/fgerm/m/n' in size <24.88> not available
-(Font)              size <17.28> substituted on input line 97.
+LaTeX Font Info:    Try loading font information for U+fgeit on input line 112.
 
 
-LaTeX Font Warning: Font shape `U/fgerm/m/n' in size <20.74> not available
-(Font)              size <17.28> substituted on input line 97.
-
-LaTeX Font Info:    Try loading font information for U+fgeit on input line 97.
 (/usr/share/texlive/texmf-dist/tex/latex/fge/Ufgeit.fd
 File: fgeit.fd 2015/05/19 1.25 fge italic symbol font definitions
 )
 
-LaTeX Font Warning: Font shape `U/fgeit/m/n' in size <24.88> not available
-(Font)              size <17.28> substituted on input line 97.
+LaTeX Font Warning: Font shape `U/fgerm/m/n' in size <20.74> not available
+(Font)              size <17.28> substituted on input line 112.
 
 
 LaTeX Font Warning: Font shape `U/fgeit/m/n' in size <20.74> not available
-(Font)              size <17.28> substituted on input line 97.
+(Font)              size <17.28> substituted on input line 112.
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
- <./logo.png>] [2]
-(./Memo_update_21_07_2017.toc
+LaTeX Warning: No \author given.
 
-LaTeX Warning: Citation `CHO' on page 3 undefined on input line 21.
+[1
 
-[3])
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo_univ_tours.jpg> <./
+logo.png>]pdfTeX warning (ext4): destination with the same identifier (name{pag
+e.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.112 \end{titlepage}
+                      [2] [1] (./Memo_update_21_07_2017.toc [2])
 \tf@toc=\write7
 \openout7 = `Memo_update_21_07_2017.toc'.
 
- [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
+ [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
 
  []
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 156--158
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 176--178
 
  []
 
-[7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 208--209
+[6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 228--229
 
  []
 
-[9]
-
-LaTeX Warning: Citation `CHO' on page 10 undefined on input line 260.
-
-
-Overfull \hbox (27.1857pt too wide) detected at line 271
+[8]
+Overfull \hbox (27.1857pt too wide) detected at line 291
 []
  []
 
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 296--299
+
+ []
+
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 276--279
-
- []
-
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 284--285
+Underfull \hbox (badness 10000) in paragraph at lines 304--305
 
  []
 
 
-Overfull \hbox (2.69101pt too wide) in paragraph at lines 330--330
+Overfull \hbox (2.69101pt too wide) in paragraph at lines 350--350
  [][][][]\T1/cmr/m/n/12 Garn 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--346
+Underfull \hbox (badness 10000) in paragraph at lines 364--366
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--350
+Underfull \hbox (badness 10000) in paragraph at lines 367--370
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
+Underfull \hbox (badness 10000) in paragraph at lines 371--372
 
  []
 
 
-LaTeX Warning: Citation `..' on page 12 undefined on input line 355.
+Overfull \hbox (5.45293pt too wide) in paragraph at lines 373--376
+\T1/cmr/m/n/12 [[]],[[]], [[]]. Elles ont une
+ []
 
 
-LaTeX Warning: Citation `..' on page 12 undefined on input line 355.
+Overfull \hbox (11.12683pt too wide) in paragraph at lines 373--376
+\T1/cmr/m/n/12 for-mu-la-tion si-mi-laire aux règles de pré-fé-rence condi-tion
+-nelles (CP-nets). Exemple
+ []
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 358--359
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
 
  []
 
 
-Overfull \hbox (72.0952pt too wide) in paragraph at lines 366--367
+Overfull \hbox (72.0952pt too wide) in paragraph at lines 386--387
 \OML/cmm/m/it/12 M:Curtis$\T1/cmr/m/n/12 . Si l'en-semble des tran-sac-tions es
 t $\OML/cmm/m/it/12 t[] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 co
 medy; W:allen\OMS/cmsy/m/n/12 g$\T1/cmr/m/n/12 , $\OML/cmm/m/it/12 t[] \OT1/cmr
@@ -1324,13 +1344,13 @@ $\T1/cmr/m/n/12 ,
  []
 
 
-Overfull \hbox (7.60165pt too wide) in paragraph at lines 366--367
+Overfull \hbox (7.60165pt too wide) in paragraph at lines 386--387
 \T1/cmr/m/n/12 genre et le deuxieme le di-rec-teur, alors l'ordre lexi-co-gra-p
 hique $\OMS/cmsy/m/n/12 ^^_^^Q^^_[] \OT1/cmr/m/n/12 & \OMS/cmsy/m/n/12 ^^_[]$
  []
 
-[13] [14]
-Overfull \hbox (34.52689pt too wide) in paragraph at lines 410--411
+[12] [13]
+Overfull \hbox (34.52689pt too wide) in paragraph at lines 430--431
 \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 PierceBrosman; SylvesterStalone; HarrisonFor
 d\OMS/cmsy/m/n/12 g$ \T1/cmr/m/n/12 et $\OML/cmm/m/it/12 Dom\OT1/cmr/m/n/12 (\O
 ML/cmm/m/it/12 Annee\OT1/cmr/m/n/12 ) = [1900; 2020]$\T1/cmr/m/n/12 . $\OML/cmm
@@ -1338,67 +1358,67 @@ ML/cmm/m/it/12 Annee\OT1/cmr/m/n/12 ) = [1900; 2020]$\T1/cmr/m/n/12 . $\OML/cmm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 415--417
+Underfull \hbox (badness 10000) in paragraph at lines 435--437
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 419--421
+Underfull \hbox (badness 10000) in paragraph at lines 439--441
+
+ []
+
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 450--452
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 430--432
-
- []
-
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 436--437
+Underfull \hbox (badness 10000) in paragraph at lines 456--457
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 439--440
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 442--443
+Underfull \hbox (badness 10000) in paragraph at lines 462--463
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 446--447
+Underfull \hbox (badness 10000) in paragraph at lines 466--467
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 449--450
+Underfull \hbox (badness 10000) in paragraph at lines 469--470
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 452--454
+Underfull \hbox (badness 10000) in paragraph at lines 472--474
 
  []
 
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 504--506
+[15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 524--526
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 528--529
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--533
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 508--509
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 512--513
-
- []
-
-[18]
-Overfull \hbox (0.68947pt too wide) in paragraph at lines 535--536
+Overfull \hbox (0.68947pt too wide) in paragraph at lines 554--555
 []\T1/cmr/bx/n/12 Itemset contex-tuel \T1/cmr/m/n/12 l'en-semmble d'items de pr
 é-fé-rence $\OML/cmm/m/it/12 C \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/i
 t/12 C \OT1/cmr/m/n/12 : \OML/cmm/m/it/12 c[]; C \OT1/cmr/m/n/12 : \OML/cmm/m/i
@@ -1406,7 +1426,7 @@ t/12 c[]; :::; C \OT1/cmr/m/n/12 :
  []
 
 
-Overfull \hbox (6.26636pt too wide) in paragraph at lines 544--547
+Overfull \hbox (6.26636pt too wide) in paragraph at lines 563--566
 \T1/cmr/m/n/12 Une règle de pré-fé-rence contex-tuelle $\OML/cmm/m/it/12 C \OMS
 /cmsy/m/n/12 ! \OML/cmm/m/it/12 X \OMS/cmsy/m/n/12 ^^_ \OML/cmm/m/it/12 Y$ \T1/
 cmr/m/n/12 où $\OML/cmm/m/it/12 C \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/
@@ -1415,440 +1435,309 @@ m/it/12 c[]; c[]; :::; c[]\OMS/cmsy/m/n/12 g$ \T1/cmr/m/n/12 , $\OML/cmm/m/it/1
 /cmsy/m/n/12 g$\T1/cmr/m/n/12 ,
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 562--566
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 581--585
 
  []
 
-[19] [20] [21] [22]
-
-LaTeX Warning: Citation `CHO' on page 23 undefined on input line 640.
+[19] [20] [21]
+Overfull \hbox (21.67789pt too wide) in paragraph at lines 659--659
+[]\T1/cmr/bx/n/14.4 Formules de pré-fé-rence sui-vant les tra-vaux de [[]] 
+ []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 640.
+(hyperref)                removing `\@ifnextchar' on input line 659.
 
 
-LaTeX Warning: Citation `CHO' on page 23 undefined on input line 642.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 644--646
+Underfull \hbox (badness 10000) in paragraph at lines 663--665
 
  []
 
 
-Overfull \hbox (3.87968pt too wide) in paragraph at lines 655--656
+Overfull \hbox (3.87968pt too wide) in paragraph at lines 674--675
 []$\OT1/cmr/m/n/12 =$\T1/cmr/m/n/12 ,$\OMS/cmsy/m/n/12 6\OT1/cmr/m/n/12 =$ \T1/
 cmr/m/n/12 dans le cas où les élé-ments $\OML/cmm/m/it/12 x; y; c$ \T1/cmr/m/n/
 12 sont de type d'at-tri-but quel-conque (Exemple :
  []
 
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 709--710
+
+ []
+
 [23]
-Underfull \hbox (badness 10000) in paragraph at lines 690--691
+Underfull \hbox (badness 10000) in paragraph at lines 723--725
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 729--730
 
  []
 
 [24]
-
-LaTeX Warning: Citation `CHO' on page 25 undefined on input line 697.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 704--706
+Underfull \hbox (badness 10000) in paragraph at lines 755--756
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 710--711
+Underfull \hbox (badness 10000) in paragraph at lines 759--760
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 782--783
 
  []
 
 [25]
-Underfull \hbox (badness 10000) in paragraph at lines 736--737
+Underfull \hbox (badness 10000) in paragraph at lines 791--792
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 740--741
+Underfull \hbox (badness 10000) in paragraph at lines 796--800
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 763--764
+Underfull \hbox (badness 10000) in paragraph at lines 802--804
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 809--810
 
  []
 
 [26]
-Underfull \hbox (badness 10000) in paragraph at lines 772--773
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 777--781
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 783--785
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 790--791
-
- []
-
-[27]
-Underfull \hbox (badness 2529) in paragraph at lines 798--798
+Underfull \hbox (badness 2529) in paragraph at lines 817--817
 []\T1/cmr/m/n/12 Formules de pré-fé-rence élé-
  []
 
 
-Underfull \hbox (badness 2689) in paragraph at lines 809--809
+Underfull \hbox (badness 2689) in paragraph at lines 828--828
 \T1/cmr/m/n/12 rence élé-men-taires
  []
 
 
-Overfull \hbox (31.24281pt too wide) detected at line 839
+Overfull \hbox (31.24281pt too wide) detected at line 858
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 842--843
+Underfull \hbox (badness 10000) in paragraph at lines 861--862
 
+ []
+
+[27]
+Overfull \hbox (2.57411pt too wide) in paragraph at lines 879--879
+[][] 
+ []
+
+
+Overfull \hbox (2.57411pt too wide) in paragraph at lines 902--902
+[][] 
  []
 
 [28]
-Overfull \hbox (2.57411pt too wide) in paragraph at lines 860--860
-[][] 
+Underfull \hbox (badness 10000) in paragraph at lines 961--962
+
  []
 
 
-Overfull \hbox (2.57411pt too wide) in paragraph at lines 883--883
-[][] 
+Underfull \hbox (badness 10000) in paragraph at lines 979--981
+
  []
 
 [29]
-Underfull \hbox (badness 10000) in paragraph at lines 942--943
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 960--961
-
- []
-
-[30]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1051
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1071
 .
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [31]
+) [30]
 Overfull \vbox (13.31277pt too high) has occurred while \output is active []
 
 
-[32]
-Underfull \hbox (badness 10000) in paragraph at lines 1055--1056
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 1075--1076
 
  []
 
-[33] [34]
-Underfull \hbox (badness 10000) in paragraph at lines 1159--1160
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1164--1165
-
- []
-
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 1168--1169
+[32] [33]
+Underfull \hbox (badness 10000) in paragraph at lines 1174--1175
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1171--1172
+Underfull \hbox (badness 10000) in paragraph at lines 1176--1177
 
  []
 
 
-LaTeX Warning: Citation `..' on page 36 undefined on input line 1183.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1183--1184
+Underfull \hbox (badness 10000) in paragraph at lines 1178--1179
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1190--1191
+Underfull \hbox (badness 10000) in paragraph at lines 1180--1181
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1182--1183
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1184--1185
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1186--1187
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1188--1189
+
+ []
+
+[34] [35]
+Underfull \hbox (badness 10000) in paragraph at lines 1195--1196
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1197--1204
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1206
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1234
 
  []
 
 [36]
-
-LaTeX Warning: Citation `..' on page 37 undefined on input line 1200.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1200--1201
-
- []
-
-[37] [38] [39] [40] <s0-012.png, id=482, 341.77687pt x 200.24812pt>
-File: s0-012.png Graphic file (type png)
-
-<use s0-012.png>
-Package pdftex.def Info: s0-012.png used on input line 1348.
-(pdftex.def)             Requested size: 242.82494pt x 142.26378pt.
- <s0-012r.png, id=483, 341.77687pt x 200.24812pt>
-File: s0-012r.png Graphic file (type png)
-
-<use s0-012r.png>
-Package pdftex.def Info: s0-012r.png used on input line 1349.
-(pdftex.def)             Requested size: 242.82494pt x 142.26378pt.
- <s0-014.png, id=484, 342.5297pt x 199.49532pt>
-File: s0-014.png Graphic file (type png)
-
-<use s0-014.png>
-Package pdftex.def Info: s0-014.png used on input line 1351.
-(pdftex.def)             Requested size: 244.27446pt x 142.26378pt.
- <s0-014r.png, id=485, 341.77687pt x 200.24812pt>
-File: s0-014r.png Graphic file (type png)
-
-<use s0-014r.png>
-Package pdftex.def Info: s0-014r.png used on input line 1352.
-(pdftex.def)             Requested size: 242.82494pt x 142.26378pt.
- <s0-016.png, id=486, 342.5297pt x 200.24812pt>
-File: s0-016.png Graphic file (type png)
-
-<use s0-016.png>
-Package pdftex.def Info: s0-016.png used on input line 1354.
-(pdftex.def)             Requested size: 243.3598pt x 142.26378pt.
- <s0-016r.png, id=487, 341.77687pt x 200.24812pt>
-File: s0-016r.png Graphic file (type png)
-
-<use s0-016r.png>
-Package pdftex.def Info: s0-016r.png used on input line 1355.
-(pdftex.def)             Requested size: 242.82494pt x 142.26378pt.
- <s0-018.png, id=488, 342.5297pt x 199.49532pt>
-File: s0-018.png Graphic file (type png)
-
-<use s0-018.png>
-Package pdftex.def Info: s0-018.png used on input line 1357.
-(pdftex.def)             Requested size: 244.27446pt x 142.26378pt.
- <s0-018r.png, id=489, 341.77687pt x 199.49532pt>
-File: s0-018r.png Graphic file (type png)
-
-<use s0-018r.png>
-Package pdftex.def Info: s0-018r.png used on input line 1358.
-(pdftex.def)             Requested size: 243.73758pt x 142.26378pt.
- <s0-02.png, id=490, 341.77687pt x 200.24812pt>
-File: s0-02.png Graphic file (type png)
-
-<use s0-02.png>
-Package pdftex.def Info: s0-02.png used on input line 1360.
-(pdftex.def)             Requested size: 242.82494pt x 142.26378pt.
- <s0-02r.png, id=491, 342.5297pt x 200.24812pt>
-File: s0-02r.png Graphic file (type png)
-
-<use s0-02r.png>
-Package pdftex.def Info: s0-02r.png used on input line 1361.
-(pdftex.def)             Requested size: 243.3598pt x 142.26378pt.
-
-Overfull \hbox (27.53912pt too wide) in paragraph at lines 1348--1362
-[] []
- []
-
-
-Overfull \hbox (28.98865pt too wide) in paragraph at lines 1348--1362
-[] []
- []
-
-
-Overfull \hbox (28.07399pt too wide) in paragraph at lines 1348--1362
-[] []
- []
-
-
-Overfull \hbox (29.90129pt too wide) in paragraph at lines 1348--1362
-[] []
- []
-
-
-Overfull \hbox (28.07399pt too wide) in paragraph at lines 1348--1362
-[] [] 
- []
-
-[41 <./s0-012.png> <./s0-012r.png> <./s0-014.png> <./s0-014r.png>] [42 <./s0-01
-6.png> <./s0-016r.png> <./s0-018.png> <./s0-018r.png> <./s0-02.png> <./s0-02r.p
-ng>]
-Underfull \hbox (badness 10000) in paragraph at lines 1409--1412
+Underfull \hbox (badness 10000) in paragraph at lines 1235--1236
 
  []
 
 
-LaTeX Warning: Citation `SOUL' on page 43 undefined on input line 1426.
-
-[43] [44]
-Underfull \hbox (badness 10000) in paragraph at lines 1493--1494
-
- []
-
-[45]
-Underfull \hbox (badness 10000) in paragraph at lines 1512--1514
+Underfull \hbox (badness 10000) in paragraph at lines 1237--1242
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1516--1517
+Underfull \hbox (badness 10000) in paragraph at lines 1246--1247
 
  []
 
+[37] [38] <p12.png, id=449, 284.56313pt x 284.56313pt>
+File: p12.png Graphic file (type png)
+ <use p12.png>
+Package pdftex.def Info: p12.png used on input line 1299.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1518--1519
+<r12.png, id=450, 284.56313pt x 284.56313pt>
+File: r12.png Graphic file (type png)
+ <use r12.png>
+Package pdftex.def Info: r12.png used on input line 1300.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
 
+<p14.png, id=451, 284.56313pt x 284.56313pt>
+File: p14.png Graphic file (type png)
+ <use p14.png>
+Package pdftex.def Info: p14.png used on input line 1306.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<r14.png, id=452, 284.56313pt x 284.56313pt>
+File: r14.png Graphic file (type png)
+ <use r14.png>
+Package pdftex.def Info: r14.png used on input line 1307.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<p16.png, id=453, 284.56313pt x 284.56313pt>
+File: p16.png Graphic file (type png)
+ <use p16.png>
+Package pdftex.def Info: p16.png used on input line 1313.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<r16.png, id=454, 284.56313pt x 284.56313pt>
+File: r16.png Graphic file (type png)
+ <use r16.png>
+Package pdftex.def Info: r16.png used on input line 1314.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<p18.png, id=455, 284.56313pt x 284.56313pt>
+File: p18.png Graphic file (type png)
+ <use p18.png>
+Package pdftex.def Info: p18.png used on input line 1320.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<r18.png, id=456, 284.56313pt x 284.56313pt>
+File: r18.png Graphic file (type png)
+ <use r18.png>
+Package pdftex.def Info: r18.png used on input line 1321.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<p2.png, id=457, 284.56313pt x 284.56313pt>
+File: p2.png Graphic file (type png)
+ <use p2.png>
+Package pdftex.def Info: p2.png used on input line 1327.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+
+<r2.png, id=458, 284.56313pt x 284.56313pt>
+File: r2.png Graphic file (type png)
+ <use r2.png>
+Package pdftex.def Info: r2.png used on input line 1328.
+(pdftex.def)             Requested size: 199.1798pt x 199.16928pt.
+ [39] [40 <./p12.png (PNG copy)> <./r12.png (PNG copy)> <./p14.png (PNG copy)> 
+<./r14.png (PNG copy)>] [41 <./p16.png (PNG copy)> <./r16.png (PNG copy)> <./p1
+8.png (PNG copy)> <./r18.png (PNG copy)>] [42 <./p2.png (PNG copy)> <./r2.png (
+PNG copy)>] [43]
+(./Memo_update_21_07_2017.bbl
+Underfull \hbox (badness 1577) in paragraph at lines 8--11
+[]\T1/cmr/m/n/12 Arnaud Gia-co-metti, Do-mi-nique H. Li, a. A. S. (2013).
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1520--1521
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1522--1523
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1524--1525
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1530--1531
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1532--1536
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1539--1543
-
- []
-
-[46]
-Underfull \hbox (badness 10000) in paragraph at lines 1545--1546
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1568--1569
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1570--1571
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1572--1573
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1574--1575
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1576--1577
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1578--1579
-
- []
-
-[47]
-Underfull \hbox (badness 10000) in paragraph at lines 1580--1581
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1582--1583
-
- []
-
-[48]
-Underfull \hbox (badness 10000) in paragraph at lines 1589--1590
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1591--1598
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1599--1600
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1601--1628
-
- []
-
-[49]
-Underfull \hbox (badness 10000) in paragraph at lines 1629--1630
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1631--1636
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1638--1845
-
- []
-
-No file Memo_update_21_07_2017.bbl.
-
+) 
 AED: lastpage setting LastPage
-[50]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1852.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1852.
+[44]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1361.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1361.
  (./Memo_update_21_07_2017.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1852.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1852.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1361.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1361.
 
 Package rerunfilecheck Info: File `Memo_update_21_07_2017.out' has not changed.
 
-(rerunfilecheck)             Checksum: 6C70A28F41B2276CF807CDDBFA7EF008;3935.
+(rerunfilecheck)             Checksum: 82D8BB25F42BBCAF77884D804FE80537;3088.
 
 
 LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 7.6pt have occurred.
+(Font)              up to 3.46pt have occurred.
 
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1852.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1361.
  ) 
 Here is how much of TeX's memory you used:
- 21484 strings out of 493029
- 385796 string characters out of 6136235
- 488010 words of memory out of 5000000
- 24376 multiletter control sequences out of 15000+600000
- 33628 words of font info for 105 fonts, out of 8000000 for 9000
+ 21435 strings out of 493029
+ 384766 string characters out of 6136235
+ 489363 words of memory out of 5000000
+ 24335 multiletter control sequences out of 15000+600000
+ 32757 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,24n,69p,1372b,1158s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,24n,69p,1390b,1160s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
@@ -1867,14 +1756,17 @@ st/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1
 i1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/shar
 e/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/
 public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx
-1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share
-/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/p
-ublic/cm-super/sfrm2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1
-200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Memo_update_21_07_2017.pdf (50 pages, 666712 bytes).
+1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share
+/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/p
+ublic/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1
+728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/share/
+texmf/fonts/type1/public/cm-super/sfrm2488.pfb></usr/share/texmf/fonts/type1/pu
+blic/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt12
+00.pfb>
+Output written on Memo_update_21_07_2017.pdf (46 pages, 1125887 bytes).
 PDF statistics:
- 656 PDF objects out of 1000 (max. 8388607)
- 562 compressed objects within 6 object streams
- 174 named destinations out of 1000 (max. 500000)
- 372 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 620 PDF objects out of 1000 (max. 8388607)
+ 526 compressed objects within 6 object streams
+ 158 named destinations out of 1000 (max. 500000)
+ 321 words of extra memory for PDF output out of 10000 (max. 10000000)
 
